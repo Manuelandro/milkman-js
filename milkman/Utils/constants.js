@@ -6,11 +6,19 @@ define({
     REDIRECT_URI: 'redirect_uri',
     INTERVAL_OF_INTEREST: 'interval_of_interest',
     PUBLISHABLE_KEY: 'publishable_key',
+    FIRST_AV_DAYS: 'first_available_day',
+    FIRST_AV_TIME: 'first_available_time',
+    DEFAULT_RANGE: 'default_range',
+    MERCHANT: 'merchant',
 
     //local variables
+    defaultRange: '',
+
+
     range: [],
     data: {},
-    deals: [],
+    intervals: [],
+    discounts: [],
 
     merchant_details: '',
 

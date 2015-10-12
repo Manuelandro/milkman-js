@@ -15,24 +15,33 @@ define(function (require) {
         constants =require('milkman/Utils/constants'),
 
         checkInterval = require('milkman/Private/checkInterval'),
+        checkMissingDates = require('milkman/Private/checkMissingDates'),
         priceEngine = require('milkman/Private/priceEngine'),
         checkProposal = require('milkman/Private/checkProposal'),
         recoverData = require('milkman/Private/recoverData'),
+        rangeNormalization = require('milkman/Private/rangeNormalization'),
 
         createEntity = require('milkman/Entities/createEntity'),
         deleteEntity = require('milkman/Entities/deleteEntity'),
         setEntity = require('milkman/Entities/setEntity'),
         getEntities = require('milkman/Entities/getEntities'),
 
+
+
     //--------------------------------------------
         authenticate = require('milkman/Public/authenticate'),
         confirm = require('milkman/Public/confirm'),
-        newDeal = require('milkman/Public/newDeal');
+        newDeal = require('milkman/Public/newDeal'),
+
+    //--------------------------------------------
+        getQuote = require('milkman/Public/getQuote'),
+        setInit = require('milkman/Public/setInit');
 
     return {
         version: '0.0.1, jQuery version is: ' + $.fn.jquery,
 
         checkInterval: checkInterval,
+        checkMissingDates: checkMissingDates,
 
         commit: commit,
 
@@ -41,6 +50,7 @@ define(function (require) {
         priceEngine: priceEngine,
         checkProposal: checkProposal,
         recoverData: recoverData,
+        rangeNormalization: rangeNormalization,
 
         createEntity: createEntity,
         deleteEntity: deleteEntity,
@@ -50,6 +60,10 @@ define(function (require) {
         //--------------------------------------------
         authenticate: authenticate,
         confirm: confirm,
-        newDeal: newDeal
+        newDeal: newDeal,
+
+        //--------------------------------------------
+        setInit: setInit,
+        getQuote: getQuote
     };
 });

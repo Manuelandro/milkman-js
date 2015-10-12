@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <title>Test Suite</title>
-    <link rel="stylesheet" href="../qunit/qunit.css">
-    <script src="../qunit/qunit.js"></script>
-    <script src="../../lib/require.js"></script>
+    <link rel="stylesheet" href="qunit/qunit.css">
+    <script src="qunit/qunit.js"></script>
+    <script src="../lib/require.js"></script>
     <script>
         QUnit.config.autostart = false;
-        require(['entities-test'], function () {
+        require(['js/new-deal'], function () {
             //Tests loaded, now run them.
             QUnit.start();
         });
@@ -19,4 +19,3 @@
 <div id="qunit-fixture"></div>
 </body>
 </html>
-
