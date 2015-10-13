@@ -32,62 +32,38 @@ if (typeof require === 'function' && require.config) {
 }(this, function (milkman, $) {
     'use strict';
 
-
-
     //verifico che se passo range senza [] lo inserisce la funzione
     milkman.setInit( milkman.defaults.SETTINGS_1, function( result, moment ) {
 
-        var intervals =
-            [{"interval":"2015-10-28T09:00:00.000Z/2015-10-28T09:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T09:30:00.000Z/2015-10-28T10:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T10:00:00.000Z/2015-10-28T10:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T10:30:00.000Z/2015-10-28T11:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T11:00:00.000Z/2015-10-28T11:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T11:30:00.000Z/2015-10-28T12:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T12:00:00.000Z/2015-10-28T12:30:00.000Z","price":1.99,"weight":0.15,"currency":"euro"},
-            {"interval":"2015-10-28T12:30:00.000Z/2015-10-28T13:00:00.000Z","price":1.99,"weight":0.15,"currency":"euro"},
-            {"interval":"2015-10-28T13:00:00.000Z/2015-10-28T13:30:00.000Z","price":1.99,"weight":0.15,"currency":"euro"},
-            {"interval":"2015-10-28T13:30:00.000Z/2015-10-28T14:00:00.000Z","price":1.99,"weight":0.15,"currency":"euro"},
-            {"interval":"2015-10-28T14:00:00.000Z/2015-10-28T14:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T14:30:00.000Z/2015-10-28T15:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T15:00:00.000Z/2015-10-28T15:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T15:30:00.000Z/2015-10-28T16:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T16:00:00.000Z/2015-10-28T16:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T16:30:00.000Z/2015-10-28T17:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T17:00:00.000Z/2015-10-28T17:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-28T17:30:00.000Z/2015-10-28T18:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T09:00:00.000Z/2015-10-29T09:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T09:30:00.000Z/2015-10-29T10:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T10:00:00.000Z/2015-10-29T10:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T10:30:00.000Z/2015-10-29T11:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T11:00:00.000Z/2015-10-29T11:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T11:30:00.000Z/2015-10-29T12:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T12:00:00.000Z/2015-10-29T12:30:00.000Z","price":1.99,"weight":0.15,"currency":"euro"},
-            {"interval":"2015-10-29T12:30:00.000Z/2015-10-29T13:00:00.000Z","price":1.99,"weight":0.15,"currency":"euro"},
-            {"interval":"2015-10-29T13:00:00.000Z/2015-10-29T13:30:00.000Z","price":1.99,"weight":0.15,"currency":"euro"},
-            {"interval":"2015-10-29T13:30:00.000Z/2015-10-29T14:00:00.000Z","price":1.99,"weight":0.15,"currency":"euro"},
-            {"interval":"2015-10-29T14:00:00.000Z/2015-10-29T14:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T14:30:00.000Z/2015-10-29T15:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T15:00:00.000Z/2015-10-29T15:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T15:30:00.000Z/2015-10-29T16:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T16:00:00.000Z/2015-10-29T16:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T16:30:00.000Z/2015-10-29T17:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T17:00:00.000Z/2015-10-29T17:30:00.000Z","price":1.99,"weight":0.85,"currency":"euro"},
-            {"interval":"2015-10-29T17:30:00.000Z/2015-10-29T18:00:00.000Z","price":1.99,"weight":0.85,"currency":"euro"}];
+        var object1 = {},
+            object2 = { range: '2015-10-28'},
+            object3 = { range: '2015-10-28T17:00'},
+            object4 = { range: ['2015-10-28/2015-11-28']},
+            object5 = { range: ['2015-10-28', '2015-11-28/2015-11-28', '2015-10-27T17:00/2015-10-27T19:00']};
 
-        var object = {
-            range: ['2015-10-28', '2015-10-29', '2015-10-20T09:00/2015-10-20T08:00']
-        };
+        //TEST 1, no range
+        //milkman.getQuote(object1, function( res ){
+        //    console.log('res1 with quotation: '+JSON.stringify(res));
+        //    milkman.getQuote(object1, function( res ){
+        //        console.log('res2 without quotation: '+JSON.stringify(res));
+        //        test('test 1 object = {}', function() {
+        //            equal(JSON.stringify(res), JSON.stringify(res), result.text)
+        //        });
+        //    });
+        //});
 
-        milkman.getQuote(object, function( res ){
-
-            console.log('res: '+res.text);
-
-            test('authenticate test SETTINGS', function() {
-                equal(true, true, result.text)
+        //TEST 2, range day
+        milkman.getQuote(object5, function( res1 ){
+            milkman.getQuote(object5, function( res2 ){
+                //milkman.confirm(res2.ranges, res2.price, function( isEqual ){
+                //    console.log('res2 without quotation: '+isEqual);
+                    test('test 1 object = {}', function() {
+                        equal(JSON.stringify(res1), JSON.stringify(res2), result.text)
+                    });
+                //});
             });
-
         });
+
     });
 }));
 

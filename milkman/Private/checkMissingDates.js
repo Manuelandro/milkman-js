@@ -1,7 +1,8 @@
 define(['moment',
-        "../../milkman/Utils/constants"],
+        "../../milkman/Utils/constants",
+        "../../milkman/Private/checkDayAvailability"],
 
-    function(moment, constants) {
+    function(moment, constants, checkDayAvailability) {
         'use strict';
 
         /**
@@ -12,6 +13,7 @@ define(['moment',
         return function checkMissingDates( ranges, callback ) {
             //IF: ho qualche dato in memoria controllo di avere tutti gli intervalli
             // di interesse
+
             if ( constants.intervals.length ){
                 var arr = [];
 
@@ -31,12 +33,15 @@ define(['moment',
                             var start = moment(row.interval.split('T')[0]),
                                 diff = start.diff(dayToCheck);
 
-                            if (diff === 0) {
+                            if (diff === 0 ) {
                                 isBound = true;
                             }
 
                             if (!isBound && index + 1 === constants.intervals.length) {
-                                arr.push(dayToCheck.format('YYYY-MM-DD') + '/' + dayToCheck.format('YYYY-MM-DD'));
+                                //verifico che il giorno nno sia uno di quelli disabilitati
+                                if( checkDayAvailability(dayToCheck) ){
+                                    arr.push(dayToCheck.format('YYYY-MM-DD') + '/' + dayToCheck.format('YYYY-MM-DD'));
+                                }
                             }
                         });
                     }

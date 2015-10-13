@@ -35,6 +35,8 @@ define([
                     });
                 });
             } else {
+
+
                 check_interval( ranges, constants.intervals, function( intervals_of_interest ){
                     callback( intervals_of_interest );
                 });

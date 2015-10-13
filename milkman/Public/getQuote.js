@@ -51,5 +51,5 @@ define(['moment',
                     setPrice(ranges, ioi, callback);
                 });
             });
-        };
+        }
     });

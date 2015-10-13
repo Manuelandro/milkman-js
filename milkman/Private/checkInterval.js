@@ -13,18 +13,20 @@ define(['moment'],
          */
 
         return function checkInterval( ranges, intervals, callback ) {
+
             var ioi = intervals.filter(function( data ){
                 //ora e data di inizio/fine per ogni singolo intervallo
-                var i_time_s = moment(data.interval.split('/')[0]),
-                    i_time_e = moment(data.interval.split('/')[1]);
+                var i_time_s = data.interval.split('/')[0],
+                    i_time_e = data.interval.split('/')[1];
 
                 var moreThanOne = ranges.filter(function( range ){
                     //ora di inizio/fine del range di interesse
-                    var r_time_s = moment(range.split('/')[0]),
-                        r_time_e = moment(range.split('/')[1]);
+                    var r_time_s = range.split('/')[0],
+                        r_time_e = range.split('/')[1];
 
                     //verifica che l'intervallo sia contenuto nel range di interesse
-                    if( i_time_s.diff(r_time_s) >= 0 && r_time_e.diff(i_time_e) >= 0){
+                    if( moment(i_time_s).diff(moment(r_time_s)) >= 0 &&
+                        moment(r_time_e).diff(moment(i_time_e)) >= 0){
                         return true
                     }
                 });

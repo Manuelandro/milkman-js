@@ -6,13 +6,10 @@ A simple way to integrate milkman intelligence in javascript.
 
 ...
 
-<<<<<<< HEAD
 ## How to build the library
 
     node tools/r.js -o tools/build.js
 
-=======
->>>>>>> 231db54cbee652f00729f3cb2790891b9b134986
 ## Running
 
 You must install all dependencies.

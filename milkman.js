@@ -26,14 +26,8 @@ define(function (require) {
         setEntity = require('milkman/Entities/setEntity'),
         getEntities = require('milkman/Entities/getEntities'),
 
-
-
     //--------------------------------------------
-        authenticate = require('milkman/Public/authenticate'),
         confirm = require('milkman/Public/confirm'),
-        newDeal = require('milkman/Public/newDeal'),
-
-    //--------------------------------------------
         getQuote = require('milkman/Public/getQuote'),
         setInit = require('milkman/Public/setInit');
 
@@ -58,11 +52,7 @@ define(function (require) {
         getEntities: getEntities,
 
         //--------------------------------------------
-        authenticate: authenticate,
         confirm: confirm,
-        newDeal: newDeal,
-
-        //--------------------------------------------
         setInit: setInit,
         getQuote: getQuote
     };
