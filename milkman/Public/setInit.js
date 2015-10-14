@@ -60,7 +60,7 @@ define([ '../../milkman/Private/makeUrlServer',
 
                         //session id is saved in local storage
                         window.localStorage.setItem(
-                            constants.SESSION_TOKEN, result.data.sessionId
+                            constants.SESSION_TOKEN, result.data.session._id
                         );
                         window.localStorage.setItem(
                             constants.MERCHANT, JSON.stringify(result.data.merchant)

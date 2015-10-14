@@ -29,6 +29,7 @@ define(function (require) {
     //--------------------------------------------
         confirm = require('milkman/Public/confirm'),
         getQuote = require('milkman/Public/getQuote'),
+        findQuote = require('milkman/Public/findQuote'),
         setInit = require('milkman/Public/setInit');
 
     return {
@@ -54,6 +55,7 @@ define(function (require) {
         //--------------------------------------------
         confirm: confirm,
         setInit: setInit,
-        getQuote: getQuote
+        getQuote: getQuote,
+        findQuote: findQuote
     };
 });

@@ -29,18 +29,19 @@ define(['moment',
             opt.maxDuration = options.maxDuration ?
                 options.maxDuration :
                 merchant.maxDuration;
-            opt.quotesPerDate = options.quotesPerDate ?
-                options.quotesPerDate :
-                merchant.quotesPerDate;
+            opt.quotePerDate = options.quotePerDate ?
+                options.quotePerDate :
+                merchant.quotePerDate;
 
             //IF: check options existence
             if( Object.keys(options).length )
             {
                 rangeNormalization( opt.ranges, bh_int[0], bh_int[1], function( formatted ){
 
-                    if( formatted.success ){
 
-                        engine( formatted.ranges, callback );
+                    if( formatted.success ){
+                        opt.ranges = formatted.ranges;
+                        engine( opt, callback );
 
                     } else {
                         callback( formatted );
@@ -55,12 +56,14 @@ define(['moment',
         };
 
         function engine(opt, callback){
+
             checkMissingDates( opt.ranges, function( missings ){
                 //se ci sono intervalli mancanti faccio una quotation al sever
                 //e filtro tutti gli intervalli per trovare quelli di interesse
                 quotation(opt.ranges, missings, function( ioi ){
                     //calcolo il prezzo con sconto
-                    findPrice(opt, ioi, callback);
+                    //findPrice(opt, ioi, callback);
+                    callback({options: opt, idi: ioi, disc: constants.discounts});
                 });
             });
         }
