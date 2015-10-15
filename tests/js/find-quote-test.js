@@ -37,84 +37,83 @@ if (typeof require === 'function' && require.config) {
     //verifico che se passo range senza [] lo inserisce la funzione
     milkman.setInit( milkman.defaults.SETTINGS_1, function( result, moment ) {
 
-        var object = { range:'2015-10-29'
+        var object = { range:'2015-10-26'
             //range: ['2015-10-20T09:00/2015-10-20T18:30'], '2015-10-29T11:30', '2015-10-20T09:00/2015-10-20T09:30']
         };
 
-        milkman.findQuote(object, function( res ){
+        milkman.findQuote(object, function( best_choices ){
 
-            //console.log('price: '+ JSON.stringify(res));
-
-            var quoteNumber = 3, //numero totale di eventi che voglio generare
-                maxDuration = 4, //durata massima dell'evento
+            var quoteNumber = 5, //numero totale di eventi che voglio generare
                 quotePerDate = 2, //numero massimo di eventi con la stessa data
                 overlap = false;  //gli eventi non si possono accavallare
 
-            var tmp_best_choices = [],
-                best_int = null,
-                best_p = null,
-                best_disc = null,
-                best_day = null;
+            var results = getResults(best_choices, quoteNumber, quotePerDate, overlap);
 
-            res.idi.forEach(function ( idi, index ) {
+            console.log('res: '+JSON.stringify(results));
 
-                var day = idi.interval.split('T')[0];
 
-                //calcolo maxDuration possibilità a partire da idi corrente
-                for ( var i = 0; i < maxDuration; i++ ){
+            //console.log('tmp_best_choices: '+JSON.stringify(results));
 
-                    if( index + i +1 <= res.idi.length ){
-                        var tmp_discount = 1,
-                            tmp_date = res.idi[index + i].interval.split('T')[0],
-                            tmp_p = res.idi[index + i].price * res.idi[index + i].weight,
-                            tmp_int = idi.interval.split('/')[0].split('T')[1]+'/'+res.idi[index + i].interval.split('T')[2];
+            function getResults(best_choices, quoteNumber, quotePerDate){
+                var selected_qn = 0, selected_date = [];
 
-                        //se la data del primo intervallo e dell'ultimo coincidono procedo
-                        if( moment(tmp_date).diff(moment(day)) === 0 ){
+                return best_choices.filter(function( value ){
 
-                            //trovo il range di sconto dato il numero di intervalli
-                            res.disc.forEach( function( disc ){
-                                var bound_left = disc.range.split('/')[0] <= i,
-                                    bound_right = disc.range.split('/')[1] === '' ? true : i < disc.range.split('/')[1];
+                    //verifico di non aver ancora raggiunto il numero di eventi necessari
+                    if( selected_qn !== quoteNumber ) {
+                        var to_include = true,
+                            index_to_include = null;
 
-                                if (bound_left && bound_right) {
-                                    tmp_discount = disc.discount;
+                        selected_date.forEach( function( existingDate, index ){
+                            var already_have_this_date = moment(existingDate.day).diff(moment(value.day)) === 0;
+
+                            if( already_have_this_date ){
+
+                                //verifico 'quotePerDate'
+                                quotePerDate > selected_date[index].number ?
+                                    index_to_include = index :   //non ho raggiunto il limite massimo
+                                    to_include = false;          //ho raggiunto il limite massimo
+
+                                //verifico 'overlap'
+                                if( !overlap ){
+                                    existingDate.ranges.forEach(function( range ){
+                                        var m_val_i = moment(value.day +'T'+ value.i_bound),
+                                            m_val_f = moment(value.day +'T'+ value.f_bound),
+                                            m_range_i = moment(value.day +'T'+ range.split('/')[0]),
+                                            m_range_f = moment(value.day +'T'+ range.split('/')[1]);
+
+                                        var notBound_isBefore = m_val_i.diff(m_range_i) > 0 && m_val_i.diff(m_range_f) >= 0,
+                                            notBound_isAfter = m_range_i.diff(m_val_f) >= 0 &&  m_range_f.diff(m_val_f) > 0;
+
+                                        if( !notBound_isBefore || !notBound_isAfter ){
+                                            to_include = false;
+                                        }
+                                    });
                                 }
-                            });
+                            }
+                        });
 
-                            //se sono al primo ciclo e se il nuovo prezzo è migliore del precedente lo salvo
-                            if( best_p === null || best_p * best_disc > tmp_p * tmp_discount){
-                                best_day = day;
-                                best_disc = tmp_discount;
-                                best_p = tmp_p;
-                                best_int = idi.interval.split('/')[0].split('T')[1]+'/'+res.idi[index + i].interval.split('T')[2];
+                        //aggiungo il nuovo evento
+                        if( to_include ){
+
+                            selected_qn = selected_qn + 1;
+
+                            if( index_to_include != null ){
+                                selected_date[index_to_include].number =
+                                    selected_date[index_to_include].number + 1;
+
+                                selected_date[index_to_include].ranges.push(value.range);
+                            } else {
+                                selected_date.push({day: value.day, number: 1, ranges:[value.range] });
                             }
 
-                            console.log('tmp: '+tmp_int+' -- '+tmp_p*tmp_discount);
+                            return true;
                         }
 
+                        console.log('selected_date: '+JSON.stringify(selected_date));
                     }
-
-
-                }
-
-
-
-                //if ( tmp_best_choices.length < quoteNumber ) {
-                    //butto dentro il nuovo best choice
-                    tmp_best_choices.push({
-                        price: best_p,
-                        discount: best_disc,
-                        interval: best_day +'T'+ best_int.split('/')[0]+'/'+best_day +'T'+ best_int.split('/')[1]
-                    });
-
-                    console.log('------------best: '+JSON.stringify(tmp_best_choices[0]));
-                //} else {
-                    //verifico che sia più conveniente del peggiore di quelli aggiunti
-                //}
-
-            });
-
+                });
+            }
 
 
 
@@ -123,6 +122,7 @@ if (typeof require === 'function' && require.config) {
             });
 
         });
+
     });
 
 }));
