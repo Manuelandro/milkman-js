@@ -42,22 +42,6 @@ define([ '../../milkman/Private/makeUrlServer',
                     if ( result.success )
                     {
 
-                        //todo: TOGLI QUESTO INSERIMENTO
-                        //constants.intervals = [
-                        //    { interval: '2015-10-20T09:00:00Z/2015-10-20T09:30:00Z', price: '1,99', weight: '0,25', currency: 'euro' },
-                        //    { interval: '2015-10-20T19:00:00Z/2015-10-20T19:30:00Z', price: '1,99', weight: '0,25', currency: 'euro' },
-                        //    { interval: '2015-10-20T08:00:00Z/2015-10-20T08:30:00Z', price: '1,99', weight: '0,25', currency: 'euro' },
-                        //    { interval: '2015-10-22T08:30:00Z/2015-10-22T09:00:00Z', price: '1,99', weight: '0,85', currency: 'euro' },
-                        //    { interval: '2015-10-22T19:30:00Z/2015-10-22T20:00:00Z', price: '1,99', weight: '0,85', currency: 'euro' }
-                        //];
-                        //window.localStorage.setItem(
-                        //    constants.INTERVAL_OF_INTEREST, [
-                        //        { interval: '2015-10-20T09:00:00Z/2015-10-22T09:30:00Z', price: '1,99', weight: '0,25', currency: 'euro' },
-                        //        { interval: '2015-10-22T09:30:00Z/2015-10-22T10:00:00Z', price: '1,99', weight: '0,85', currency: 'euro' },
-                        //    ]
-                        //);
-
-
                         //session id is saved in local storage
                         window.localStorage.setItem(
                             constants.SESSION_TOKEN, result.data.session._id

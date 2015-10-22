@@ -27,10 +27,14 @@ define(function (require) {
         getEntities = require('milkman/Entities/getEntities'),
 
     //--------------------------------------------
-        confirm = require('milkman/Public/confirm'),
+        setInit = require('milkman/Public/setInit'),
+        setAddress = require('milkman/Public/setAddress'),
+
         getQuote = require('milkman/Public/getQuote'),
         findQuote = require('milkman/Public/findQuote'),
-        setInit = require('milkman/Public/setInit');
+
+        confirm = require('milkman/Public/confirm');
+
 
     return {
         version: '0.0.1, jQuery version is: ' + $.fn.jquery,
@@ -53,9 +57,12 @@ define(function (require) {
         getEntities: getEntities,
 
         //--------------------------------------------
-        confirm: confirm,
         setInit: setInit,
+        setAddress: setAddress,
+
         getQuote: getQuote,
-        findQuote: findQuote
+        findQuote: findQuote,
+
+        confirm: confirm
     };
 });

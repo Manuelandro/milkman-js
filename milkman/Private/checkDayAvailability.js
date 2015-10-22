@@ -29,7 +29,7 @@ define([
                 ],
                 weekday = moment(dayToCheck).format('E');
 
-            return weekAvailability[ weekday - 1 ];
+            return weekdays[ weekday - 1 ];
         };
     }
 );

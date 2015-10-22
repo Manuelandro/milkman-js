@@ -37,83 +37,77 @@ if (typeof require === 'function' && require.config) {
     //verifico che se passo range senza [] lo inserisce la funzione
     milkman.setInit( milkman.defaults.SETTINGS_1, function( result, moment ) {
 
-        var object = { range:'2015-10-26'
-            //range: ['2015-10-20T09:00/2015-10-20T18:30'], '2015-10-29T11:30', '2015-10-20T09:00/2015-10-20T09:30']
+        var object = {
+            range:[
+                '2015-10-26/2015-10-29',
+                '2015-10-30',
+                '2015-11-02T14:00/2015-11-02T16:00'
+            ],
+            quoteNumber: 15,
+            quotePerDate: 5,
+            overlap: false,
+            minDuration: 2,
+            maxDuration: 4,
+            weekdays: [ 1, 3, 5, 6 ],
+            distribution: {
+                order: 'price',
+                intervals: 3,
+                closeBound: true,
+                quotation: [
+                    {quote: 1, maxPrice: 0},
+                    {quote: 2, maxPrice: 9.99},
+                    {quote: 1, maxPrice: 19.99}
+                ]
+            }
+            //hours: [ '09:30/12:00', '14:00/17:00' ]
         };
 
-        milkman.findQuote(object, function( best_choices ){
+        milkman.findQuote(object, function( results ){
+            var tmp_dist = [
+                {quote: 1, maxPrice: 0},
+                {quote: 2, maxPrice: 9.99},
+                {quote: 2, maxPrice: 19.99},
+                {quote: 1, maxPrice: 89.99}
+            ];
+            results.quotes.forEach(function(res){
+                //console.log('results: '+JSON.stringify(res));
 
-            var quoteNumber = 5, //numero totale di eventi che voglio generare
-                quotePerDate = 2, //numero massimo di eventi con la stessa data
-                overlap = false;  //gli eventi non si possono accavallare
+                tmp_dist.forEach( function( dist, index ){
+                    //ci sono ancora quote nel range ma il prezzo è stato superato
+                    //prendo le quote e le assegno all'intervallo successivo
+                    //IF
+                    var cond1 = dist.quote > 0,
+                        cond2 = dist.maxPrice < res.price;
+                    //ELSE IF
+                    var cond3 = dist.maxPrice >= res.price,
+                        cond4 = ( index === 0 || tmp_dist[index - 1].maxPrice < res.price );
+                    //ELSE IF
+                    var cond5 = index + 1 === tmp_dist.length;
+                        //cond6 = dist.quote > 0 && tmp_dist[index - 1].quote === 0,
+                        //cond7 = index === 0 || tmp_dist[index - 1].maxPrice > res.price;
 
-            var results = getResults(best_choices, quoteNumber, quotePerDate, overlap);
-
-            console.log('res: '+JSON.stringify(results));
-
-
-            //console.log('tmp_best_choices: '+JSON.stringify(results));
-
-            function getResults(best_choices, quoteNumber, quotePerDate){
-                var selected_qn = 0, selected_date = [];
-
-                return best_choices.filter(function( value ){
-
-                    //verifico di non aver ancora raggiunto il numero di eventi necessari
-                    if( selected_qn !== quoteNumber ) {
-                        var to_include = true,
-                            index_to_include = null;
-
-                        selected_date.forEach( function( existingDate, index ){
-                            var already_have_this_date = moment(existingDate.day).diff(moment(value.day)) === 0;
-
-                            if( already_have_this_date ){
-
-                                //verifico 'quotePerDate'
-                                quotePerDate > selected_date[index].number ?
-                                    index_to_include = index :   //non ho raggiunto il limite massimo
-                                    to_include = false;          //ho raggiunto il limite massimo
-
-                                //verifico 'overlap'
-                                if( !overlap ){
-                                    existingDate.ranges.forEach(function( range ){
-                                        var m_val_i = moment(value.day +'T'+ value.i_bound),
-                                            m_val_f = moment(value.day +'T'+ value.f_bound),
-                                            m_range_i = moment(value.day +'T'+ range.split('/')[0]),
-                                            m_range_f = moment(value.day +'T'+ range.split('/')[1]);
-
-                                        var notBound_isBefore = m_val_i.diff(m_range_i) > 0 && m_val_i.diff(m_range_f) >= 0,
-                                            notBound_isAfter = m_range_i.diff(m_val_f) >= 0 &&  m_range_f.diff(m_val_f) > 0;
-
-                                        if( !notBound_isBefore || !notBound_isAfter ){
-                                            to_include = false;
-                                        }
-                                    });
-                                }
-                            }
-                        });
-
-                        //aggiungo il nuovo evento
-                        if( to_include ){
-
-                            selected_qn = selected_qn + 1;
-
-                            if( index_to_include != null ){
-                                selected_date[index_to_include].number =
-                                    selected_date[index_to_include].number + 1;
-
-                                selected_date[index_to_include].ranges.push(value.range);
-                            } else {
-                                selected_date.push({day: value.day, number: 1, ranges:[value.range] });
-                            }
-
-                            return true;
-                        }
-
-                        console.log('selected_date: '+JSON.stringify(selected_date));
+                    if( cond1 && cond2 ) {
+                        console.log('prezzo superato.');
+                        tmp_dist[index+1].quote = tmp_dist[index+1].quote + tmp_dist[index].quote;
+                        tmp_dist[index].quote = 0;
                     }
+                    //ci sono ancora quote ed il prezzo è coerente con l'intervallo
+                    //riduco di 1 le quote e vado a buon fine
+
+                    else if( cond1 && cond3 && cond4 ) {
+                        tmp_dist[index].quote = tmp_dist[index].quote - 1;
+                        console.log('ok: '+res.price);
+                    }
+
+                    //non ci sono più quote
+                    //passo all'intervallo successivo
+
+
+
                 });
-            }
+            });
+
+
 
 
 

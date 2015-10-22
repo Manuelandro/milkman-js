@@ -8,6 +8,8 @@ define([
         'use strict';
 
         /**
+         *  se ci sono intervalli mancanti faccio una quotation al sever
+         *  e filtro tutti gli intervalli per trovare quelli di interesse
          *
          *  @PARAM:
          *  @PARAM:
@@ -30,13 +32,14 @@ define([
                         constants.intervals.push( new_interval );
                     });
 
+                    //ritorna gli intervalli di interesse
                     check_interval( ranges, constants.intervals, function( intervals_of_interest ){
                         callback( intervals_of_interest );
                     });
                 });
             } else {
 
-
+                //ritorna gli intervalli di interesse
                 check_interval( ranges, constants.intervals, function( intervals_of_interest ){
                     callback( intervals_of_interest );
                 });

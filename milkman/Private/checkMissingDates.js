@@ -38,7 +38,7 @@ define(['moment',
                             }
 
                             if (!isBound && index + 1 === constants.intervals.length) {
-                                //verifico che il giorno nno sia uno di quelli disabilitati
+                                //verifico che il giorno non sia uno di quelli disabilitati
                                 if( checkDayAvailability(dayToCheck) ){
                                     arr.push(dayToCheck.format('YYYY-MM-DD') + '/' + dayToCheck.format('YYYY-MM-DD'));
                                 }

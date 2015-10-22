@@ -2,9 +2,10 @@ define([ '../../milkman/Private/makeUrlServer',
         '../../milkman/Private/request',
         '../../milkman/Utils/constants',
         '../../milkman/commit',
-        '../../milkman/Public/getQuote'
+        '../../milkman/Public/getQuote',
+        '../../milkman/Private/quoteHistory'
     ],
-    function ( makeUrlServer, request, constants, commit, getQuote ) {
+    function ( makeUrlServer, request, constants, commit, getQuote, quoteHistory ) {
     'use strict';
 
         /**
@@ -17,6 +18,9 @@ define([ '../../milkman/Private/makeUrlServer',
          */
 
     return function confirm( ranges, callback ) {
+
+        //HISTORY TRACKING on server
+        quoteHistory('confirm', ranges);
 
         //ricalcolo il prezzo per l'intervallo specifico
         getQuote( ranges, function( result ){
@@ -74,7 +78,7 @@ define([ '../../milkman/Private/makeUrlServer',
                             });
                     });
             } else {
-                //genero errore, il range passato non è corretto
+                //genero errore, il range passato non ï¿½ corretto
                 callback( result );
             }
 
