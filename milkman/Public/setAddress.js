@@ -1,8 +1,10 @@
 define(['../../milkman/Private/makeUrlServer',
         '../../milkman/Private/request',
-        '../../milkman/Utils/constants'
+        '../../milkman/Utils/constants',
+        '../../milkman/Private/checkAddress',
+        '../../milkman/Private/checkRequiredFields'
     ],
-    function ( makeUrlServer, request, constants ) {
+    function ( makeUrlServer, request, constants, checkAddress, checkRequiredFields ) {
         'use strict';
 
         /**
@@ -12,45 +14,65 @@ define(['../../milkman/Private/makeUrlServer',
          *  @PARAM: Function
          */
         return function setAddress( data, callback ) {
-            var url = makeUrlServer('/sessionDetails');
+            var url = makeUrlServer('/sessionDetails'), normalizedAddress,
+                isInitialized = checkRequiredFields('init');
 
-            if(          // CHECK che l'utente abbia inserito:
-            data.address ||
-            isNumber(data.lat) && isNumber(data.lng)
-            ){
-                request( url, 'PUT', {
-                    sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
-                    publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
-                    address: data
-                }, function( result ) {
+            //setto il fatto che i dati, ora come ora, sono inseriti dall'utente
+            data['evaluatedLatLng'] = false;
+            //CHECK required field
+            if( isInitialized &&
+                data.address || data.lat && data.lng ){
 
-                    if ( result.success )
-                    {
-                        callback({
-                            success: true,
-                            text: constants.SUCCESS.OK_200
-                        }, moment);
-                    }
-                    else
-                    {
-                        callback({
-                            success: false,
-                            text: result.jqXHR
-                        });
-                    }
-                })
+                checkAddress( data, function( normalizedAddress ){
+                    console.log('normalizedAddress:'+JSON.stringify(normalizedAddress));
+                    request( url, 'PUT', {
+                        sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
+                        publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
+                        address: normalizedAddress
+                    }, function( result ) {
+
+                        if ( result.success )
+                        {
+                            //salvo localmente il riferimento all'avvenuto salvataggio dell'address
+                            constants.requiredFields['address'] = true;
+
+                            callback({
+                                success: true,
+                                data: normalizedAddress,
+                                text: constants.SUCCESS.OK_200
+                            });
+                        }
+                        else
+                        {
+                            callback({
+                                success: false,
+                                text: result.jqXHR
+                            });
+                        }
+                    })
+                });
 
             } else {
-                callback({
-                    success: false,
-                    text: constants.ERROR.BAD_REQUEST_400,
-                    errorMessage: 'Address or Lat&Lng are required fields.'
-                });
-            }
 
+                if( isInitialized ){
+                    callback({
+                        success: false,
+                        text: constants.ERROR.BAD_REQUEST_400,
+                        errorMessage: 'Address or Lat&Lng are required fields.'
+                    });
+                } else {
+                    callback({
+                        success: false,
+                        text: constants.ERROR.BAD_REQUEST_400,
+                        errorMessage: 'You need to set publichable key and merchant URI before.'
+                    });
+                }
+
+            }
 
             function isNumber(n) {
                 return !isNaN(parseFloat(n)) && isFinite(n);
             }
+
         }
     });

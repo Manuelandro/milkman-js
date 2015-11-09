@@ -32,20 +32,17 @@ if (typeof require === 'function' && require.config) {
 }(this, function (milkman, $) {
     'use strict';
 
+    //verifico che se passo range senza [] lo inserisce la funzione
     milkman.setInit( milkman.defaults.SETTINGS_1, function( result, moment ) {
-
         var object5 = { range: ['2015-10-28', '2015-11-28/2015-11-28', '2015-10-27T17:00/2015-10-27T19:00']};
 
         milkman.confirm(object5, function( res2 ){
             console.log('res2 without quotation: '+res2);
-            test('confirm', function() {
-                equal(true, true, result.text)
+            test('confirm', function( res ) {
+                equal(true, true, res.text)
             });
         });
 
     });
 }));
-
-
-
 

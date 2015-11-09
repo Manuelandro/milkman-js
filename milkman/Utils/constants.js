@@ -13,7 +13,7 @@ define({
 
     //local variables
     defaultRange: '',
-
+    requiredFields: {},
 
     range: [],
     data: {},

@@ -25,3 +25,9 @@ Simply call milkman. with one of the supported input types.
 ## Credit
 
 These widgets was created by [Francesca Barbazeni].  This README document was written by Francesca Barbazeni.
+
+## HOW TO EXPORT
+
+dist/*
+lib/jquery
+tests/*

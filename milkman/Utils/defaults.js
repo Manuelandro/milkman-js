@@ -1,151 +1,111 @@
 define({
     SESSION_TOKEN: '123456',
     REDIRECT_URI: 'http://localhost:3003',
+
+    /**
+     * CHECK SET-INIT
+     */
     SETTINGS_1: {
         publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003'
+    },
+    ERR1_SETTINGS: {
+        publishableKey: '',
+        redirectUri: 'http://localhost:3003'
+    },
+    ERR2_SETTINGS: {
+        publishableKey: 'test-public-key',
+        redirectUri: ''
+    },
+    SETTINGS_3: {
+        publishableKey: 'test-public-key',
         redirectUri: 'http://localhost:3003',
-        firstAvailableDay: '2015-10-18',
-        firstAvailableTime: '10:30',
         address:
         {
             address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+            lat: null,
+            lng: null,
+            heading: null,
+            pitch: null,
+            deliverInstructions: 'Beware the dog'
+        }
+    },
+    SETTINGS_2: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        address:
+        {
+            address: '',
             lat: 40.372186,
             lng: -74.01118099999997,
             heading: 36.94424778789316,
             pitch: -6.11509517212225,
             deliverInstructions: 'Beware the dog'
-        },
-        client: {
-            telephone: '123-123123',
-            email: 'francesca@prova.com'
-        },
-        carts:
-        [
-            {
-                value: 100,
-                auxCost: 5.5,
-                type: 'standard',
-                weight: 1,
-                length: 1,
-                height: 1,
-                depth: 1,
-                volume: 300
-            },
-            {
-                value: 100,
-                auxCost: 5.5,
-                type: 'standard',
-                weight: 1,
-                length: 1,
-                height: 1,
-                depth: 1,
-                volume: 300
-            }
-        ]
+        }
     },
-    //SETTINGS_2: {
-    //    publishableKey: 'test-public-key',
-    //    redirectUri: 'http://localhost:3003',
-    //    address:
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-    //        lat: 40.372186,
-    //        lng: -74.01118099999997,
-    //        heading: 36.94424778789316,
-    //        pitch: -6.11509517212225,
-    //        deliverInstructions: 'Beware the dog'
-    //    },
-    //    carts:
-    //    {
-    //        firstAvailableDay: '2015-10-18',
-    //        value: 100,
-    //        auxCost: 5.5,
-    //        type: 'standard',
-    //        weight: 1,
-    //        length: 1,
-    //        height: 1,
-    //        depth: 1,
-    //        volume: 300
-    //    }
-    //},
-    //SETTINGS_3: {
-    //    publishableKey: 'test-public-key',
-    //    redirectUri: 'http://localhost:3003',
-    //    address:
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-    //        lat: 40.372186,
-    //        lng: -74.01118099999997,
-    //        heading: 36.94424778789316,
-    //        pitch: -6.11509517212225,
-    //        deliverInstructions: 'Beware the dog'
-    //    },
-    //    carts:
-    //    {
-    //        firstAvailableDay: '2015-10-18',
-    //        value: 100,
-    //        auxCost: 5.5,
-    //        type: 'standard',
-    //        weight: 1,
-    //        length: 1,
-    //        height: 1,
-    //        depth: 1,
-    //        volume: 300
-    //    }
-    //},
-    //
-    //ERR1_SETTINGS: {
-    //    publishableKey: '',
-    //    redirectUri: 'http://localhost:3003',
-    //    rangeDate: '2015-09-01/2015-09-10',
-    //    address:
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-    //        lat: 40.372186,
-    //        lng: -74.01118099999997,
-    //        heading: 36.94424778789316,
-    //        pitch: -6.11509517212225,
-    //        deliverInstructions: 'Beware the dog'
-    //    },
-    //    carts:
-    //    {
-    //        firstAvailableDay: '2015-10-18',
-    //        value: 100,
-    //        auxCost: 5.5,
-    //        type: 'standard',
-    //        weight: 1,
-    //        length: 1,
-    //        height: 1,
-    //        depth: 1,
-    //        volume: 300
-    //    }
-    //},
-    //ERR2_SETTINGS: {
-    //    publishableKey: 'test-public-key',
-    //    redirectUri: '',
-    //    rangeDate: '2015-09-01/2015-09-10',
-    //    address:
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-    //        lat: 40.372186,
-    //        lng: -74.01118099999997,
-    //        heading: 36.94424778789316,
-    //        pitch: -6.11509517212225,
-    //        deliverInstructions: 'Beware the dog'
-    //    },
-    //    carts:
-    //    {
-    //        firstAvailableDay: '2015-10-18',
-    //        value: 100,
-    //        auxCost: 5.5,
-    //        type: 'standard',
-    //        weight: 1,
-    //        length: 1,
-    //        height: 1,
-    //        depth: 1,
-    //        volume: 300
-    //    }
-    //},
+
+
+    SETTINGS_4: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        carts:
+        {
+            firstAvailableDay: '2015-10-18',
+            value: 100,
+            auxCost: 5.5,
+            type: 'standard',
+            weight: 1,
+            length: 1,
+            height: 1,
+            depth: 1,
+            volume: 300
+        }
+
+    },
+
+
+    /**
+     * CHECK SET-ADDRESS
+     */
+    CHECK_SETT_ADDRESS_1: {
+        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+        lat: 40.372186,
+        lng: -74.01118099999997,
+        heading: 36.94424778789316,
+        pitch: -6.11509517212225,
+        deliverInstructions: 'Beware the dog'
+    },
+    CHECK_SETT_ADDRESS_2: {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+            deliverInstructions: 'Beware the dog'
+    },
+    CHECK_SETT_ADDRESS_3: {
+            address: 'blablablablablabla',
+            deliverInstructions: 'Beware the dog'
+    },
+    CHECK_SETT_ADDRESS_4: {
+            lat: 40.372186,
+            lng: -74.01118099999997,
+            deliverInstructions: 'Beware the dog'
+    },
+    CHECK_SETT_ADDRESS_ERR1: {
+            address: '',
+            deliverInstructions: 'Beware the dog'
+    },
+    CHECK_SETT_ADDRESS_ERR2: {
+            lat: '',
+            lng: '',
+            heading: 36.94424778789316,
+            pitch: -6.11509517212225,
+            deliverInstructions: 'Beware the dog'
+    },
+    CHECK_SETT_ADDRESS_ERR3: {
+            heading: 36.94424778789316,
+            pitch: -6.11509517212225,
+            deliverInstructions: 'Beware the dog'
+    },
+
+
 
     QUOTES: {
         intervals: [

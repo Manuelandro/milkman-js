@@ -33,34 +33,34 @@ if (typeof require === 'function' && require.config) {
     'use strict';
 
     //verifico che se passo range senza [] lo inserisce la funzione
-    milkman.authenticate( milkman.defaults.SETTINGS_1, function( result ) {
+    milkman.setInit( milkman.defaults.SETTINGS_1, function( result ) {
         test('authenticate test SETTINGS', function() {
             equal(result.success, true, result.text)});
     });
 
     // verifico che salvi un range di tipo array con 1 elemento.
-    milkman.authenticate( milkman.defaults.SETTINGS_2, function( result_1 ) {
+    milkman.setInit( milkman.defaults.SETTINGS_2, function( result_1 ) {
         test('authenticate test SETTINGS', function() {
             equal(result_1.success, true, result_1.text)});
     });
 
     // verifico che salvi un range di tipo array con più item.
-    milkman.authenticate( milkman.defaults.SETTINGS_3, function( result_2 ) {
+    milkman.setInit( milkman.defaults.SETTINGS_3, function( result_2 ) {
         test('authenticate test SETTINGS', function() {
             equal(result_2.success, true, result_2.text)});
     });
 
-    milkman.authenticate( milkman.defaults.ERR1_SETTINGS, function( result_3 ) {
+    milkman.setInit( milkman.defaults.ERR1_SETTINGS, function( result_3 ) {
         test('authenticate test ERR1_SETTINGS', function() {
             equal(result_3.success, false, result_3.text)});
     });
 
-    milkman.authenticate( milkman.defaults.ERR2_SETTINGS, function( result_4 ) {
+    milkman.setInit( milkman.defaults.ERR2_SETTINGS, function( result_4 ) {
         test('authenticate test ERR2_SETTINGS', function() {
             equal(result_4.success, false, result_4.text)});
     });
 
-    milkman.authenticate( milkman.defaults.ERR3_SETTINGS, function( result_5 ) {
+    milkman.setInit( milkman.defaults.ERR3_SETTINGS, function( result_5 ) {
         test('authenticate test ERR3_SETTINGS', function() {
             equal(result_5.success, false, result_5.text)});
     });

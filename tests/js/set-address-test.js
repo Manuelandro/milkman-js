@@ -32,23 +32,41 @@ if (typeof require === 'function' && require.config) {
 }(this, function (milkman, $) {
     'use strict';
 
-    milkman.setInit( milkman.defaults.SETTINGS_1, function( result, moment ) {
+    milkman.setInit( milkman.defaults.SETTINGS_1, function( ) {
 
-        var settedAddress = {
-            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-            lat: 40.372186,
-            lng: -74.01118099999997,
-            heading: 36.94424778789316,
-            pitch: -6.11509517212225,
-            deliverInstructions: 'Beware the dog'
-        };
-
-
-        milkman.setAddress(settedAddress, function( res ){
-            console.log('res: '+JSON.stringify(res));
-
-            test('test 1 object = {}', function() {
-                equal(true, true, result.text)
+        milkman.setAddress( milkman.defaults.CHECK_SETT_ADDRESS_1, function( result ) {
+            test('test 1 CHECK_SETT_ADDRESS_1', function() {
+                equal(result.success, true, result.text)
+            });
+        });
+        milkman.setAddress( milkman.defaults.CHECK_SETT_ADDRESS_2, function( result ) {
+            test('test 1 CHECK_SETT_ADDRESS_2', function() {
+                equal(result.success, true, result.text)
+            });
+        });
+        milkman.setAddress( milkman.defaults.CHECK_SETT_ADDRESS_3, function( result ) {
+            test('test 1 CHECK_SETT_ADDRESS_3', function() {
+                equal(result.success, true, result.text)
+            });
+        });
+        milkman.setAddress( milkman.defaults.CHECK_SETT_ADDRESS_4, function( result ) {
+            test('test 1 CHECK_SETT_ADDRESS_4', function() {
+                equal(result.success, true, result.text)
+            });
+        });
+        milkman.setAddress( milkman.defaults.CHECK_SETT_ADDRESS_ERR1, function( result ) {
+            test('test 1 CHECK_SETT_ADDRESS_ERR1', function() {
+                equal(result.success, false, result.text)
+            });
+        });
+        milkman.setAddress( milkman.defaults.CHECK_SETT_ADDRESS_ERR2, function( result ) {
+            test('test 1 CHECK_SETT_ADDRESS_ERR2', function() {
+                equal(result.success, false, result.text)
+            });
+        });
+        milkman.setAddress( milkman.defaults.CHECK_SETT_ADDRESS_ERR3, function( result ) {
+            test('test 1 CHECK_SETT_ADDRESS_ERR3', function() {
+                equal(result.success, false, result.text)
             });
         });
 

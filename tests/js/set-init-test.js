@@ -32,54 +32,28 @@ if (typeof require === 'function' && require.config) {
 }(this, function (milkman, $) {
     'use strict';
 
-
-
-    //verifico che se passo range senza [] lo inserisce la funzione
-    milkman.setInit( milkman.defaults.SETTINGS_1, function( result, moment ) {
-
-        var object = {
-            range: ['2015-10-20T09:00/2015-10-20T09:30']//, '2015-10-29T11:30', '2015-10-20T09:00/2015-10-20T09:30']
-        };
-
-        milkman.getQuote(object, function( res ){
-            //var ranges = res.ranges,
-            //    intervals = res.intervals;
-            //
-            console.log('price: '+ res.price);
-
-
-
-            test('authenticate test SETTINGS', function() {
-                equal(true, true, result.text)
-            });
-
-        });
+    milkman.setInit( milkman.defaults.SETTINGS_1, function( result ) {
+        test('SUCCESS TEST: con publishableKey e redirectUri creo sessione correttamente', function() {
+            equal(result.success, true, result.text)});
     });
-
-    // verifico che salvi un range di tipo array con 1 elemento.
-    //milkman.setInit( milkman.defaults.SETTINGS_2, function( result_1 ) {
-    //    test('authenticate test SETTINGS', function() {
-    //        equal(result_1.success, true, result_1.text)});
-    //});
-    //
-    //// verifico che salvi un range di tipo array con più item.
-    //milkman.setInit( milkman.defaults.SETTINGS_3, function( result_2 ) {
-    //    test('authenticate test SETTINGS', function() {
-    //        equal(result_2.success, true, result_2.text)});
-    //});
-
-    //milkman.authenticate( milkman.defaults.ERR1_SETTINGS, function( result_3 ) {
-    //    test('authenticate test ERR1_SETTINGS', function() {
-    //        equal(result_3.success, false, result_3.text)});
-    //});
-    //
-    //milkman.authenticate( milkman.defaults.ERR2_SETTINGS, function( result_4 ) {
-    //    test('authenticate test ERR2_SETTINGS', function() {
-    //        equal(result_4.success, false, result_4.text)});
-    //});
-    //
-    //milkman.authenticate( milkman.defaults.ERR3_SETTINGS, function( result_5 ) {
-    //    test('authenticate test ERR3_SETTINGS', function() {
-    //        equal(result_5.success, false, result_5.text)});
-    //});
+    milkman.setInit( milkman.defaults.ERR1_SETTINGS, function( result ) {
+        test('ERROR TEST: senza publishableKey non posso procedere', function() {
+            equal(result.success, false, result.text)});
+    });
+    milkman.setInit( milkman.defaults.ERR2_SETTINGS, function( result ) {
+        test('ERROR TEST: senza redirectUri non posso procedere', function() {
+            equal(result.success, false, result.text)});
+    });
+    milkman.setInit( milkman.defaults.SETTINGS_2, function( result ) {
+        test('SUCCESS TEST: Address non include lat e lng quindi se li calcola e procede senza problemi', function() {
+            equal(result.success, true, result.text)});
+    });
+    milkman.setInit( milkman.defaults.SETTINGS_3, function( result ) {
+        test('SUCCESS TEST: Address include lat e lng e address quindi procedo senza problemi', function() {
+            equal(result.success, true, result.text)});
+    });
+    milkman.setInit( milkman.defaults.SETTINGS_4, function( result ) {
+        test('SUCCESS TEST: mando a server dati relativi a cart', function() {
+            equal(result.success, true, result.text)});
+    });
 }));

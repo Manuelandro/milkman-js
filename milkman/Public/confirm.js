@@ -45,7 +45,7 @@ define([ '../../milkman/Private/makeUrlServer',
                         price: result.price,
                         intervals: result.ranges },
                     function( result ) {
-                        console.log('succ: '+ result.success);
+                        //console.log('succ: '+ result.success);
 
 
                         /**
