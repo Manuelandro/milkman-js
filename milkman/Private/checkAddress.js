@@ -18,10 +18,8 @@ define(function() {
 
                 /** se ho le info di lat lng ok! */
                 if( isNumber(val.lat) && isNumber(val.lng) ){
-                    //console.log('lat');
                     return val;
                 } else {
-                    //console.log('add');
                     tmp_data.push(val);
                 }
             });
@@ -30,9 +28,10 @@ define(function() {
             /** passo al setaccio tutti quelli senza lat-lng e cerco di ricavarne i dati*/
             tmp_data.forEach( function( val1, index ){
 
-                /** faccio una chiamata a google maps per recuperare lat-lng */
+                /** faccio una chiamata a google maps per recuperare lat-lng
+                 * ATTENZIONE: non posso fare più di 10 chimaate al secondo a google
+                 * */
                 googleMaps( val1, function( results ){
-                    //console.log('RES');
                     if( results ){
                         res.push(results);
                     }
