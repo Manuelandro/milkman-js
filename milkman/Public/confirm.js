@@ -3,9 +3,10 @@ define([ '../../milkman/Private/makeUrlServer',
         '../../milkman/Utils/constants',
         '../../milkman/commit',
         '../../milkman/Public/getQuote',
-        '../../milkman/Private/quoteHistory'
+        '../../milkman/Private/quoteHistory',
+        '../../milkman/Private/checkRequiredFields'
     ],
-    function ( makeUrlServer, request, constants, commit, getQuote, quoteHistory ) {
+    function ( makeUrlServer, request, constants, commit, getQuote, quoteHistory, checkRequiredFields ) {
     'use strict';
 
         /**
@@ -18,7 +19,9 @@ define([ '../../milkman/Private/makeUrlServer',
          */
 
     return function confirm( ranges, callback ) {
+        var isInitialized = checkRequiredFields('init');
 
+        if( isInitialized ){
         //HISTORY TRACKING on server
         quoteHistory('confirm', ranges);
 
@@ -58,7 +61,17 @@ define([ '../../milkman/Private/makeUrlServer',
                             commit( function( result ){
                                 if ( result.success ) {
                                     //cancel the session token on local storage
-                                    window.localStorage.removeItem( constants.SESSION_TOKEN );
+                                    window.localStorage.removeItem(constants.SESSION_TOKEN);
+                                    window.localStorage.removeItem(constants.PUBLISHABLE_KEY);
+                                    window.localStorage.removeItem(constants.REDIRECT_URI);
+                                    window.localStorage.removeItem(constants.PROPOSAL_ID);
+
+                                    window.localStorage.removeItem(constants.DEFAULT_RANGE);
+
+                                    window.localStorage.removeItem(constants.ADDRESSES);
+                                    window.localStorage.removeItem(constants.MERCHANT);
+                                    window.localStorage.removeItem(constants.HUB);
+
                                     callback({
                                         success: true
                                     });
@@ -81,7 +94,14 @@ define([ '../../milkman/Private/makeUrlServer',
                 //genero errore, il range passato non � corretto
                 callback( result );
             }
-
         });
+
+        } else {  //isInitialized === false
+            callback({
+                success: false,
+                text: constants.ERROR.BAD_REQUEST_400,
+                errorMessage: 'You need to set required fields before.'
+            });
+        }
     }
 });

@@ -23,7 +23,8 @@ define(['../../milkman/Private/makeUrlServer',
                 request( url, 'PUT', {
                     sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
                     publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
-                    address: data
+                    proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
+                    consignee: data
                 }, function( result ) {
 
                     if ( result.success )

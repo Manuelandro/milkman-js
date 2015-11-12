@@ -1,4 +1,4 @@
-define( function( moment, constants ) {
+define(function() {
     'use strict';
 
     /**
@@ -9,31 +9,67 @@ define( function( moment, constants ) {
      */
 
     return function checkAddress( data, callback ) {
-        if( data ){
-            //se ho le info di lat lng ok!
-            //altrimenti faccio una chiamata a google maps per recuperare lat-lng
-            if( isNumber(data.lat) && isNumber(data.lng) ){
-                callback( data );
-            } else {
-                new google.maps.Geocoder().geocode( {'address': data.address} , function( results, status ) {
-                    if ( status == google.maps.GeocoderStatus.OK )
-                    {
-                        data.lat = results[0].geometry.location.lat();
-                        data.lng = results[0].geometry.location.lng();
-                        data.evaluatedLatLng = true;
-                    }
+        var tmp_data = [], manage_error = false;
 
-                    callback( data );
-                }, function( error ){
-                    //todo: gestire l'errore alla chiamata a google maps
-                    console.log('google error');
+        if( data ){
+
+            /** divido lat-lng da quelli solo con address */
+            var res = data.filter( function( val ){
+
+                /** se ho le info di lat lng ok! */
+                if( isNumber(val.lat) && isNumber(val.lng) ){
+                    //console.log('lat');
+                    return val;
+                } else {
+                    //console.log('add');
+                    tmp_data.push(val);
+                }
+            });
+
+
+            /** passo al setaccio tutti quelli senza lat-lng e cerco di ricavarne i dati*/
+            tmp_data.forEach( function( val1, index ){
+
+                /** faccio una chiamata a google maps per recuperare lat-lng */
+                googleMaps( val1, function( results ){
+                    //console.log('RES');
+                    if( results ){
+                        res.push(results);
+                    }
+                    if( tmp_data.length === index + 1 ){
+                        callback( res, manage_error );
+                    }
                 })
-            }
+
+            });
+
+
         } else {
-            callback( data );
+            callback( null );
         }
 
 
+        function googleMaps(val, callback){
+            if( val.address ) {
+                new google.maps.Geocoder().geocode( {'address': val.address} , function( results, status ) {
+
+                    if ( status == google.maps.GeocoderStatus.OK )
+                    {
+                        val.lat = results[0].geometry.location.lat();
+                        val.lng = results[0].geometry.location.lng();
+                        val.evaluatedLatLng = true;
+                    } else if( status == google.maps.GeocoderStatus.ZERO_RESULTS ) {
+                        manage_error = true;
+                    }
+
+                    callback(val);
+
+                }, function( error ){ //todo: gestire l'errore alla chiamata a google maps
+                })
+            } else {
+                callback(null);
+            }
+        }
 
         function isNumber(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);

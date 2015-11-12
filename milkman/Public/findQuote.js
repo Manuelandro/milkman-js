@@ -2,9 +2,10 @@ define(['moment',
         '../../milkman/Utils/constants',
         '../../milkman/Private/rangeNormalization',
         '../../milkman/Private/quoteEngine',
-        '../../milkman/Private/quoteHistory'
+        '../../milkman/Private/quoteHistory',
+        '../../milkman/Private/checkRequiredFields'
     ],
-    function ( moment, constants, rangeNormalization, quoteEngine, quoteHistory ) {
+    function ( moment, constants, rangeNormalization, quoteEngine, quoteHistory, checkRequiredFields ) {
         'use strict';
 
         /**
@@ -17,64 +18,74 @@ define(['moment',
             //verifico che l'utente abbia definito questi parametri di interesse,
             //in caso contrario ne assegno uno di default
             var opt = {},
+                isInitialized = checkRequiredFields('init'),
                 merchant = JSON.parse(window.localStorage.getItem( constants.MERCHANT ));
 
+            if( isInitialized ){
+                //HISTORY TRACKING on server
+                quoteHistory('findQuote', options);
 
-            //HISTORY TRACKING on server
-            quoteHistory('findQuote', options);
+                //BASIC USAGE
+                opt.ranges =  options.range ?     //verifico che l'utente abbia definito un range di interesse,
+                    options.range :          //in caso contrario ne assegno uno di default
+                    [window.localStorage.getItem(constants.DEFAULT_RANGE)];
+                opt.quoteNumber = options.quoteNumber ?
+                    options.quoteNumber :
+                    merchant.quoteNumber;
+                opt.maxDuration = options.maxDuration ?        //durata massima dell'evento
+                    options.maxDuration :
+                    merchant.maxDuration;
+                opt.quotePerDate = options.quotePerDate ?
+                    options.quotePerDate :
+                    merchant.quotePerDate;
+                opt.overlap = options.overlap ?
+                    options.overlap :
+                    merchant.overlap;
+                opt.minDuration = options.minDuration ?        //durata massima dell'evento
+                    options.minDuration : 1;
 
-            //BASIC USAGE
-            opt.ranges =  options.range ?     //verifico che l'utente abbia definito un range di interesse,
-                options.range :          //in caso contrario ne assegno uno di default
-                [window.localStorage.getItem(constants.DEFAULT_RANGE)];
-            opt.quoteNumber = options.quoteNumber ?
-                options.quoteNumber :
-                merchant.quoteNumber;
-            opt.maxDuration = options.maxDuration ?        //durata massima dell'evento
-                options.maxDuration :
-                merchant.maxDuration;
-            opt.quotePerDate = options.quotePerDate ?
-                options.quotePerDate :
-                merchant.quotePerDate;
-            opt.overlap = options.overlap ?
-                options.overlap :
-                merchant.overlap;
-            opt.minDuration = options.minDuration ?        //durata massima dell'evento
-                options.minDuration : 1;
+                //RANGE MANAGES
+                opt.weekdays = options.weekdays ?
+                    options.weekdays : null;
+                opt.hours = options.hours ?
+                    options.hours : null;
+                opt.morning = options.morning ?
+                    options.morning : null;
+                opt.afternoon = options.afternoon ?
+                    options.afternoon : null;
 
-            //RANGE MANAGES
-            opt.weekdays = options.weekdays ?
-                options.weekdays : null;
-            opt.hours = options.hours ?
-                options.hours : null;
-            opt.morning = options.morning ?
-                options.morning : null;
-            opt.afternoon = options.afternoon ?
-                options.afternoon : null;
-
-            //PRICE MANAGES
-            opt.distribution = options.distribution ?
-                options.distribution : null;
+                //PRICE MANAGES
+                opt.distribution = options.distribution ?
+                    options.distribution : null;
 
 
-            //IF: check options existence
-            if( Object.keys(options).length )
-            {
+                //IF: check options existence
+                if( Object.keys(options).length )
+                {
 
-                rangeNormalization( opt, function( formatted ){
+                    rangeNormalization( opt, function( formatted ){
 
-                    if( formatted.success ){
-                        opt.ranges = formatted.ranges;
-                        quoteEngine( 'findQuote', opt, callback );
-                    }
-                    else {
-                        callback( formatted );
-                    }
+                        if( formatted.success ){
+                            opt.ranges = formatted.ranges;
+                            quoteEngine( 'findQuote', opt, callback );
+                        }
+                        else {
+                            callback( formatted );
+                        }
+                    });
+                }
+                //ELSE: none options, we use defaults
+                else {
+                    quoteEngine( 'findQuote', opt, callback );
+                }
+
+
+            } else {  //isInitialized === false
+                callback({
+                    success: false,
+                    text: constants.ERROR.BAD_REQUEST_400,
+                    errorMessage: 'You need to set required fields before.'
                 });
-            }
-            //ELSE: none options, we use defaults
-            else {
-                quoteEngine( 'findQuote', opt, callback );
             }
         };
     });

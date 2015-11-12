@@ -18,7 +18,7 @@ define(['../../milkman/Private/makeUrlServer',
                 isInitialized = checkRequiredFields('init');
 
             //CHECK required field
-            if( isInitialized && data.value ){
+            if( isInitialized && data.value && data.firstAvailableDay && data.auxCost ){
 
                 request( url, 'PUT', {
                     sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
@@ -29,7 +29,7 @@ define(['../../milkman/Private/makeUrlServer',
                     if ( result.success )
                     {
                         //salvo localmente il riferimento all'avvenuto salvataggio dell'address
-                        constants.requiredFields['cart'] = true;
+                        window.localStorage.setItem(constants.REQUIRED_CART, true);
 
                         callback({
                             success: true,
@@ -50,7 +50,7 @@ define(['../../milkman/Private/makeUrlServer',
                     callback({
                         success: false,
                         text: constants.ERROR.BAD_REQUEST_400,
-                        errorMessage: 'Value is required fields.'
+                        errorMessage: 'Value, FirstAvailableDay and AuxCost are required fields.'
                     });
                 } else {
                     callback({

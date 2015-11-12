@@ -32,28 +32,78 @@ if (typeof require === 'function' && require.config) {
 }(this, function (milkman, $) {
     'use strict';
 
-    milkman.setInit( milkman.defaults.SETTINGS_1, function( result ) {
-        test('SUCCESS TEST: con publishableKey e redirectUri creo sessione correttamente', function() {
-            equal(result.success, true, result.text)});
+
+    window.localStorage.removeItem('addresses');
+    window.localStorage.removeItem('default_range');
+    window.localStorage.removeItem('hub');
+    window.localStorage.removeItem('merchant');
+    window.localStorage.removeItem('proposal_id');
+    window.localStorage.removeItem('publishable_key');
+    window.localStorage.removeItem('redirect_uri');
+    window.localStorage.removeItem('session_token');
+
+    milkman.setInit( milkman.defaults.SET_A1, function( result ) {
+        test('TEST A1: p.key + uri + track. no cart', function() {
+            equal(result.status, 'failure', result.text+': '+result.error_message)});
     });
-    milkman.setInit( milkman.defaults.ERR1_SETTINGS, function( result ) {
-        test('ERROR TEST: senza publishableKey non posso procedere', function() {
-            equal(result.success, false, result.text)});
+    milkman.setInit( milkman.defaults.SET_A2, function( result ) {
+        test('TEST A2: only p.key', function() {
+            equal(result.status, 'failure', result.text+': '+result.error_message)});
     });
-    milkman.setInit( milkman.defaults.ERR2_SETTINGS, function( result ) {
-        test('ERROR TEST: senza redirectUri non posso procedere', function() {
-            equal(result.success, false, result.text)});
+    milkman.setInit( milkman.defaults.SET_A3, function( result ) {
+        test('TEST A3: only uri', function() {
+            equal(result.status, 'failure', result.text+': '+result.error_message)});
     });
-    milkman.setInit( milkman.defaults.SETTINGS_2, function( result ) {
-        test('SUCCESS TEST: Address non include lat e lng quindi se li calcola e procede senza problemi', function() {
-            equal(result.success, true, result.text)});
+    milkman.setInit( milkman.defaults.SET_A4, function( result ) {
+        test('TEST A4: only track', function() {
+            equal(result.status, 'failure', result.text+': '+result.error_message)});
     });
-    milkman.setInit( milkman.defaults.SETTINGS_3, function( result ) {
-        test('SUCCESS TEST: Address include lat e lng e address quindi procedo senza problemi', function() {
-            equal(result.success, true, result.text)});
+    milkman.setInit( milkman.defaults.SET_A5, function( result ) {
+        test('TEST A5: base + pickup id', function() {
+            equal(result.status, 'success', result.text)});
     });
-    milkman.setInit( milkman.defaults.SETTINGS_4, function( result ) {
-        test('SUCCESS TEST: mando a server dati relativi a cart', function() {
-            equal(result.success, true, result.text)});
+    milkman.setInit( milkman.defaults.SET_A6, function( result ) {
+        test('TEST A6: base + pickup address + latlng', function() {
+            equal(result.status, 'success', result.text)});
+    });
+    milkman.setInit( milkman.defaults.SET_A7, function( result ) {
+        test('TEST A7: base + pickup address', function() {
+            equal(result.status, 'success', result.text)});
+    });
+    milkman.setInit( milkman.defaults.SET_A8, function( result ) {
+        test('TEST A8: base + pickup latlng', function() {
+            equal(result.status, 'success', result.text)});
+    });
+    milkman.setInit( milkman.defaults.SET_A9, function( result ) {
+        test('TEST A9: base + no pickup required', function() {
+            equal(result.status, 'failure', result.text)});
+    });
+    milkman.setInit( milkman.defaults.SET_A10, function( result ) {
+        test('TEST A10: base + multiple choice', function() {
+            equal(result.status, 'success', result.text)});
+    });
+    milkman.setInit( milkman.defaults.SET_A11, function( result ) {
+        test('TEST A11: base + multiple choice  + error', function() {
+            equal(result.status, 'failure', result.text+': '+result.error_message)});
+    });
+    milkman.setInit( milkman.defaults.SET_A12, function( result ) {
+        test('TEST A12: base + cart value', function() {
+            equal(result.status, 'failure', result.text+': '+result.error_message)});
+    });
+    milkman.setInit( milkman.defaults.SET_A13, function( result ) {
+        test('TEST A13: base + cart firstday', function() {
+            equal(result.status, 'failure', result.text+': '+result.error_message)});
+    });
+    milkman.setInit( milkman.defaults.SET_A14, function( result ) {
+        test('TEST A14: base + cart auxcost', function() {
+            equal(result.status, 'failure', result.text+': '+result.error_message)});
+    });
+    milkman.setInit( milkman.defaults.SET_A15, function( result ) {
+        test('TEST A15: base + cart weight', function() {
+            equal(result.status, 'failure', result.text+': '+result.error_message)});
+    });
+    milkman.setInit( milkman.defaults.SET_A16, function( result ) {
+        test('TEST A16: base + cart other', function() {
+            equal(result.status, 'failure', result.text+': '+result.error_message)});
     });
 }));

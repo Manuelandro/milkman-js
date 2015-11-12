@@ -5,106 +5,397 @@ define({
     /**
      * CHECK SET-INIT
      */
-    SETTINGS_1: {
+    SET_A1: {
         publishableKey: 'test-public-key',
-        redirectUri: 'http://localhost:3003'
+        redirectUri: 'http://localhost:3003',
+        trackingCode: 'prova123'
     },
-    ERR1_SETTINGS: {
+    SET_A2: {
+        publishableKey: 'test-public-key',
+        redirectUri: '',
+        trackingCode: ''
+    },
+    SET_A3: {
         publishableKey: '',
-        redirectUri: 'http://localhost:3003'
+        redirectUri: 'http://localhost:3003',
+        trackingCode: ''
     },
-    ERR2_SETTINGS: {
-        publishableKey: 'test-public-key',
-        redirectUri: ''
+    SET_A4: {
+        publishableKey: '',
+        redirectUri: '',
+        trackingCode: 'prova123'
     },
-    SETTINGS_3: {
+    SET_A5: {
         publishableKey: 'test-public-key',
         redirectUri: 'http://localhost:3003',
-        address:
-        {
-            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-            lat: null,
-            lng: null,
-            heading: null,
-            pitch: null,
-            deliverInstructions: 'Beware the dog'
-        }
+        trackingCode: 'prova123',
+        cart: [
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    id: 'ciaoaoaoaoaoao'
+                }
+            }
+        ]
     },
-    SETTINGS_2: {
+    SET_A6: {
         publishableKey: 'test-public-key',
         redirectUri: 'http://localhost:3003',
-        address:
-        {
-            address: '',
-            lat: 40.372186,
-            lng: -74.01118099999997,
-            heading: 36.94424778789316,
-            pitch: -6.11509517212225,
-            deliverInstructions: 'Beware the dog'
-        }
+        trackingCode: 'prova123',
+        cart: [
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+                    lat: 40.372186,
+                    lng: -74.01118099999997
+                }
+            }
+        ]
     },
-
-
-    SETTINGS_4: {
+    SET_A7: {
         publishableKey: 'test-public-key',
         redirectUri: 'http://localhost:3003',
-        carts:
-        {
-            firstAvailableDay: '2015-10-18',
-            value: 100,
-            auxCost: 5.5,
-            type: 'standard',
-            weight: 1,
-            length: 1,
-            height: 1,
-            depth: 1,
-            volume: 300
-        }
+        trackingCode: 'prova123',
+        cart: [
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+                }
+            }
+        ]
+    },
+    SET_A8: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        trackingCode: 'prova123',
+        cart: [
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    lat: 40.372186,
+                    lng: -74.01118099999997
+                }
+            }
+        ]
+    },
+    SET_A9: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        trackingCode: 'prova123',
+        cart: [
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    type: 'standard',
+                    length: 1,
+                    height: 1,
+                    depth: 1,
+                    volume: 300
+                }
+            }
+        ]
+    },
+    SET_A10: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        trackingCode: 'prova123',
+        cart: [
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    id: 'ciaoaoaoaoaoao'
+                }
+            },
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+                    lat: 40.372186,
+                    lng: -74.01118099999997
+                }
+            },
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+                }
+            },
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    lat: 40.372186,
+                    lng: -74.01118099999997
+                }
+            }
+        ]
+    },
+    SET_A11: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        cart: [
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+                    lat: 40.372186,
+                    lng: -74.01118099999997
+                }
+            },
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    id: 'ciaoaoaoaoaoao'
+                }
+            },
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    lat: 40.372186,
+                    lng: -74.01118099999997
+                }
+            },
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+                }
+            },
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {}
+            },
+            {
+                firstAvailableDay: '2015-10-18T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    id: '',
+                    address: '',
+                    lat: null,
+                    lng: ''
+                }
+            }
+        ]
 
     },
+    SET_A12: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        cart: [
+            {
+                value: 100
+            }
+        ]
 
+    },
+    SET_A13: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        cart: [
+            {
+                firstAvailableDay: '2015-10-18'
+            }
+        ]
+    },
+    SET_A14: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        cart: [
+            {
+                auxCost: 5.5
+            }
+        ]
+    },
+    SET_A15: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        cart: [
+            {
+                weight: 5.5
+            }
+        ]
+    },
+    SET_A16: {
+        publishableKey: 'test-public-key',
+        redirectUri: 'http://localhost:3003',
+        cart: [
+            {
+                type: 'standard',
+                length: 1,
+                height: 1,
+                depth: 1,
+                volume: 300
+            }
+        ]
+    },
 
     /**
      * CHECK SET-ADDRESS
      */
-    CHECK_SETT_ADDRESS_1: {
-        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-        lat: 40.372186,
-        lng: -74.01118099999997,
-        heading: 36.94424778789316,
-        pitch: -6.11509517212225,
-        deliverInstructions: 'Beware the dog'
-    },
-    CHECK_SETT_ADDRESS_2: {
+    SET_B1: [
+        {
             address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-            deliverInstructions: 'Beware the dog'
-    },
-    CHECK_SETT_ADDRESS_3: {
-            address: 'blablablablablabla',
-            deliverInstructions: 'Beware the dog'
-    },
-    CHECK_SETT_ADDRESS_4: {
             lat: 40.372186,
             lng: -74.01118099999997,
-            deliverInstructions: 'Beware the dog'
-    },
-    CHECK_SETT_ADDRESS_ERR1: {
-            address: '',
-            deliverInstructions: 'Beware the dog'
-    },
-    CHECK_SETT_ADDRESS_ERR2: {
-            lat: '',
-            lng: '',
             heading: 36.94424778789316,
             pitch: -6.11509517212225,
             deliverInstructions: 'Beware the dog'
-    },
-    CHECK_SETT_ADDRESS_ERR3: {
-            heading: 36.94424778789316,
-            pitch: -6.11509517212225,
-            deliverInstructions: 'Beware the dog'
-    },
+        }
+    ],
+    SET_B2: [
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+        }
+    ],
+    SET_B3: [
+        {
+            address: 'blablablablablabla'
+        }
+    ],
 
+    SET_B4: [
+        {
+            lat: 40.372186,
+            lng: -74.01118099999997
+        }
+    ],
+    SET_B5: [
+        {
+            deliverInstructions: 'Beware the dog'
+        }
+    ],
+    SET_B6: [
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+            lat: 40.372186,
+            lng: -74.01118099999997,
+            heading: 36.94424778789316,
+            pitch: -6.11509517212225,
+            deliverInstructions: 'Beware the dog'
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+            lat: 40.372186,
+            lng: -74.01118099999997,
+            heading: 36.94424778789316,
+            pitch: -6.11509517212225,
+            deliverInstructions: 'Beware the dog'
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+            lat: 40.372186,
+            lng: -74.01118099999997,
+            heading: 36.94424778789316,
+            pitch: -6.11509517212225,
+            deliverInstructions: 'Beware the dog'
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+        },
+
+        {
+            lat: 40.372186,
+            lng: -74.01118099999997
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+        },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+        }
+
+    ],
+    SET_B7: [
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+            lat: 40.372186,
+            lng: -74.01118099999997,
+            heading: 36.94424778789316,
+            pitch: -6.11509517212225,
+            deliverInstructions: 'Beware the dog'
+        },
+        {
+            address: 'blablablablablabla'
+        },
+        {
+            lat: 40.372186,
+            lng: -74.01118099999997
+        }
+    ],
+    SET_B8: [
+        {
+            lat: '',
+            lng: 'ciao ciao'
+        }
+    ],
+    SET_B9: [
+        {
+            address: ''
+        }
+    ],
 
 
     QUOTES: {

@@ -14,65 +14,79 @@ define(['../../milkman/Private/makeUrlServer',
          *  @PARAM: Function
          */
         return function setAddress( data, callback ) {
-            var url = makeUrlServer('/sessionDetails'), normalizedAddress,
-                isInitialized = checkRequiredFields('init');
+            var url = makeUrlServer('/sessionDetails'),
+                setInit_isDone = checkRequiredFields('init');
 
-            //setto il fatto che i dati, ora come ora, sono inseriti dall'utente
-            data['evaluatedLatLng'] = false;
-            //CHECK required field
-            if( isInitialized &&
-                data.address || data.lat && data.lng ){
+            /** CHECK required field */
+            if( setInit_isDone ){
+                checkAddress( data, function( normaAddresses, error ){
 
-                checkAddress( data, function( normalizedAddress ){
-                    console.log('normalizedAddress:'+JSON.stringify(normalizedAddress));
-                    request( url, 'PUT', {
-                        sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
-                        publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
-                        address: normalizedAddress
-                    }, function( result ) {
+                    //console.log('normaAddresses: '+JSON.stringify(normaAddresses));
+                    //console.log('length: '+JSON.stringify(normaAddresses.length));
 
-                        if ( result.success )
-                        {
-                            //salvo localmente il riferimento all'avvenuto salvataggio dell'address
-                            constants.requiredFields['address'] = true;
+                    /** verifico che ci sia almeno un risultato valido*/
+                    if( normaAddresses.length ){
+                        request( url, 'PUT', {
+                            sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
+                            publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
+                            proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
+                            address: normaAddresses
+                        }, function( result ) {
 
-                            callback({
-                                success: true,
-                                data: normalizedAddress,
-                                text: constants.SUCCESS.OK_200
-                            });
-                        }
-                        else
-                        {
-                            callback({
-                                success: false,
-                                text: result.jqXHR
-                            });
-                        }
-                    })
+                            if ( result.success )
+                            {
+                                /** salvo nel local storage gli addresses */
+                                window.localStorage.setItem(constants.ADDRESS, JSON.stringify(normaAddresses));
+
+                                /** verifico che tutti gli addresses rispettino i vincoli */
+                                if( error ){
+                                    callback({
+                                        status: 'warning',
+                                        text: constants.STATUS.WARNING.ADDRESS_ZERO_RESULTS
+                                    });
+                                }
+                                else if( normaAddresses.length === data.length ) {
+                                    callback({
+                                        status: 'success',
+                                        text: constants.SUCCESS.OK_200
+                                    });
+                                }
+                                else {
+                                    callback({
+                                        status: 'warning',
+                                        text: constants.STATUS.WARNING.ADDRESS_INCORRECT
+                                    });
+                                }
+                            }
+                            else
+                            {
+                                callback({
+                                    status: 'failure',
+                                    text: result.jqXHR
+                                });
+                            }
+                        });
+                    } else {
+                        callback({
+                            status: 'failure',
+                            text: constants.STATUS.FAILURE.BAD_REQUEST_400,
+                            errorMessage: constants.ERROR_MESSAGE.MISSING
+                        });
+                    }
+
                 });
 
             } else {
-
-                if( isInitialized ){
-                    callback({
-                        success: false,
-                        text: constants.ERROR.BAD_REQUEST_400,
-                        errorMessage: 'Address or Lat&Lng are required fields.'
-                    });
-                } else {
-                    callback({
-                        success: false,
-                        text: constants.ERROR.BAD_REQUEST_400,
-                        errorMessage: 'You need to set publichable key and merchant URI before.'
-                    });
-                }
-
+                callback({
+                    status: 'failure',
+                    text: constants.STATUS.FAILURE.BAD_REQUEST_400,
+                    errorMessage: constants.ERROR_MESSAGE.NO_PUBKEY_URI
+                });
             }
 
-            function isNumber(n) {
-                return !isNaN(parseFloat(n)) && isFinite(n);
-            }
+            //function isNumber(n) {
+            //    return !isNaN(parseFloat(n)) && isFinite(n);
+            //}
 
         }
     });
