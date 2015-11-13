@@ -312,73 +312,16 @@ define({
 
     SET_B6: [
         { address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti' },
-        { address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti' },
+        {
+            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
+            lat: 40.372186,
+            lng: -74.01118099999997,
+            heading: 36.94424778789316,
+            pitch: -6.11509517212225,
+            deliverInstructions: 'Beware the dog'
+        },
         { address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti' }
     ],
-
-    //SET_B6: [
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-    //        lat: 40.372186,
-    //        lng: -74.01118099999997,
-    //        heading: 36.94424778789316,
-    //        pitch: -6.11509517212225,
-    //        deliverInstructions: 'Beware the dog'
-    //    },
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    },
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-    //        lat: 40.372186,
-    //        lng: -74.01118099999997,
-    //        heading: 36.94424778789316,
-    //        pitch: -6.11509517212225,
-    //        deliverInstructions: 'Beware the dog'
-    //    },
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    },
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    },
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',
-    //        lat: 40.372186,
-    //        lng: -74.01118099999997,
-    //        heading: 36.94424778789316,
-    //        pitch: -6.11509517212225,
-    //        deliverInstructions: 'Beware the dog'
-    //    },
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    },
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    },
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    },
-    //    //{
-    //    //    address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    //},
-    //    {
-    //        lat: 40.372186,
-    //        lng: -74.01118099999997
-    //    },
-    //    //{
-    //    //    address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    //},
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    },
-    //    {
-    //        address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    //},
-    //    //{
-    //    //    address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
-    //    }
-    //],
     SET_B7: [
         {
             address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti',

@@ -15,7 +15,6 @@ define([
          *  @PARAM:
          *
          */
-
         return function quotation( ranges, intervals, callback ) {
             var url = makeUrlServer( '/quotation' );
 
@@ -25,21 +24,21 @@ define([
                     sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
                     publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY)
                 }, function( result ) {
-                    //save the new discount
+                    /** save the new discount */
                     constants.discounts = result.data.session.discounts;
-                    //save the new intervals
+                    /** save the new intervals */
                     result.data.session.intervals.forEach(function( new_interval ){
                         constants.intervals.push( new_interval );
                     });
 
-                    //ritorna gli intervalli di interesse
+                    /** ritorna gli intervalli di interesse */
                     check_interval( ranges, constants.intervals, function( intervals_of_interest ){
                         callback( intervals_of_interest );
                     });
                 });
             } else {
 
-                //ritorna gli intervalli di interesse
+                /** ritorna gli intervalli di interesse */
                 check_interval( ranges, constants.intervals, function( intervals_of_interest ){
                     callback( intervals_of_interest );
                 });

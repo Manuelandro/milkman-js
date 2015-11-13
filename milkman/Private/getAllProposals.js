@@ -18,21 +18,21 @@ define([ 'moment' ],
                     day = idi.interval.split('T')[0],
                     init_bound = idi.interval.split('/')[0].split('T')[1];
 
-                //calcolo maxDuration possibilità a partire da idi corrente
+                /** calcolo maxDuration possibilità a partire da idi corrente */
                 for ( var i = 0; i < maxDuration; i++ ){
 
 
-                    if( index + i +1 <= data.idi.length && //se non sono arrivata alla fine dell'array
-                        minDuration <= i ){  //se rispetto il vincolo della dimensione minima del blocco
+                    if( index + i +1 <= data.idi.length && /** se non sono arrivata alla fine dell'array */
+                        minDuration <= i ){  /** se rispetto il vincolo della dimensione minima del blocco */
 
                         var tmp_day = data.idi[index + i].interval.split('T')[0],
                             tmp_p = data.idi[index + i].price * data.idi[index + i].weight,
                             final_bound = data.idi[index + i].interval.split('T')[2];
 
-                        //se la data del primo intervallo e dell'ultimo coincidono procedo
+                        /** se la data del primo intervallo e dell'ultimo coincidono procedo */
                         if( moment(tmp_day).diff(moment(day)) === 0 ){
 
-                            //calcolo l'intervallo di sconto
+                            /** calcolo l'intervallo di sconto */
                             var tmp_discount = setDiscount(data.disc, i);
 
                             tmp_best_choices.push({
@@ -48,13 +48,13 @@ define([ 'moment' ],
                     }
                 }
 
-                //tengo tutti i ranges
+                /** tengo tutti i ranges */
                 tmp_best_choices.forEach(function( range ){
                     best_choices.push(range);
                 });
             });
 
-            //ordino i ranges in base al prezzo finale
+            /** ordino i ranges in base al prezzo finale */
             best_choices.sort(function(a, b) {
                 return parseFloat(a.f_price) - parseFloat(b.f_price);
             });

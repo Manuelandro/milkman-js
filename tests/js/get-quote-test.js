@@ -32,36 +32,33 @@ if (typeof require === 'function' && require.config) {
 }(this, function (milkman, $) {
     'use strict';
 
+    window.localStorage.removeItem('addresses');
+    window.localStorage.removeItem('default_range');
+    window.localStorage.removeItem('hub');
+    window.localStorage.removeItem('merchant');
+    window.localStorage.removeItem('proposal_id');
+    window.localStorage.removeItem('publishable_key');
+    window.localStorage.removeItem('redirect_uri');
+    window.localStorage.removeItem('session_token');
 
+    milkman.setInit( milkman.defaults.SET_A5, function( ) {
+        milkman.setAddress( milkman.defaults.SET_B2, function( result ) {
+            //var merchant_weekdays = [true, true, true, true, true, false, false];
+            var object = {
+                range:[
+                    '2015-12-14T08:01/2015-12-14T08:55'
+                ]//,
+                //weekdays: [ 1, 3, 5, 6 ],
+                //hours: [ '09:30/10:00', '13:30/14:00' ]
+            };
 
-    //verifico che se passo range senza [] lo inserisce la funzione
-    milkman.setInit( milkman.defaults.SETTINGS_1, function( result, moment ) {
-
-        //var merchant_weekdays = [true, true, true, true, true, false, false];
-        var object = {
-            range:[
-                //'2015-10-26/2015-10-29',
-                '2015-10-30T09:00/2015-10-30T15:00',
-                //'2015-10-31',
-                //'2015-11-02'
-            ],
-            weekdays: [ 1, 3, 5, 6 ],
-            hours: [ '09:30/10:00', '13:30/14:00' ]
-
-            //morning: true,
-            //afternoon: true
-        };
-
-        milkman.getQuote(object, function( results ){
-
-            console.log('results: '+JSON.stringify( results ));
-
-            test('authenticate test SETTINGS', function() {
-                equal(true, true, result.text)
+            milkman.getQuote(object, function( result ){
+                test('authenticate test SETTINGS', function() {
+                    equal(result.status, 'success', result.text)
+                });
             });
 
         });
-
     });
 
 }));

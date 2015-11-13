@@ -70,7 +70,10 @@ define(['moment',
                             quoteEngine( 'findQuote', opt, callback );
                         }
                         else {
-                            callback( formatted );
+                            callback({
+                                status: 'failure',
+                                text: formatted.text
+                            });
                         }
                     });
                 }
@@ -82,9 +85,9 @@ define(['moment',
 
             } else {  //isInitialized === false
                 callback({
-                    success: false,
-                    text: constants.ERROR.BAD_REQUEST_400,
-                    errorMessage: 'You need to set required fields before.'
+                    status: 'failure',
+                    text: constants.STATUS.FAILURE.BAD_REQUEST_400,
+                    errorMessage: constants.ERROR_MESSAGE.NEED_REQUIRED
                 });
             }
         };

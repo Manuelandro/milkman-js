@@ -35,15 +35,15 @@ define([ '../../milkman/Private/makeUrlServer',
                         constants.quotes = result.data.quote;
 
                         callback({
-                            success: true,
-                            text: constants.SUCCESS.OK_200,
+                            status: 'success',
+                            text: constants.STATUS.SUCCESS.OK_200,
                             quotes: result.data.quote
                         });
                     }
                     else
                     {
                         callback({
-                            success: false,
+                            status: 'failure',
                             text: result.jqXHR
                         });
                     }
@@ -51,8 +51,8 @@ define([ '../../milkman/Private/makeUrlServer',
 
             } else {
                 callback({
-                    success: false,
-                    text: constants.ERROR.UNAUTHORIZED_401
+                    status: 'failure',
+                    text: constants.STATUS.FAILURE.UNAUTHORIZED_401
                 });
             }
         }

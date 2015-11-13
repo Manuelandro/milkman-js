@@ -9,11 +9,10 @@ define(['moment',
          * get all the local intervals and find the missing once
          *
          */
-
         return function checkMissingDates( ranges, callback ) {
-            //IF: ho qualche dato in memoria controllo di avere tutti gli intervalli
-            // di interesse
-
+            /**
+             * IF: ho qualche dato in memoria controllo di avere tutti gli intervalli di interesse
+             */
             if ( constants.intervals.length ){
                 var arr = [];
 
@@ -21,13 +20,13 @@ define(['moment',
                     var day_one = range.split('T')[0],
                         range_days = moment(range.split('/')[1].split('T')[0]).diff(moment(day_one), 'days');
 
-                    //per tutti i giorni compresi nel range di interesse verifico se
+                    /** per tutti i giorni compresi nel range di interesse verifico se */
                     for (var i = 0; i <= range_days; i++) {
                         var isBound = false;
                         var dayToCheck = null;
                         dayToCheck = moment(day_one).add(i, 'days');
 
-                        //se torna almeno un valore allora la data è in nostro possesso
+                        /** se torna almeno un valore allora la data è in nostro possesso */
                         constants.intervals.forEach(function (row, index) {
 
                             var start = moment(row.interval.split('T')[0]),
@@ -38,7 +37,7 @@ define(['moment',
                             }
 
                             if (!isBound && index + 1 === constants.intervals.length) {
-                                //verifico che il giorno non sia uno di quelli disabilitati
+                                /** verifico che il giorno non sia uno di quelli disabilitati */
                                 if( checkDayAvailability(dayToCheck) ){
                                     arr.push(dayToCheck.format('YYYY-MM-DD') + '/' + dayToCheck.format('YYYY-MM-DD'));
                                 }
@@ -49,7 +48,7 @@ define(['moment',
 
                 callback( arr );
 
-                //ELSE: ritorno tutto il range di interesse
+                /** ELSE: ritorno tutto il range di interesse */
             } else {
                 callback( ranges );
             }

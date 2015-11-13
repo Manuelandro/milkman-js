@@ -49,14 +49,14 @@ define(['../../milkman/Private/makeUrlServer',
                 if( isInitialized ){
                     callback({
                         success: false,
-                        text: constants.ERROR.BAD_REQUEST_400,
-                        errorMessage: 'Value, FirstAvailableDay and AuxCost are required fields.'
+                        text: constants.STATUS.FAILURE.BAD_REQUEST_400,
+                        errorMessage: constants.ERROR_MESSAGE.REQUIRED_AUXCOST_FIRSTDAY
                     });
                 } else {
                     callback({
                         success: false,
-                        text: constants.ERROR.BAD_REQUEST_400,
-                        errorMessage: 'You need to set publichable key and merchant URI before.'
+                        text: constants.STATUS.FAILURE.BAD_REQUEST_400,
+                        errorMessage: constants.ERROR_MESSAGE.NEED_REQUIRED
                     });
                 }
 

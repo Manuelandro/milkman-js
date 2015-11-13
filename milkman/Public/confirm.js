@@ -73,11 +73,11 @@ define([ '../../milkman/Private/makeUrlServer',
                                     window.localStorage.removeItem(constants.HUB);
 
                                     callback({
-                                        success: true
+                                        status: 'success'
                                     });
                                 } else {
                                     callback({
-                                        success: false,
+                                        status: 'failure',
                                         text: result.text
                                     });
                                 }
@@ -86,7 +86,7 @@ define([ '../../milkman/Private/makeUrlServer',
                             :
 
                             callback({
-                                success: false,
+                                status: 'failure',
                                 text: result.jqXHR
                             });
                     });
@@ -98,8 +98,8 @@ define([ '../../milkman/Private/makeUrlServer',
 
         } else {  //isInitialized === false
             callback({
-                success: false,
-                text: constants.ERROR.BAD_REQUEST_400,
+                status: 'failure',
+                text: constants.STATUS.FAILURE.BAD_REQUEST_400,
                 errorMessage: 'You need to set required fields before.'
             });
         }

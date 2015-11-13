@@ -34,7 +34,7 @@ define([ '../milkman/Private/makeUrlServer',
 
                 callback({
                     success: false,
-                    text: constants.ERROR.BAD_REQUEST_400
+                    text: constants.STATUS.FAILURE.BAD_REQUEST_400
                 });
         }
 

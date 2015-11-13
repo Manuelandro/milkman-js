@@ -36,7 +36,7 @@ define(['../../milkman/Private/makeUrlServer',
                             if ( result.success )
                             {
                                 /** salvo nel local storage gli addresses */
-                                window.localStorage.setItem(constants.ADDRESS, JSON.stringify(normaAddresses));
+                                window.localStorage.setItem(constants.ADDRESSES, JSON.stringify(normaAddresses));
 
                                 /** verifico che tutti gli addresses rispettino i vincoli */
                                 if( error ){
@@ -83,10 +83,5 @@ define(['../../milkman/Private/makeUrlServer',
                     errorMessage: constants.ERROR_MESSAGE.NO_PUBKEY_URI
                 });
             }
-
-            //function isNumber(n) {
-            //    return !isNaN(parseFloat(n)) && isFinite(n);
-            //}
-
         }
     });

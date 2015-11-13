@@ -9,39 +9,43 @@ define(function() {
      */
 
     return function checkAddress( data, callback ) {
-        var tmp_data = [], manage_error = false;
+        var res = [], tmp_data = [], manage_error = false;
 
         if( data ){
 
             /** divido lat-lng da quelli solo con address */
-            var res = data.filter( function( val ){
+            data.forEach( function( val, index ){
 
                 /** se ho le info di lat lng ok! */
                 if( isNumber(val.lat) && isNumber(val.lng) ){
-                    return val;
+                    res.push(val);
                 } else {
                     tmp_data.push(val);
                 }
-            });
 
+                if( index + 1 === data.length ){
 
-            /** passo al setaccio tutti quelli senza lat-lng e cerco di ricavarne i dati*/
-            tmp_data.forEach( function( val1, index ){
+                    if( tmp_data.length ){
+                        /** passo al setaccio tutti quelli senza lat-lng e cerco di ricavarne i dati*/
+                        tmp_data.forEach( function( val1, index ){
 
-                /** faccio una chiamata a google maps per recuperare lat-lng
-                 * ATTENZIONE: non posso fare più di 10 chimaate al secondo a google
-                 * */
-                googleMaps( val1, function( results ){
-                    if( results ){
-                        res.push(results);
-                    }
-                    if( tmp_data.length === index + 1 ){
+                            /** faccio una chiamata a google maps per recuperare lat-lng
+                             * ATTENZIONE: non posso fare più di 10 chimaate al secondo a google
+                             * */
+                            googleMaps( val1, function( results ){
+                                if( results ){
+                                    res.push(results);
+                                }
+                                if( tmp_data.length === index + 1 ){
+                                    callback( res, manage_error );
+                                }
+                            })
+                        });
+                    } else {
                         callback( res, manage_error );
                     }
-                })
-
+                }
             });
-
 
         } else {
             callback( null );

@@ -30,14 +30,14 @@ define(['../../milkman/Private/makeUrlServer',
                     if ( result.success )
                     {
                         callback({
-                            success: true,
-                            text: constants.SUCCESS.OK_200
+                            status: 'success',
+                            text: constants.STATUS.SUCCESS.OK_200
                         }, moment);
                     }
                     else
                     {
                         callback({
-                            success: false,
+                            status: 'failure',
                             text: result.jqXHR
                         });
                     }
@@ -46,9 +46,9 @@ define(['../../milkman/Private/makeUrlServer',
             } else {
 
                 callback({
-                    success: false,
-                    text: constants.ERROR.BAD_REQUEST_400,
-                    errorMessage: 'You need to set publichable key and merchant URI before.'
+                    status: 'failure',
+                    text: constants.STATUS.FAILURE.BAD_REQUEST_400,
+                    errorMessage: constants.ERROR_MESSAGE.NO_PUBKEY_URI
                 });
             }
 

@@ -7,26 +7,22 @@ define([
 
         /**
          *
-         *  @PARAM:
-         *  @PARAM:
-         *
          */
-
         return function setPrice( ranges, intervals_of_interest, callback ) {
             intervals_of_interest.length ?
 
                 price_engine( intervals_of_interest, function( price ) {
                     callback({
-                        success: true,
-                        text: constants.SUCCESS.OK_200,
+                        status: 'success',
+                        text: constants.STATUS.SUCCESS.OK_200,
                         ranges: ranges,
                         price: price
                     });
                 }) :
 
                 callback({
-                    success: false,
-                    text: constants.ERROR.NO_RESULTS_402
+                    status: 'failure',
+                    text: constants.STATUS.FAILURE.NO_RESULTS_402
                 });
         };
     }

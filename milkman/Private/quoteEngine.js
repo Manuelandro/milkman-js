@@ -6,8 +6,8 @@ define([
         '../../milkman/Private/quotation',
         '../../milkman/Private/getAllProposals',
         '../../milkman/Private/setPrice',
-        '../../milkman/Private/choosedProposals',
-        '../../milkman/Private/kebana'
+        '../../milkman/Private/choosedProposals'//,
+       // '../../milkman/Private/kebana'
     ],
 
     function(
@@ -18,8 +18,9 @@ define([
         quotation,
         getAllProposals,
         setPrice,
-        choosedProposals,
-        kebana) {
+        choosedProposals//,
+        //kebana
+    ) {
         'use strict';
 
         /**
@@ -30,31 +31,17 @@ define([
          */
 
         return function quoteEngine( type, opt, callback ) {
-            //console.log('quoteEngine: '+JSON.stringify(opt.ranges));
+            console.log('quoteEngine: '+JSON.stringify(opt.ranges));
+
+            /**
+             * verifico se fra 'opt.ranges' ci sono dei ranges che non ho in locale
+             */
             checkMissingDates( opt.ranges, function( missings ){
-                //se ci sono intervalli mancanti faccio una quotation al sever
-                //e filtro tutti gli intervalli per trovare quelli di interesse
+                /**
+                 *  se ci sono intervalli mancanti faccio una quotation al sever
+                 *  e filtro tutti gli intervalli per trovare quelli di interesse
+                 */
                 quotation(opt.ranges, missings, function( ioi ){
-
-                    //var url = 'http://localhost:9200/milkman/ioi',
-                    //    url_config = 'http://localhost:9200/config/milkman/ioi',
-                    //    config = {
-                    //    "interval": {"type" : "date"},
-                    //    "price":  {"type" : "number"},
-                    //    "weight":  {"type" : "number"},
-                    //    "currency":  {"type" : "string"},
-                    //    "start":  {"type" : "date"},
-                    //    "end":  {"type" : "date"}
-                    //};
-                    //
-                    //kebana( 'POST', url_config, JSON.stringify(config));
-                    //
-                    //ioi.forEach(function( res ){
-                    //    res['start'] = moment(res.interval.split('/')[0]).format("YYYY-MM-DDTHH:mm:ssZ");
-                    //    res['end'] = moment(res.interval.split('/')[1]).format("YYYY-MM-DDTHH:mm:ssZ");
-                    //    kebana('POST', url, JSON.stringify(res));
-                    //});
-
 
                     if( type === 'findQuote' ){
                         /**
@@ -65,7 +52,6 @@ define([
                             opt.maxDuration,
                             opt.minDuration );
                         //sorted_choices.forEach(function(res){console.log(res.day+'   '+res.range+'  '+res.f_price);});
-
                         /**
                          *  restituisce le proposte finali per l'utente
                          */
@@ -80,26 +66,10 @@ define([
 
                         });
 
-                        //console.log(JSON.stringify(result));
-                        ////KEBANA
-                        //url = 'http://localhost:9200/milkman/quote';
-                        //url_config = 'http://localhost:9200/config/milkman/quote';
-                        //config = {
-                        //    "range": {"type" : "date"},
-                        //    "price":  {"type" : "number"},
-                        //    "start":  {"type" : "date"},
-                        //    "end":  {"type" : "date"}
-                        //};
-                        //
-                        //kebana('POST', url_config, JSON.stringify(config));
-                        //
-                        //result.forEach(function( res ){
-                        //    res['start'] = moment(res.range.split('/')[0]).format("YYYY-MM-DDTHH:mm:ssZ");
-                        //    res['end'] = moment(res.range.split('/')[1]).format("YYYY-MM-DDTHH:mm:ssZ");
-                        //    kebana('POST', url, JSON.stringify(res));
-                        //});
-
-                        callback({ success: true, text: 'OK, success.', quotes: result });
+                        callback({
+                            status: 'success',
+                            text: constants.STATUS.SUCCESS.OK_200,
+                            quotes: result });
                     } else {
                         /**
                          *  calcolo il prezzo con sconto
@@ -111,3 +81,23 @@ define([
         };
     }
 );
+
+
+//var url = 'http://localhost:9200/milkman/ioi',
+//    url_config = 'http://localhost:9200/config/milkman/ioi',
+//    config = {
+//    "interval": {"type" : "date"},
+//    "price":  {"type" : "number"},
+//    "weight":  {"type" : "number"},
+//    "currency":  {"type" : "string"},
+//    "start":  {"type" : "date"},
+//    "end":  {"type" : "date"}
+//};
+//
+//kebana( 'POST', url_config, JSON.stringify(config));
+//
+//ioi.forEach(function( res ){
+//    res['start'] = moment(res.interval.split('/')[0]).format("YYYY-MM-DDTHH:mm:ssZ");
+//    res['end'] = moment(res.interval.split('/')[1]).format("YYYY-MM-DDTHH:mm:ssZ");
+//    kebana('POST', url, JSON.stringify(res));
+//});
