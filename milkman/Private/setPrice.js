@@ -21,7 +21,7 @@ define([
                 }) :
 
                 callback({
-                    status: 'failure',
+                    status: 'success',
                     text: constants.STATUS.FAILURE.NO_RESULTS_402
                 });
         };

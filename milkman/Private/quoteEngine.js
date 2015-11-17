@@ -31,8 +31,6 @@ define([
          */
 
         return function quoteEngine( type, opt, callback ) {
-            console.log('quoteEngine: '+JSON.stringify(opt.ranges));
-
             /**
              * verifico se fra 'opt.ranges' ci sono dei ranges che non ho in locale
              */
@@ -41,41 +39,56 @@ define([
                  *  se ci sono intervalli mancanti faccio una quotation al sever
                  *  e filtro tutti gli intervalli per trovare quelli di interesse
                  */
-                quotation(opt.ranges, missings, function( ioi ){
+                quotation(opt.ranges, missings, function( response ){
+                    if( response.success ){
+                        if( type === 'findQuote' ){
+                            /**
+                             *  ritorna un array ordinato con i possibili eventi e i prezzi associati
+                             */
 
-                    if( type === 'findQuote' ){
-                        /**
-                         *  ritorna un array ordinato con i possibili eventi e i prezzi associati
-                         */
-                        var sorted_choices = getAllProposals({
-                            idi: ioi, disc: constants.discounts},
-                            opt.maxDuration,
-                            opt.minDuration );
-                        //sorted_choices.forEach(function(res){console.log(res.day+'   '+res.range+'  '+res.f_price);});
-                        /**
-                         *  restituisce le proposte finali per l'utente
-                         */
-                        var result = [],
-                            tmp_results = choosedProposals(sorted_choices, opt.quoteNumber, opt.quotePerDate, opt.overlap, opt.distribution);
+                            //console.log( JSON.stringify(response.ioi));
+                            var sorted_choices = getAllProposals(
+                                { idi: response.ioi, disc: constants.discounts},
+                                opt.maxDuration,
+                                opt.minDuration );
+                            //sorted_choices.forEach(function(res){console.log(res.day+'   '+res.range+'  '+res.f_price);});
+                            /**
+                             *  restituisce le proposte finali per l'utente
+                             */
+                            var result = [],
+                                tmp_results = choosedProposals(sorted_choices, opt.quoteNumber, opt.quotePerDate, opt.overlap, opt.distribution);
 
-                        tmp_results.forEach(function( res ){
-                            result.push({
-                                range: res.day + 'T' + res.range.split('/')[0] + '/' + res.day + 'T' + res.range.split('/')[1],
-                                price: res.f_price
-                            });
+                            if( tmp_results.length ){
+                                tmp_results.forEach(function( res ){
+                                    result.push({
+                                        ranges: [ res.day + 'T' + res.range.split('/')[0] + '/' + res.day + 'T' + res.range.split('/')[1] ],
+                                        price: res.f_price
+                                    });
+                                });
 
-                        });
+                                callback({
+                                    status: 'success',
+                                    text: constants.STATUS.SUCCESS.OK_200,
+                                    quotes: result });
+                            } else {
+                                callback({
+                                    status: 'failure',
+                                    text: constants.STATUS.FAILURE.NO_RESULTS_402});
+                            }
 
-                        callback({
-                            status: 'success',
-                            text: constants.STATUS.SUCCESS.OK_200,
-                            quotes: result });
+
+                        } else {
+                            /**
+                             *  calcolo il prezzo con sconto
+                             */
+                            setPrice( opt.ranges, response.ioi, callback);
+                        }
                     } else {
-                        /**
-                         *  calcolo il prezzo con sconto
-                         */
-                        setPrice( opt.ranges, ioi, callback);
+                        callback({
+                            status: 'failure',
+                            text: response.text });
                     }
+
                 });
             });
         };
@@ -101,3 +114,5 @@ define([
 //    res['end'] = moment(res.interval.split('/')[1]).format("YYYY-MM-DDTHH:mm:ssZ");
 //    kebana('POST', url, JSON.stringify(res));
 //});
+
+

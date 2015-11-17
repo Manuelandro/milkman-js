@@ -23,7 +23,7 @@ define(['moment',
                     hub.availMon, hub.availTue, hub.availWed,
                     hub.availThu, hub.availFri, hub.availSat, hub.availSun
                 ],
-                ranges, tmp_ranges, norma = [], weekdays;
+                ranges, isHour, tmp_ranges, norma = [], weekdays;
 
             /** definisco i giorni utili della settimana */
             weekdays = getWeekDays( opt.weekdays, hub_weekdays );
@@ -37,8 +37,12 @@ define(['moment',
              * */
             ranges = checksRangeDimension( tmp_ranges, merchant.atomicIntervalDimension, merchant.minDuration );
 
+            /** verifico che gli orari passati siano in un formato valido*/
+            isHour = checkHours( opt.hours, merchant.atomicIntervalDimension, merchant.minDuration );
+
             /** verifico che ci sia almeno un range valido */
-            if( ranges.length ){
+            if( ranges.length && isHour.success ){
+
                 ranges.forEach( function( range ){
 
                     /** get left and right side */
@@ -68,7 +72,7 @@ define(['moment',
                                     /** dati i giorni 'YYYY-MM-DD' li setto con intervalli di tempo */
                                     newInts = setintervals(
                                         dayToCheck.format('YYYY-MM-DD'),
-                                        opt.hours ? opt.hours : null,
+                                        isHour.hours ? isHour.hours : null,
                                         range,
                                         bh_int[0],
                                         bh_int[1] );
@@ -90,17 +94,68 @@ define(['moment',
                     }
                 });
 
-                callback({
-                    success: true,
-                    ranges: norma
-                });
+                /** ultima verifica per controllare chce i range siano consistenti (minima dimensione avvettabile) */
+                tmp_ranges = checksRangeDimension( norma, merchant.atomicIntervalDimension, merchant.minDuration );
+
+                //console.log('NORMA: '+tmp_ranges);
+                if( tmp_ranges.length ){
+                    callback({
+                        success: true,
+                        ranges: tmp_ranges
+                    });
+                } else {
+                    callback({
+                        success: false,
+                        text: constants.STATUS.FAILURE.NO_RESULTS_402
+                    })
+                }
+
             }
             /** se non cè nessun range valido genero errore*/
             else {
-                callback({
-                    success: false,
-                    text: constants.STATUS.FAILURE.RANGE_NOT_VALID
-                });
+
+                isHour.success ?
+                    callback({
+                        success: false,
+                        text: constants.STATUS.FAILURE.RANGE_NOT_VALID
+                    }) :
+                    callback({
+                        success: false,
+                        text: constants.STATUS.FAILURE.HOUR_NOT_VALID
+                    })
+
+            }
+
+
+            /**
+             *
+             * @param hours
+             * @param interval
+             * @param minimumRangeDim
+             * @returns {{success: boolean, hours: Array}}
+             */
+            function checkHours( hours, interval, minimumRangeDim ){
+                var h_ok = true, time = [];
+
+                if( hours ){
+                    hours.forEach( function( hour ){
+                        var h1 = moment(hour.split('/')[0],"HH:mm").isValid(),
+                            h2 = moment(hour.split('/')[1],"HH:mm").isValid();
+
+                        if( !h1 || !h2 ){
+                            h_ok = false;
+                        } else {
+                            /** approssimazione per difetto delle date */
+                            var tmp_time = approximateByMinimum(
+                                hour.split('/')[0], hour.split('/')[1], interval );
+
+                            time.push(tmp_time.left +'/'+ tmp_time.right);
+                        }
+
+                    });
+                }
+
+                return {success: h_ok, hours: time}
             }
 
             /**

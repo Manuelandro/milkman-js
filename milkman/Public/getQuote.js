@@ -20,10 +20,17 @@ define(['moment',
                 //HISTORY TRACKING on server
                 quoteHistory('getQuote', options);
 
+                //console.log('ranges: '+options.ranges);
+                //console.log(options.ranges.length);
+
                 //GENERALS
-                opt.ranges =  options.range ?     //verifico che l'utente abbia definito un range di interesse,
-                    options.range :          //in caso contrario ne assegno uno di default
-                    [window.localStorage.getItem(constants.DEFAULT_RANGE)];
+                if( options.ranges ){
+                    opt.ranges =  options.ranges.length > 0 ?     //verifico che l'utente abbia definito un range di interesse,
+                        options.ranges :          //in caso contrario ne assegno uno di default
+                        [window.localStorage.getItem(constants.DEFAULT_RANGE)];
+                } else {
+                    opt.ranges = [window.localStorage.getItem(constants.DEFAULT_RANGE)];
+                }
 
                 //RANGE MANAGES
                 opt.weekdays = options.weekdays ?
@@ -38,10 +45,10 @@ define(['moment',
                 //IF: check options existence
                 if( Object.keys(options).length )
                 {
-
+                    //console.log('1');
                     rangeNormalization( opt, function( formatted ){
 
-                        //console.log(JSON.stringify(formatted.ranges));
+                        //console.log(JSON.stringify(formatted.text));
                         if( formatted.success ){
                             opt.ranges = formatted.ranges;
                             quoteEngine( 'getQuote', opt, callback );
@@ -57,11 +64,13 @@ define(['moment',
                 //ELSE: none options, we use defaults
                 else
                 {
+                    //console.log('2');
                     quoteEngine( 'getQuote', opt, callback );
                 }
 
 
             } else {  //isInitialized === false
+                //console.log('3');
                 callback({
                     status: 'failure',
                     text: constants.STATUS.FAILURE.BAD_REQUEST_400,

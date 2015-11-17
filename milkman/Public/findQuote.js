@@ -26,15 +26,19 @@ define(['moment',
                 quoteHistory('findQuote', options);
 
                 //BASIC USAGE
-                opt.ranges =  options.range ?     //verifico che l'utente abbia definito un range di interesse,
-                    options.range :          //in caso contrario ne assegno uno di default
-                    [window.localStorage.getItem(constants.DEFAULT_RANGE)];
+                if( options.ranges ){
+                    opt.ranges =  options.ranges.length > 0 ?       //verifico che l'utente abbia definito un range di interesse,
+                        options.ranges :          //in caso contrario ne assegno uno di default
+                        [window.localStorage.getItem(constants.DEFAULT_RANGE)];
+                } else {
+                    opt.ranges = [window.localStorage.getItem(constants.DEFAULT_RANGE)];
+                }
+
                 opt.quoteNumber = options.quoteNumber ?
                     options.quoteNumber :
                     merchant.quoteNumber;
                 opt.maxDuration = options.maxDuration ?        //durata massima dell'evento
-                    options.maxDuration :
-                    merchant.maxDuration;
+                    options.maxDuration : merchant.maxDuration;
                 opt.quotePerDate = options.quotePerDate ?
                     options.quotePerDate :
                     merchant.quotePerDate;
@@ -42,7 +46,7 @@ define(['moment',
                     options.overlap :
                     merchant.overlap;
                 opt.minDuration = options.minDuration ?        //durata massima dell'evento
-                    options.minDuration : 1;
+                    options.minDuration : merchant.minDuration;
 
                 //RANGE MANAGES
                 opt.weekdays = options.weekdays ?
@@ -65,7 +69,9 @@ define(['moment',
 
                     rangeNormalization( opt, function( formatted ){
 
+                        //console.log('formatted: '+formatted.ranges);
                         if( formatted.success ){
+
                             opt.ranges = formatted.ranges;
                             quoteEngine( 'findQuote', opt, callback );
                         }

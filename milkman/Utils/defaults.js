@@ -297,7 +297,6 @@ define({
             address: 'blablablablablabla'
         }
     ],
-
     SET_B4: [
         {
             lat: 40.372186,
@@ -309,7 +308,6 @@ define({
             deliverInstructions: 'Beware the dog'
         }
     ],
-
     SET_B6: [
         { address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti' },
         {
@@ -351,6 +349,220 @@ define({
         }
     ],
 
+
+    /**
+     * GET-QUOTE
+     */
+    SET_C1: {
+        ranges:[]
+    },
+    SET_C2: {
+        ranges:[
+            '2015-12-14T09:10/2015-12-14T09:40'
+        ]
+    },
+    SET_C3: {
+        ranges:[
+            '2015-12-14T09:01/2015-12-14T09:45'
+        ]
+    },
+    SET_C4: {
+        ranges:[
+            '2015-12-14T09:01/2015-12-14T09:35'
+        ]
+    },
+    SET_C5: {
+        ranges:[
+            '2015-12-14T08:01/2015-12-14T08:55'
+        ]
+    },
+    SET_C6: {
+        ranges:[
+            '2015-12-14T08:01/2015-12-14T12:55'
+        ]
+    },
+    SET_C7: {
+        ranges:[
+            '2015-12-14T08:01/2015-12-16T12:55'
+        ]
+    },
+    SET_C8: {
+        ranges:[
+            '2015-12-14T08:01/2015-12-14T12:55',
+            '2015-12-15',
+            '2015-12-16T09:01/2015-12-16T09:35',
+            '2015-12-21'
+        ]
+    },
+    SET_C9: {
+        ranges:[
+            '2015-12-14T08:01/2015-12-14T12:55',
+            '2015-12-15',
+            '2015-12-21'
+        ]
+    },
+    SET_C10: {
+        ranges:[
+            '2015-12-14'
+        ],
+        hours: [ '09:30/10:00', '13:03/14:51' ]
+    },
+    SET_C11: {
+        ranges:[
+            '2015-12-14'
+        ],
+        hours: [ '13:55/14:01' ]
+    },
+    SET_C12: {
+        ranges:[
+            '2015-12-14'
+        ],
+        hours: [ '1:1/18:10', '13.55/16.9' ]
+    },
+    SET_C13: {
+        ranges:[
+            '2015-12-14T08:01/2015-12-14T12:55'
+        ],
+        hours: [ '13:50/15:01' ]
+    },
+    SET_C14: {
+        ranges:[
+            '2015-12-14/2015-12-20'
+        ],
+        weekdays: [ 1, 3, 5, 6 ]
+    },
+    SET_C15: {
+        ranges:[
+            '2015-12-14'
+        ],
+        weekdays: [ 7 ]
+    },
+    SET_C16: {
+        ranges:[
+            '2015-12-14/2015-12-20'
+        ],
+        weekdays: [ 0, 1, 2, 3, 5, 6, 8 ]
+    },
+    SET_C17: {
+        ranges:[
+            '2015-12-14/2015-12-20'
+        ],
+        hours: [ '09:30/10:00', '13:03/14:51' ],
+        weekdays: [ 1, 3, 5, 6 ]
+    },
+    SET_C18: {
+        ranges:[
+            '2015-12-14/2015-12-20'
+        ],
+        hours: [ '13:50/15:01' ],
+        weekdays: [ 7 ]
+    },
+    SET_C19: {
+        ranges:[
+            '2015-12-14'
+        ],
+        hours: [ '09:30/10:00', '13:03/14:51' ],
+        weekdays: [ 1, 3, 5, 6 ]
+    },
+
+    /**
+     * FIND-QUOTE
+     */
+
+    SET_D1: {
+        ranges:[]
+    },
+    SET_D2: {
+        ranges:[
+            '2015-12-14T09:01/2015-12-14T13:35'
+        ]
+    },
+    SET_D3: {
+        ranges:[
+            '2015-12-14T09:01/2015-12-14T09:35'
+        ]
+    },
+    SET_D4: {
+        ranges:[
+            '2015-12-14', '2015-12-15'
+        ],
+        quoteNumber: 2,
+        quotePerDate: 1,
+        overlap: false
+    },
+    SET_D5: {
+        ranges:[
+            '2015-12-14T09:01/2015-12-14T09:35'
+        ],
+        quoteNumber: 16,
+        quotePerDate: 16,
+        overlap: false
+    },
+    SET_D6: {
+        ranges:[
+            '2015-12-14', '2015-12-15'
+        ],
+        quoteNumber: 2,
+        quotePerDate: 1,
+        overlap: true,
+        minDuration: 2,
+        maxDuration: 4
+    },
+    SET_D7: {
+        ranges:[
+            '2015-12-14'
+        ],
+        quoteNumber: 2,
+        quotePerDate: 1,
+        overlap: true,
+        minDuration: 4,
+        maxDuration: 2
+    },
+    SET_D8: {
+        ranges:['2015-11-27'],
+        hours: [ '09:30/10:00', '13:03/14:51', '13:03/13:31' ]
+    },
+    SET_D9: {
+        weekdays: [ 1, 2, 3, 4, 5 ]
+    },
+    SET_D10: {
+        hours: [ '09:30/10:00', '13:03/14:51' ],
+        weekdays: [ 1, 2, 3, 4, 5 ]
+    },
+    SET_D11: {
+        ranges:[
+            '2015-12-14', '2015-12-15'
+        ],
+        quoteNumber: 2,
+        quotePerDate: 1,
+        overlap: true,
+        minDuration: 2,
+        maxDuration: 4,
+        hours: [ '09:30/10:00', '13:03/14:51' ]
+    },
+    SET_D12: {
+        ranges:[
+            '2015-12-14', '2015-12-15'
+        ],
+        quoteNumber: 2,
+        quotePerDate: 1,
+        overlap: true,
+        minDuration: 2,
+        maxDuration: 4,
+        weekdays: [ 1, 2, 3, 4, 5 ]
+    },
+    SET_D13: {
+        ranges:[
+            '2015-12-14', '2015-12-15'
+        ],
+        quoteNumber: 2,
+        quotePerDate: 1,
+        overlap: true,
+        minDuration: 2,
+        maxDuration: 4,
+        hours: [ '09:30/10:00', '13:03/14:51' ],
+        weekdays: [ 1, 2, 3, 4, 5 ]
+    },
 
     QUOTES: {
         intervals: [
