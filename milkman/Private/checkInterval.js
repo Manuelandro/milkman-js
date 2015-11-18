@@ -16,6 +16,7 @@ define(['moment'],
 
             var ioi = [];
 
+
             ranges.forEach(function( range, index ){
                 //console.log('*****************************');
                 //console.log('1: '+range);
@@ -39,8 +40,9 @@ define(['moment'],
                 });
             });
 
-           //console.log(ioi);
-
+            /** restituisce qualcosa del tipo [ [ intervals ], ..., [ intervals ] ]
+             * in modo da gestire la divisione in sotto gruppi per il find quote.
+             * nel caso di GetQuote avremo [[ intervals ]]*/
            callback( ioi );
 
         };

@@ -419,6 +419,12 @@ define({
         ],
         hours: [ '1:1/18:10', '13.55/16.9' ]
     },
+    SET_C12_bis: {
+        ranges:[
+            '2015-12-14'
+        ],
+        hours: [ '1:1/18:10', '13.55-16.9' ]
+    },
     SET_C13: {
         ranges:[
             '2015-12-14T08:01/2015-12-14T12:55'
@@ -441,7 +447,7 @@ define({
         ranges:[
             '2015-12-14/2015-12-20'
         ],
-        weekdays: [ 0, 1, 2, 3, 5, 6, 8 ]
+        weekdays: [ 0, 12 ]
     },
     SET_C17: {
         ranges:[
@@ -492,7 +498,7 @@ define({
     },
     SET_D5: {
         ranges:[
-            '2015-12-14T09:01/2015-12-14T09:35'
+            '2015-12-14T09:01/2015-12-14T09:55'
         ],
         quoteNumber: 16,
         quotePerDate: 16,
@@ -531,14 +537,14 @@ define({
     },
     SET_D11: {
         ranges:[
-            '2015-12-14', '2015-12-15'
+            '2015-12-14'
         ],
         quoteNumber: 2,
         quotePerDate: 1,
         overlap: true,
-        minDuration: 2,
+        minDuration: 3,
         maxDuration: 4,
-        hours: [ '09:30/10:00', '13:03/14:51' ]
+        hours: [ '09:30/10:00' ]
     },
     SET_D12: {
         ranges:[
@@ -558,7 +564,7 @@ define({
         quoteNumber: 2,
         quotePerDate: 1,
         overlap: true,
-        minDuration: 2,
+        minDuration: 3,
         maxDuration: 4,
         hours: [ '09:30/10:00', '13:03/14:51' ],
         weekdays: [ 1, 2, 3, 4, 5 ]

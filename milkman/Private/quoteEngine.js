@@ -39,6 +39,8 @@ define([
                  *  se ci sono intervalli mancanti faccio una quotation al sever
                  *  e filtro tutti gli intervalli per trovare quelli di interesse
                  */
+
+                //console.log('ranges: '+JSON.stringify(opt.ranges));
                 quotation(opt.ranges, missings, function( response ){
                     if( response.success ){
                         if( type === 'findQuote' ){
@@ -46,12 +48,14 @@ define([
                              *  ritorna un array ordinato con i possibili eventi e i prezzi associati
                              */
 
-                            //console.log( JSON.stringify(response.ioi));
+                            //console.log('find ioi: '+ JSON.stringify(response.ioi));
                             var sorted_choices = getAllProposals(
                                 { idi: response.ioi, disc: constants.discounts},
                                 opt.maxDuration,
                                 opt.minDuration );
-                            //sorted_choices.forEach(function(res){console.log(res.day+'   '+res.range+'  '+res.f_price);});
+                          //sorted_choices.forEach(function(res){console.log(res.day+'   '+res.range+'  '+res.f_price);});
+
+                          // console.log('sorted_choices: '+JSON.stringify(sorted_choices));
                             /**
                              *  restituisce le proposte finali per l'utente
                              */
@@ -81,7 +85,8 @@ define([
                             /**
                              *  calcolo il prezzo con sconto
                              */
-                            setPrice( opt.ranges, response.ioi, callback);
+                            //console.log('get ioi: '+JSON.stringify( response.ioi[0]));
+                            setPrice( opt.ranges, response.ioi[0], callback);
                         }
                     } else {
                         callback({

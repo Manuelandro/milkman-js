@@ -18,28 +18,15 @@ define([ './makeUrlServer',
             var best_price, result;
 
             intervals_of_interest.forEach(function( value, index ){
-                if ( index === 0 || best_price.weight > value.weight ){
+                if ( index === 0 || best_price.weight * best_price.price > value.weight * value.price ){
                     best_price = value
                 }
 
                 if( index + 1 === intervals_of_interest.length ){
 
+                  //  console.log('qui: '+JSON.stringify(best_price));
                     result = returnPrice( best_price );
                     callback( result );
-
-
-                    ////verifico che i dati in memoria temporanea siano consistenti,
-                    //// in caso contrario recupero i dati dal server
-                    //if( constants.discounts ){
-                    //    result = returnPrice( best_price );
-                    //    callback( result );
-                    //
-                    //} else {
-                    //    recover( function( result ){
-                    //        result = returnPrice( best_price, result );
-                    //        callback( result );
-                    //    });
-                    //}
                 }
             });
 
@@ -60,6 +47,7 @@ define([ './makeUrlServer',
                     });
 
                 if (corr_discount.length) {
+
                     final_price = Number(corr_discount[0].discount) *
                         Number(price.price * price.weight);
                 } else {

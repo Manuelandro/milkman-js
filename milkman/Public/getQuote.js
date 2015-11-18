@@ -45,10 +45,10 @@ define(['moment',
                 //IF: check options existence
                 if( Object.keys(options).length )
                 {
-                    //console.log('1');
+                    //console.log(JSON.stringify(opt));
                     rangeNormalization( opt, function( formatted ){
 
-                        //console.log(JSON.stringify(formatted.text));
+                       // console.log(JSON.stringify(formatted.text));
                         if( formatted.success ){
                             opt.ranges = formatted.ranges;
                             quoteEngine( 'getQuote', opt, callback );

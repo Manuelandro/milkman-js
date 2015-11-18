@@ -28,8 +28,10 @@ define(['moment',
             /** definisco i giorni utili della settimana */
             weekdays = getWeekDays( opt.weekdays, hub_weekdays );
 
+
             /** range must be an array */
             tmp_ranges = Array.isArray(opt.ranges) ? opt.ranges : [opt.ranges];
+
 
             /** verificare che i range siano adattati agli scaglioni degli 'interval'
              * ( 10 min ) nel caso normalizzarli er difetto
@@ -38,7 +40,7 @@ define(['moment',
             ranges = checksRangeDimension( tmp_ranges, merchant.atomicIntervalDimension, merchant.minDuration );
 
             /** verifico che gli orari passati siano in un formato valido*/
-            isHour = checkHours( opt.hours, merchant.atomicIntervalDimension, merchant.minDuration );
+            isHour = checkHours( opt.hours, merchant.atomicIntervalDimension );
 
             /** verifico che ci sia almeno un range valido */
             if( ranges.length && isHour.success ){
@@ -61,7 +63,8 @@ define(['moment',
                             var dayToCheck = moment(range[0]).add(i, 'days');
 
                             /** se è uno dei giorni della settimana accettabili*/
-                            if( weekdays[ moment(dayToCheck).format('E') - 1 ] ){
+
+                             if( weekdays[ moment(dayToCheck).format('E') - 1 ] ){
                                 //console.log('dayToCheck: '+dayToCheck.format('YYYY-MM-DD'));
 
                                 var isHoliday = checkHoliday(dayToCheck.format('YYYY-MM-DD'), hub_holidays),
@@ -69,15 +72,20 @@ define(['moment',
 
                                 /** verifico che il giorno in esame non sia ne 'holiday' ne 'localHoliday' */
                                 if( !isHoliday && !isLocalHoliday ){
+
+                                   // console.log('dayToCheck: '+dayToCheck.format('YYYY-MM-DD'));
+                                    //console.log('isHour: '+isHour.hours );
+                                    //console.log('range: '+range);
+                                    //  console.log('bh_int: '+bh_int[0]+' '+bh_int[1]);
                                     /** dati i giorni 'YYYY-MM-DD' li setto con intervalli di tempo */
                                     newInts = setintervals(
                                         dayToCheck.format('YYYY-MM-DD'),
-                                        isHour.hours ? isHour.hours : null,
+                                        isHour.hours.length ? isHour.hours : null,
                                         range,
                                         bh_int[0],
                                         bh_int[1] );
 
-                                    //console.log('newInts: '+JSON.stringify(newInts));
+
                                     if( newInts ){
                                         newInts.forEach( function( newInt ){
                                             norma.push( newInt );
@@ -93,6 +101,8 @@ define(['moment',
                         });
                     }
                 });
+
+                //console.log('norma: '+norma);
 
                 /** ultima verifica per controllare chce i range siano consistenti (minima dimensione avvettabile) */
                 tmp_ranges = checksRangeDimension( norma, merchant.atomicIntervalDimension, merchant.minDuration );
@@ -128,30 +138,28 @@ define(['moment',
 
 
             /**
+             * normalizzazione delle ore e minuti in un formato accettabile
              *
              * @param hours
              * @param interval
-             * @param minimumRangeDim
              * @returns {{success: boolean, hours: Array}}
              */
-            function checkHours( hours, interval, minimumRangeDim ){
+            function checkHours( hours, interval ){
                 var h_ok = true, time = [];
-
                 if( hours ){
                     hours.forEach( function( hour ){
-                        var h1 = moment(hour.split('/')[0],"HH:mm").isValid(),
-                            h2 = moment(hour.split('/')[1],"HH:mm").isValid();
+                        var h1 = moment(hour.split('/')[0], 'HH:mm').format("HH:mm"),
+                            h2 = moment(hour.split('/')[1], 'HH:mm').format("HH:mm");
 
-                        if( !h1 || !h2 ){
+                        /** verifico che le ore siano in formato corretto */
+                        if( h1 === 'Invalid date' || h2 === 'Invalid date' ){
                             h_ok = false;
                         } else {
                             /** approssimazione per difetto delle date */
-                            var tmp_time = approximateByMinimum(
-                                hour.split('/')[0], hour.split('/')[1], interval );
+                            var tmp_time = approximateByMinimum(h1, h2, interval);
 
-                            time.push(tmp_time.left +'/'+ tmp_time.right);
+                            time.push(tmp_time.left + '/' + tmp_time.right);
                         }
-
                     });
                 }
 
@@ -339,7 +347,11 @@ define(['moment',
             function setintervals( day, hours, range, bh_left_time, bh_right_time ){
                 var tmp_final_ranges = [];
 
-                if( hours !== null ){   /** prendo il day e gli associo le vari fascie orarie */
+                //console.log('*********** 0');
+                //console.log(hours);
+
+                if( hours !== null ){   /** IF ho degli "hours" prendo il day e gli associo le vari fascie orarie */
+                //console.log('*********** 1');
                     hours.forEach(function( rangetime ){
                         tmp_final_ranges.push(
                             day + 'T' + rangetime.split('/')[0]
@@ -348,13 +360,16 @@ define(['moment',
                         );
                     });
                 } else if ( range[0].split('T')[1] ){  /** verifico che T initial >= bh_left e che T final <= bh_right */
-                    tmp_final_ranges.push(
-                        day + 'T' + range[0].split('T')[1]
-                        + '/' +
-                        day + 'T' + range[1].split('T')[1]
-                    );
+
+                //console.log('*********** 2');
+                tmp_final_ranges.push(
+                    day + 'T' + range[0].split('T')[1]
+                    + '/' +
+                    day + 'T' + range[1].split('T')[1]
+                );
 
                 } else {   /** prendo range[0] se non ha un T creo l'itervallo con bh_left e bh_right */
+                //console.log('*********** 3');
                     tmp_final_ranges.push(
                         day + 'T' + bh_left_time
                         + '/' +

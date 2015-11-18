@@ -19,39 +19,31 @@ define([ 'moment' ],
                         day = idi.interval.split('T')[0],
                         init_bound = idi.interval.split('/')[0].split('T')[1];
 
-                    //console.log('init_bound: '+init_bound);
                     /** calcolo maxDuration possibilità a partire da idi corrente */
                     for ( var i = 0; i < maxDuration; i++ ){
 
-                        //console.log('group: '+group.length);
-                        //console.log('index: '+index + i + 1);
-                        //console.log('minDuration: '+minDuration);
-                        //console.log('i: '+i +1);
-
-                        if( index + i +1 <= group.length && /** se non sono arrivata alla fine dell'array */
+                        if( index + i + 1 <= group.length && /** se non sono arrivata alla fine dell'array */
                             minDuration <= i +1 ){  /** se rispetto il vincolo della dimensione minima del blocco */
 
-                        //console.log('ok');
-
-                            var tmp_day = group[index + i].interval.split('T')[0],
-                                tmp_p = group[index + i].price * group[index + i].weight,
-                                final_bound = group[index + i].interval.split('T')[2];
-
-                            console.log(init_bound+'/'+final_bound);
+                        var tmp_day = group[index + i].interval.split('T')[0],
+                            final_bound = group[index + i].interval.split('T')[2];
 
                             /** se la data del primo intervallo e dell'ultimo coincidono procedo */
                             if( moment(tmp_day).diff(moment(day)) === 0 ){
 
-                                /** calcolo l'intervallo di sconto */
-                                var tmp_discount = setDiscount(data.disc, i);
+                                /** calcolo prezzo e intervallo di sconto */
+                                var tmp_price = setPrice(index, index + i, group),
+                                    tmp_discount = setDiscount(data.disc, i +1);
+
+                                //console.log(init_bound+'/'+final_bound +' price: '+tmp_price * tmp_discount+' disc: '+tmp_discount);
 
                                 tmp_best_choices.push({
                                     day: day,
                                     i_bound: init_bound,
                                     f_bound: final_bound,
                                     range: init_bound +'/'+final_bound,
-                                    //i_price: tmp_p,
-                                    f_price: tmp_p * tmp_discount//,
+                                    //i_price: tmp_price,
+                                    f_price: tmp_price * tmp_discount//,
                                     //discount: tmp_discount
                                 });
                             }
@@ -70,62 +62,38 @@ define([ 'moment' ],
                 return parseFloat(a.f_price) - parseFloat(b.f_price);
             });
 
-            console.log('best_choices: '+best_choices);
-            //return best_choices;
-
-            //data.idi.forEach(function ( idi, index ) {
-            //    var tmp_best_choices = [],
-            //        day = idi.interval.split('T')[0],
-            //        init_bound = idi.interval.split('/')[0].split('T')[1];
-            //
-            //    //console.log('init_bound: '+init_bound);
-            //    /** calcolo maxDuration possibilità a partire da idi corrente */
-            //    for ( var i = 0; i < maxDuration; i++ ){
-            //
-            //        if( index + i +1 <= data.idi.length && /** se non sono arrivata alla fine dell'array */
-            //            minDuration <= i +1 ){  /** se rispetto il vincolo della dimensione minima del blocco */
-            //
-            //        //console.log('OK!! ');
-            //
-            //            var tmp_day = data.idi[index + i].interval.split('T')[0],
-            //                tmp_p = data.idi[index + i].price * data.idi[index + i].weight,
-            //                final_bound = data.idi[index + i].interval.split('T')[2];
-            //
-            //            //console.log(init_bound+'/'+final_bound);
-            //
-            //            /** se la data del primo intervallo e dell'ultimo coincidono procedo */
-            //            if( moment(tmp_day).diff(moment(day)) === 0 ){
-            //
-            //                /** calcolo l'intervallo di sconto */
-            //                var tmp_discount = setDiscount(data.disc, i);
-            //
-            //                tmp_best_choices.push({
-            //                    day: day,
-            //                    i_bound: init_bound,
-            //                    f_bound: final_bound,
-            //                    range: init_bound +'/'+final_bound,
-            //                    //i_price: tmp_p,
-            //                    f_price: tmp_p * tmp_discount//,
-            //                    //discount: tmp_discount
-            //                });
-            //            }
-            //        }
-            //    }
-            //
-            //    /** tengo tutti i ranges */
-            //    tmp_best_choices.forEach(function( range ){
-            //        best_choices.push(range);
-            //    });
-            //});
-            //
-            ///** ordino i ranges in base al prezzo finale */
-            //best_choices.sort(function(a, b) {
-            //    return parseFloat(a.f_price) - parseFloat(b.f_price);
-            //});
-            //
-            //return best_choices;
+            return best_choices;
         };
 
+        /**
+         * faccio il confronto fra tutti i prezzi e verifico quale intervallo,
+         * fra quelli del sotto gruppo, è il più conveniente
+         *
+         * @param start_index
+         * @param end_index
+         * @param intervals
+         * @returns {number}
+         */
+        function setPrice( start_index, end_index, intervals ){
+            var best_price = intervals[start_index];
+
+            for( var i = start_index; i <= end_index; i++ ){
+                if ( best_price.weight * best_price.price > intervals[i].weight * intervals[i].price ){
+                    best_price = intervals[i]
+                }
+            }
+
+            return best_price.price * best_price.weight
+        }
+
+        /**
+         * trovo il range di sconto corretto in base alla dimensione del sottogruppo,
+         * ritorno il valore associato
+         *
+         * @param discounts
+         * @param intervalNumber
+         * @returns {*}
+         */
         function setDiscount( discounts, intervalNumber ){
             var tmp_discount = null;
 

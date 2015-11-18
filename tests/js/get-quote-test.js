@@ -51,174 +51,257 @@ if (typeof require === 'function' && require.config) {
     milkman.setInit( milkman.defaults.SET_A5, function( ) {
         milkman.setAddress( milkman.defaults.SET_B2, function( ) {
 
-            //milkman.getQuote(milkman.defaults.SET_C1, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C1', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C2, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C2', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C3, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C3', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C4, function( result ){
-            //    test('SET_C4', function() {
-            //        equal(result.status, 'failure', result.text)
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C5, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //        test('SET_C5', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C6, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C6', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C7, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C7', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C8, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C8', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C9, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C9', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C10, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C10', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C11, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    test('SET_C11', function() {
-            //        equal(result.status, 'failure', result.text)
-            //    });
-            //
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C12, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    test('SET_C12', function() {
-            //        equal(result.status, 'failure', result.text)
-            //    });
-            //
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C13, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C13', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C14, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C14', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C15, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    test('SET_C15', function() {
-            //        equal(result.status, 'failure', result.text)
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C16, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('milkman: '+JSON.stringify(res2));
-            //        test('SET_C16', function() {
-            //            equal(result.status, 'failure', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C17, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    milkman.confirm(result, function( res2 ){
-            //        console.log('confirm: '+JSON.stringify(res2));
-            //        test('SET_C17', function() {
-            //            equal(result.status, 'success', result.text)
-            //        });
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C18, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    test('SET_C18', function() {
-            //        equal(result.status, 'failure', result.text)
-            //    });
-            //});
-            //milkman.getQuote(milkman.defaults.SET_C19, function( result ){
-            //    console.log('getQuote: '+JSON.stringify(result));
-            //
-            //    test('SET_C19', function() {
-            //        equal(result.status, 'error', result.text)
-            //    });
-            //});
+            milkman.getQuote(milkman.defaults.SET_C1, function( result ){
+                //   result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                //   });
+                //console.log('price: '+JSON.stringify(result.price));
+                milkman.confirm(result, function( res2 ){
+                    //   res2.ranges.forEach(function( val ){
+                        //console.log('//console: '+JSON.stringify(val));
+                    //  });
+                    //console.log('price: '+JSON.stringify(res2.price));
+
+                    test('SET_C1', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C2, function( result ){
+                //  result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                //   });
+                //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    // res2.ranges.forEach(function( val ){
+                        //console.log('//console: '+JSON.stringify(val));
+                    //  });
+                    //console.log('price: '+JSON.stringify(res2.price));
+
+                    test('SET_C2', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C3, function( result ){
+                //   result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                //   });
+                //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    //   res2.ranges.forEach(function( val ){
+                        //console.log('//console: '+JSON.stringify(val));
+                    //  });
+                    //console.log('price: '+JSON.stringify(res2.price));
+                    test('SET_C3', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C4, function( result ){
+                test('SET_C4', function() {
+                    equal(result.status, 'failure', result.text)
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C5, function( result ){
+                test('SET_C3', function() {
+                    equal(result.status, 'success', result.text)
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C6, function( result ){
+                // result.ranges.forEach(function( val ){
+                        //console.log('getQuote: '+JSON.stringify(val));
+                //  });
+                    //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    //res2.ranges.forEach(function( val ){
+                        //console.log('getQuote: '+JSON.stringify(val));
+                    // });
+                    //console.log('price: '+JSON.stringify(res2.price));
+                    test('SET_C6', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C7, function( result ){
+                // result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                // });
+                //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    //   res2.ranges.forEach(function( val ){
+                        //console.log('confirm: '+JSON.stringify(val));
+                    // });
+                    //console.log('price: '+JSON.stringify(res2.price));
+                    test('SET_C7', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C8, function( result ){
+                // result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                // });
+                //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    //res2.ranges.forEach(function( val ){
+                        //console.log('confirm: '+JSON.stringify(val));
+                    //});
+                    //console.log('price: '+JSON.stringify(res2.price));
+                    test('SET_C8', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C9, function( result ){
+                //result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                //});
+                //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    //  res2.ranges.forEach(function( val ){
+                        //console.log('confirm: '+JSON.stringify(val));
+                    //});
+                    //console.log('price: '+JSON.stringify(res2.price));
+                    test('SET_C9', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C10, function( result ){
+                //result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                //});
+                //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    //res2.ranges.forEach(function( val ){
+                        //console.log('confirm: '+JSON.stringify(val));
+                    //});
+                    //console.log('price: '+JSON.stringify(res2.price));
+                    test('SET_C10', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C11, function( result ){
+                //console.log('getQuote: '+JSON.stringify(result));
+
+                test('SET_C11', function() {
+                    equal(result.status, 'failure', result.text)
+                });
+
+            });
+            milkman.getQuote(milkman.defaults.SET_C12, function( result ){
+                //result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                //});
+                //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    //res2.ranges.forEach(function( val ){
+                        //console.log('confirm: '+JSON.stringify(val));
+                    //});
+                    //console.log('price: '+JSON.stringify(res2.price));
+                    test('SET_C12', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+
+            });
+
+            milkman.getQuote(milkman.defaults.SET_C12_bis, function( result ){
+
+                    test('SET_C12_bis', function() {
+                        equal(result.status, 'failure', result.text)
+                    });
+
+            });
+
+
+            milkman.getQuote(milkman.defaults.SET_C13, function( result ){
+                //result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                //});
+                //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    //res2.ranges.forEach(function( val ){
+                        //console.log('confirm: '+JSON.stringify(val));
+                    //});
+                    //console.log('price: '+JSON.stringify(res2.price));
+                    test('SET_C13', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C14, function( result ){
+                //result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                //});
+                //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    //res2.ranges.forEach(function( val ){
+                        //console.log('confirm: '+JSON.stringify(val));
+                    //});
+                    //console.log('price: '+JSON.stringify(res2.price));
+                    test('SET_C14', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C15, function( result ){
+                //console.log('getQuote: '+JSON.stringify(result));
+
+                test('SET_C15', function() {
+                    equal(result.status, 'failure', result.text)
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C16, function( result ){
+                //console.log('getQuote: '+JSON.stringify(result));
+
+                    test('SET_C16', function() {
+                        equal(result.status, 'failure', result.text)
+                    });
+
+            });
+            milkman.getQuote(milkman.defaults.SET_C17, function( result ){
+                //result.ranges.forEach(function( val ){
+                    //console.log('getQuote: '+JSON.stringify(val));
+                //});
+                //console.log('price: '+JSON.stringify(result.price));
+
+                milkman.confirm(result, function( res2 ){
+                    //res2.ranges.forEach(function( val ){
+                        //console.log('confirm: '+JSON.stringify(val));
+                    //});
+                    //console.log('price: '+JSON.stringify(res2.price));
+                    test('SET_C17', function() {
+                        equal(result.status, 'success', result.text)
+                    });
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C18, function( result ){
+                //console.log('getQuote: '+JSON.stringify(result));
+
+                test('SET_C18', function() {
+                    equal(result.status, 'failure', result.text)
+                });
+            });
+            milkman.getQuote(milkman.defaults.SET_C19, function( result ){
+                //console.log('getQuote: '+JSON.stringify(result));
+
+                test('SET_C19', function() {
+                    equal(result.status, 'success', result.text)
+                });
+            });
 
         });
     });
