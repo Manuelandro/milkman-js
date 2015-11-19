@@ -41,6 +41,7 @@ define({
             'message explains why.',
             UNAUTHORIZED_401 : 'Unauthorized: Authentication credentials are missing or incorrect. ' +
             'The accompanying error message explains why.',
+            PRICE_NOT_VALID: 'Price is not valid.',
             RANGE_NOT_VALID: 'Range is not valid.',
             HOUR_NOT_VALID: 'Hour is not valid.',
             RANGE_NOT_CORRECT: 'Range is not in a correct form. Please check it.'

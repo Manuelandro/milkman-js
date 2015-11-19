@@ -83,8 +83,8 @@ define([
                             );
 
                             /** definisco il range di default per getQuote e findQuote */
-                            var firstDay = result.data.hub.firstAvailableDay,
-                                lastDay =  moment( result.data.hub.firstAvailableDay ).add( result.data.merchant.defaultRangeDays, 'd' ).format('YYYY-MM-DD'),
+                            var firstDay = result.data.hub.firstAvailability,
+                                lastDay =  moment( result.data.hub.firstAvailability ).add( result.data.merchant.defaultRangeDays, 'd' ).format('YYYY-MM-DD'),
                                 lastHour = result.data.hub.bhInterval.split('/')[1];
 
                                 window.localStorage.setItem(

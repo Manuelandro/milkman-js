@@ -18,78 +18,89 @@ define([ '../../milkman/Private/makeUrlServer',
          *  milkman.authenticate( publishable_key, foo )
          */
 
-    return function confirm( ranges, callback ) {
+    return function confirm( data, callback ) {
         var isInitialized = checkRequiredFields('init');
 
-        if( isInitialized ){
+        console.log(JSON.stringify(data));
+
+        if( isInitialized && data.price && data.ranges ){
         //HISTORY TRACKING on server
-        quoteHistory('confirm', ranges);
+        quoteHistory('confirm', data);
 
         //ricalcolo il prezzo per l'intervallo specifico
-        getQuote( ranges, function( result ){
+        getQuote( data, function( result ){
 
             if( result.success ){
-                /**
-                 * PRICE CONFIRM: send proposal to server for price confirm
-                 *
-                 *  @PARAM: Array
-                 *  @PARAM: String
-                 *  @PARAM: Function
-                 *
-                 *  @RETURN: success/error
-                 */
-                var url = makeUrlServer('/priceConfirm'),
-                    publishable_key = window.localStorage.getItem( constants.PUBLISHABLE_KEY),
-                    session_id = window.localStorage.getItem( constants.SESSION_TOKEN );
+                if( Math.round( Number(result.price) * 100) === Math.round( Number(data.price) * 100) ){
+                    /**
+                     * PRICE CONFIRM: send proposal to server for price confirm
+                     *
+                     *  @PARAM: Array
+                     *  @PARAM: String
+                     *  @PARAM: Function
+                     *
+                     *  @RETURN: success/error
+                     */
+                    var url = makeUrlServer('/priceConfirm'),
+                        publishable_key = window.localStorage.getItem( constants.PUBLISHABLE_KEY),
+                        session_id = window.localStorage.getItem( constants.SESSION_TOKEN );
 
-                request( url, 'POST', {
-                        sessionId: session_id,
-                        publishableKey: publishable_key,
-                        price: result.price,
-                        intervals: result.ranges },
-                    function( result ) {
-                        //console.log('succ: '+ result.success);
+                    request( url, 'POST', {
+                            sessionId: session_id,
+                            publishableKey: publishable_key,
+                            price: result.price,
+                            intervals: result.ranges },
+                        function( result ) {
+                            //console.log('succ: '+ result.success);
 
 
-                        /**
-                         * send session_id to merchant server
-                         *
-                         *  @RETURN: success/error
-                         */
+                            /**
+                             * send session_id to merchant server
+                             *
+                             *  @RETURN: success/error
+                             */
 
-                        result.success ?
-                            commit( function( result ){
-                                if ( result.success ) {
-                                    //cancel the session token on local storage
-                                    window.localStorage.removeItem(constants.SESSION_TOKEN);
-                                    window.localStorage.removeItem(constants.PUBLISHABLE_KEY);
-                                    window.localStorage.removeItem(constants.REDIRECT_URI);
-                                    window.localStorage.removeItem(constants.PROPOSAL_ID);
+                            result.success ?
+                                commit( function( result ){
+                                    if ( result.success ) {
+                                        //cancel the session token on local storage
+                                        window.localStorage.removeItem(constants.SESSION_TOKEN);
+                                        window.localStorage.removeItem(constants.PUBLISHABLE_KEY);
+                                        window.localStorage.removeItem(constants.REDIRECT_URI);
+                                        window.localStorage.removeItem(constants.PROPOSAL_ID);
 
-                                    window.localStorage.removeItem(constants.DEFAULT_RANGE);
+                                        window.localStorage.removeItem(constants.DEFAULT_RANGE);
 
-                                    window.localStorage.removeItem(constants.ADDRESSES);
-                                    window.localStorage.removeItem(constants.MERCHANT);
-                                    window.localStorage.removeItem(constants.HUB);
+                                        window.localStorage.removeItem(constants.ADDRESSES);
+                                        window.localStorage.removeItem(constants.MERCHANT);
+                                        window.localStorage.removeItem(constants.HUB);
 
-                                    callback({
-                                        status: 'success'
-                                    });
-                                } else {
-                                    callback({
-                                        status: 'failure',
-                                        text: result.text
-                                    });
-                                }
-                            })
+                                        callback({
+                                            status: 'success'
+                                        });
+                                    } else {
+                                        callback({
+                                            status: 'failure',
+                                            text: result.text
+                                        });
+                                    }
+                                })
 
-                            :
+                                :
 
-                            callback({
-                                status: 'failure',
-                                text: result.jqXHR
-                            });
+                                callback({
+                                    status: 'failure',
+                                    text: result.jqXHR
+                                });
+                        });
+                } else {
+                    /** il prezzo inviato dall'utente e quello calcolato non coincidono */
+                    callback({
+                        status: 'failure',
+                        text: constants.STATUS.FAILURE.PRICE_NOT_VALID
                     });
+                }
+
             } else {
                 //genero errore, il range passato non � corretto
                 callback( result );
@@ -97,11 +108,21 @@ define([ '../../milkman/Private/makeUrlServer',
         });
 
         } else {  //isInitialized === false
-            callback({
-                status: 'failure',
-                text: constants.STATUS.FAILURE.BAD_REQUEST_400,
-                errorMessage: 'You need to set required fields before.'
-            });
+
+            if( isInitialized ){
+                callback({
+                    status: 'failure',
+                    text: constants.STATUS.FAILURE.BAD_REQUEST_400,
+                    errorMessage: 'Confirm method needs ranges and price fields.'
+                });
+            } else {
+                callback({
+                    status: 'failure',
+                    text: constants.STATUS.FAILURE.BAD_REQUEST_400,
+                    errorMessage: 'You need to set required fields before.'
+                });
+            }
+
         }
     }
 });

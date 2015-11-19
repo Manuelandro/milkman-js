@@ -10,14 +10,14 @@ define([ 'moment' ], function( moment ) {
 
     return function checkCart( cart, callback ) {
         var res = cart.filter( function( parcel ){
-            var isDate = moment( parcel.firstAvailableDay ).isValid() && parcel.firstAvailableDay;
+            var isDate = moment( parcel.firstAvailablity ).isValid() && parcel.firstAvailablity;
 
             if(
                 isNumber( parcel.value ) &&
                 isNumber( parcel.auxCost ) &&
                 isNumber( parcel.weight ) &&
                 isDate &&
-                ( parcel.pickUp.id ||
+                ( parcel.pickUp.hubId ||
                   parcel.pickUp.address ||
                   parcel.pickUp.lat && parcel.pickUp.lng )
             ){
