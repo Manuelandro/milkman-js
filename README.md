@@ -1,20 +1,22 @@
 # Getting Started
------
+
 This is a JavaScript library with AMD modules that will work either with browser globals or with an AMD loader.
 
-The library also depends on other two libraries, jQuery and Google Maps. To use Milkman.js you will provides JQuery and 
-GoogleMaps as dependencies in this way:
+The library also depends on other two libraries, jQuery and Google Maps. 
+To use Milkman.js you will provides JQuery and GoogleMaps as dependencies in this way:
 
-The library also depends on other two libraries, jQuery and Google Maps. To use Milkman.js you will provides JQuery and GoogleMaps as dependencies in this way:
+The library also depends on other two libraries, jQuery and Google Maps. 
+To use Milkman.js you will provides JQuery and GoogleMaps as dependencies in this way:
 
       <script src="path/to/jquery.js"></script>
       <script src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 
-Visit Milkman Github page on  [https://github.com/milkman-deliveries/milkman-js](https://github.com/milkman-deliveries/milkman-js) and get from *dist/ *repository milkman.js file.
+Visit Milkman Github page on  [https://github.com/milkman-deliveries/milkman-js](https://github.com/milkman-deliveries/milkman-js) 
+and get from **dist/** repository **milkman.js** file.
 
 Below it is described how to include Milkman.js library in your project.
 
-# Browser
+## Browser
 
       <script src="milkman.js"></script>
 
@@ -22,7 +24,7 @@ Below it is described how to include Milkman.js library in your project.
           Milkman.setInit( param );
       </script>
 
-# Require.js
+## Require.js
 
       require.config({
           paths: {
