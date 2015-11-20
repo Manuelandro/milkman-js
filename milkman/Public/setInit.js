@@ -59,8 +59,9 @@ define([
                 if( resaults.length === data.cart.length ) {
                     request( url, 'POST', {
                         publishableKey: data.publishableKey,
+                        redirectUri: data.redirectUri,
                         trackingCode: data.trackingCode,
-                        parcels: data.carts
+                        parcels: data.cart
                         //address: normalizedAddress,
                         //consignee: data.consignee
                     }, function( result ) {

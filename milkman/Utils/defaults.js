@@ -31,12 +31,12 @@ define({
         trackingCode: 'prova123',
         cart: [
             {
-                firstAvailableDay: '2015-10-18T12:00',
+                firstAvailability: '2015-10-18T12:00',
                 value: 100,
                 auxCost: 5.5,
                 weight: 12.47,
                 pickUp: {
-                    id: 'ciaoaoaoaoaoao'
+                    hubId: '0433a6ce-07bf-4028-84f4-718ca9a92c46'
                 }
             }
         ]

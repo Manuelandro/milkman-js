@@ -10,7 +10,7 @@ define([ 'moment' ], function( moment ) {
 
     return function checkCart( cart, callback ) {
         var res = cart.filter( function( parcel ){
-            var isDate = moment( parcel.firstAvailablity ).isValid() && parcel.firstAvailablity;
+            var isDate = moment( parcel.firstAvailability ).isValid() && parcel.firstAvailability;
 
             if(
                 isNumber( parcel.value ) &&
