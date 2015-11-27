@@ -69,7 +69,6 @@ define(['moment',
 
                     rangeNormalization( opt, function( formatted ){
 
-                        //console.log('formatted: '+formatted.ranges);
                         if( formatted.success ){
 
                             opt.ranges = formatted.ranges;
@@ -85,6 +84,7 @@ define(['moment',
                 }
                 //ELSE: none options, we use defaults
                 else {
+
                     quoteEngine( 'findQuote', opt, callback );
                 }
 

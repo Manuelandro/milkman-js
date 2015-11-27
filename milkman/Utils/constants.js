@@ -55,12 +55,12 @@ define({
         REQUIRED_AUXCOST_FIRSTDAY: 'Value, FirstAvailableDay and AuxCost are required fields.'
     },
 
-    ERROR: {
-        OK_200 : 'OK: Success.',
-        NO_RESULTS_402 : 'No results.',
-        BAD_REQUEST_400 : 'Bad Request: The request cannot be accepted. The accompanying error message explains why.',
-        UNAUTHORIZED_401 : 'Unauthorized: Authentication credentials are missing or incorrect. The accompanying error message explains why.'
-    },
+    //ERROR: {
+    //    OK_200 : 'OK: Success.',
+    //    NO_RESULTS_402 : 'No results.',
+    //    BAD_REQUEST_400 : 'Bad Request: The request cannot be accepted. The accompanying error message explains why.',
+    //    UNAUTHORIZED_401 : 'Unauthorized: Authentication credentials are missing or incorrect. The accompanying error message explains why.'
+    //},
 
     SUCCESS: {
         OK_200 : 'OK: Success.'

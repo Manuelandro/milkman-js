@@ -28,10 +28,8 @@ define(['moment',
             /** definisco i giorni utili della settimana */
             weekdays = getWeekDays( opt.weekdays, hub_weekdays );
 
-
             /** range must be an array */
             tmp_ranges = Array.isArray(opt.ranges) ? opt.ranges : [opt.ranges];
-
 
             /** verificare che i range siano adattati agli scaglioni degli 'interval'
              * ( 10 min ) nel caso normalizzarli er difetto
@@ -42,6 +40,9 @@ define(['moment',
             /** verifico che gli orari passati siano in un formato valido*/
             isHour = checkHours( opt.hours, merchant.atomicIntervalDimension );
 
+
+            //console.log('ranges: '+ ranges.length);
+            //console.log('isHour: '+ isHour.success);
             /** verifico che ci sia almeno un range valido */
             if( ranges.length && isHour.success ){
 
@@ -178,6 +179,8 @@ define(['moment',
              */
             function checksRangeDimension( ranges, interval, minimumRangeDim ){
                 var res = [];
+
+                //console.log('ranges: '+ ranges);
 
                 ranges.forEach( function( range ){
                     /** recupero time */

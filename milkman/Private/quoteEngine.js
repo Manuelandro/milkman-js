@@ -34,13 +34,13 @@ define([
             /**
              * verifico se fra 'opt.ranges' ci sono dei ranges che non ho in locale
              */
+
             checkMissingDates( opt.ranges, function( missings ){
                 /**
                  *  se ci sono intervalli mancanti faccio una quotation al sever
                  *  e filtro tutti gli intervalli per trovare quelli di interesse
                  */
 
-                //console.log('ranges: '+JSON.stringify(opt.ranges));
                 quotation(opt.ranges, missings, function( response ){
                     if( response.success ){
                         if( type === 'findQuote' ){

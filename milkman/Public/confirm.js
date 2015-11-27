@@ -21,16 +21,18 @@ define([ '../../milkman/Private/makeUrlServer',
     return function confirm( data, callback ) {
         var isInitialized = checkRequiredFields('init');
 
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
+        //console.log(data.price);
+        //console.log(data.price === undefined);
 
-        if( isInitialized && data.price && data.ranges ){
+        if( isInitialized && data.price !== undefined && data.price !== null && data.ranges ){
         //HISTORY TRACKING on server
         quoteHistory('confirm', data);
 
         //ricalcolo il prezzo per l'intervallo specifico
         getQuote( data, function( result ){
 
-            if( result.success ){
+            if( result.status === 'success' ){
                 if( Math.round( Number(result.price) * 100) === Math.round( Number(data.price) * 100) ){
                     /**
                      * PRICE CONFIRM: send proposal to server for price confirm
@@ -51,8 +53,6 @@ define([ '../../milkman/Private/makeUrlServer',
                             price: result.price,
                             intervals: result.ranges },
                         function( result ) {
-                            //console.log('succ: '+ result.success);
-
 
                             /**
                              * send session_id to merchant server

@@ -31,12 +31,14 @@ define({
         trackingCode: 'prova123',
         cart: [
             {
-                firstAvailability: '2015-10-18T12:00',
+                firstAvailability: '2015-11-30T12:00',
                 value: 100,
                 auxCost: 5.5,
                 weight: 12.47,
                 pickUp: {
-                    hubId: '0433a6ce-07bf-4028-84f4-718ca9a92c46'
+                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                    lat: 45.188835,
+                    lng: 9.153518
                 }
             }
         ]
@@ -284,12 +286,13 @@ define({
             lng: -74.01118099999997,
             heading: 36.94424778789316,
             pitch: -6.11509517212225,
-            deliverInstructions: 'Beware the dog'
+            deliverInstructions: 'Beware the dog',
+            evaluatedLatLng: false
         }
     ],
     SET_B2: [
         {
-            address: '22 Oak Ln, Rumson, NJ 07760, Stati Uniti'
+            address: 'Via matteo civitali, Milano, MI'
         }
     ],
     SET_B3: [

@@ -55,53 +55,53 @@ if (typeof require === 'function' && require.config) {
             });
         });
     });
-    milkman.setInit( milkman.defaults.SET_A5, function( ) {
-        milkman.setAddress( milkman.defaults.SET_B3, function( result ) {
-            test('test SET_B3', function() {
-                equal(result.status, 'warning', result.text)
-            });
-        });
-    });
-    milkman.setInit( milkman.defaults.SET_A5, function( ) {
-        milkman.setAddress( milkman.defaults.SET_B4, function( result ) {
-            test('test SET_B4', function() {
-                equal(result.status, 'success', result.text)
-            });
-        });
-    });
-    milkman.setInit( milkman.defaults.SET_A5, function( ) {
-        milkman.setAddress( milkman.defaults.SET_B5, function( result ) {
-            test('test SET_B5', function() {
-                equal(result.status, 'failure', result.text)
-            });
-        });
-    });
-    milkman.setInit( milkman.defaults.SET_A5, function( ) {
-        milkman.setAddress( milkman.defaults.SET_B6, function( result ) {
-            test('test SET_B6', function() {
-                equal(result.status, 'success', result.text)
-            });
-        });
-    });
-    milkman.setInit( milkman.defaults.SET_A5, function( ) {
-        milkman.setAddress( milkman.defaults.SET_B7, function( result ) {
-            test('test SET_B7', function() {
-                equal(result.status, 'warning', result.text)
-            });
-        });
-    });
-    milkman.setInit( milkman.defaults.SET_A5, function( ) {
-        milkman.setAddress( milkman.defaults.SET_B8, function( result ) {
-            test('test SET_B8', function() {
-                equal(result.status, 'failure', result.text)
-            });
-        });
-    });
-    milkman.setInit( milkman.defaults.SET_A5, function( ) {
-        milkman.setAddress( milkman.defaults.SET_B9, function( result ) {
-            test('test SET_B9', function() {
-                equal(result.status, 'failure', result.text)
-            });
-        });
-    });
+    //milkman.setInit( milkman.defaults.SET_A5, function( ) {
+    //    milkman.setAddress( milkman.defaults.SET_B3, function( result ) {
+    //        test('test SET_B3', function() {
+    //            equal(result.status, 'warning', result.text)
+    //        });
+    //    });
+    //});
+    //milkman.setInit( milkman.defaults.SET_A5, function( ) {
+    //    milkman.setAddress( milkman.defaults.SET_B4, function( result ) {
+    //        test('test SET_B4', function() {
+    //            equal(result.status, 'success', result.text)
+    //        });
+    //    });
+    //});
+    //milkman.setInit( milkman.defaults.SET_A5, function( ) {
+    //    milkman.setAddress( milkman.defaults.SET_B5, function( result ) {
+    //        test('test SET_B5', function() {
+    //            equal(result.status, 'failure', result.text)
+    //        });
+    //    });
+    //});
+    //milkman.setInit( milkman.defaults.SET_A5, function( ) {
+    //    milkman.setAddress( milkman.defaults.SET_B6, function( result ) {
+    //        test('test SET_B6', function() {
+    //            equal(result.status, 'success', result.text)
+    //        });
+    //    });
+    //});
+    //milkman.setInit( milkman.defaults.SET_A5, function( ) {
+    //    milkman.setAddress( milkman.defaults.SET_B7, function( result ) {
+    //        test('test SET_B7', function() {
+    //            equal(result.status, 'warning', result.text)
+    //        });
+    //    });
+    //});
+    //milkman.setInit( milkman.defaults.SET_A5, function( ) {
+    //    milkman.setAddress( milkman.defaults.SET_B8, function( result ) {
+    //        test('test SET_B8', function() {
+    //            equal(result.status, 'failure', result.text)
+    //        });
+    //    });
+    //});
+    //milkman.setInit( milkman.defaults.SET_A5, function( ) {
+    //    milkman.setAddress( milkman.defaults.SET_B9, function( result ) {
+    //        test('test SET_B9', function() {
+    //            equal(result.status, 'failure', result.text)
+    //        });
+    //    });
+    //});
 }));

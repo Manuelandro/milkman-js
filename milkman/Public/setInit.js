@@ -85,7 +85,8 @@ define([
 
                             /** definisco il range di default per getQuote e findQuote */
                             var firstDay = result.data.hub.firstAvailability,
-                                lastDay =  moment( result.data.hub.firstAvailability ).add( result.data.merchant.defaultRangeDays, 'd' ).format('YYYY-MM-DD'),
+                                lastDay =  moment( result.data.hub.firstAvailability ).add(
+                                    result.data.merchant.defaultRangeDays, 'd' ).format('YYYY-MM-DD'),
                                 lastHour = result.data.hub.bhInterval.split('/')[1];
 
                                 window.localStorage.setItem(
@@ -99,6 +100,20 @@ define([
                             //}
                             callback({
                                 status: 'success',
+                                settings: {
+                                    availableFriday: result.data.hub.availFri,
+                                    availableMonday: result.data.hub.availMon,
+                                    availableSaturday: result.data.hub.availSat,
+                                    availableSunday: result.data.hub.availSun,
+                                    availableThursday: result.data.hub.availThu,
+                                    availableTuesday: result.data.hub.availTue,
+                                    availableWednesday: result.data.hub.availWed,
+                                    businessInterval: result.data.hub.bhInterval,
+                                    firstAvailability: result.data.hub.firstAvailability,
+                                    holidays: result.data.hub.holidays,
+                                    localHolidays: result.data.hub.localHolidays,
+                                    defaultRangeDays: result.data.merchant.defaultRangeDays
+                                },
                                 text: constants.STATUS.SUCCESS.OK_200
                             });
 
