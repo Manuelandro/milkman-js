@@ -97,7 +97,8 @@ define([ '../../milkman/Private/makeUrlServer',
                     /** il prezzo inviato dall'utente e quello calcolato non coincidono */
                     callback({
                         status: 'failure',
-                        text: constants.STATUS.FAILURE.PRICE_NOT_VALID
+                        text: constants.STATUS.FAILURE._400,
+                        errorMessage: constants.STATUS.ERROR_MESSAGE._403
                     });
                 }
 
@@ -112,14 +113,14 @@ define([ '../../milkman/Private/makeUrlServer',
             if( isInitialized ){
                 callback({
                     status: 'failure',
-                    text: constants.STATUS.FAILURE.BAD_REQUEST_400,
-                    errorMessage: 'Confirm method needs ranges and price fields.'
+                    text: constants.STATUS.FAILURE._400,
+                    errorMessage: constants.STATUS.ERROR_MESSAGE._413
                 });
             } else {
                 callback({
                     status: 'failure',
-                    text: constants.STATUS.FAILURE.BAD_REQUEST_400,
-                    errorMessage: 'You need to set required fields before.'
+                    text: constants.STATUS.FAILURE._400,
+                    errorMessage: constants.STATUS.ERROR_MESSAGE._414
                 });
             }
 

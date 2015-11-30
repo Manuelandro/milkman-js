@@ -17,12 +17,12 @@ define(['moment',
                 //verifico che il prezzo sia uguale
                 if ( value.price === price ){
 
-                    console.log('checkProposal: entered '+value.range );
+                   // console.log('checkProposal: entered '+value.range );
                     var allTrue = value.range.filter( function( y ){
-                        console.log('checkProposal: entered ');
+                     //   console.log('checkProposal: entered ');
                         //console.log('y: ' + y);//JSON.stringify(y));
                         var oneTrue = proposal.filter( function( i ){
-                            console.log('checkProposal: entered ');
+                       //     console.log('checkProposal: entered ');
                             //console.log('i: ' +i);
                             if (y === i ){
                                 //console.log('y === i');

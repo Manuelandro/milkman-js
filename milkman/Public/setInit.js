@@ -114,7 +114,7 @@ define([
                                     localHolidays: result.data.hub.localHolidays,
                                     defaultRangeDays: result.data.merchant.defaultRangeDays
                                 },
-                                text: constants.STATUS.SUCCESS.OK_200
+                                text: constants.STATUS.SUCCESS._200
                             });
 
                         }
@@ -129,8 +129,8 @@ define([
                 } else {
                     callback({
                         status: 'failure',
-                        text: constants.STATUS.FAILURE.UNAUTHORIZED_401,
-                        error_message: constants.ERROR_MESSAGE.MISSING_IN_PARCEL
+                        text: constants.STATUS.FAILURE._401,
+                        error_message: constants.STATUS.ERROR_MESSAGE._409
                     });
                 }
 
@@ -140,8 +140,8 @@ define([
             /** if required values are NOT available */
             callback({
                 status: 'failure',
-                text: constants.STATUS.FAILURE.UNAUTHORIZED_401,
-                error_message: constants.ERROR_MESSAGE.MISSING
+                text: constants.STATUS.FAILURE._401,
+                error_message: constants.STATUS.ERROR_MESSAGE._410
             });
         }
     }

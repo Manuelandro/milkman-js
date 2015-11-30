@@ -19,7 +19,9 @@ define(['../../milkman/Private/makeUrlServer',
 
             /** CHECK required field */
             if( setInit_isDone ){
-                checkAddress( data, function( normaAddresses, error ){
+                /** verifico che gli address siano in un array */
+                var tmp_data = Array.isArray(data) ? data : [data];
+                checkAddress( tmp_data, function( normaAddresses, error ){
 
                     //console.log('normaAddresses: '+JSON.stringify(normaAddresses));
                     //console.log('length: '+JSON.stringify(normaAddresses.length));
@@ -42,19 +44,19 @@ define(['../../milkman/Private/makeUrlServer',
                                 if( error ){
                                     callback({
                                         status: 'warning',
-                                        text: constants.STATUS.WARNING.ADDRESS_ZERO_RESULTS
+                                        text: constants.STATUS.WARNING._301
                                     });
                                 }
                                 else if( normaAddresses.length === data.length ) {
                                     callback({
                                         status: 'success',
-                                        text: constants.SUCCESS.OK_200
+                                        text: constants.STATUS.SUCCESS._200
                                     });
                                 }
                                 else {
                                     callback({
                                         status: 'warning',
-                                        text: constants.STATUS.WARNING.ADDRESS_INCORRECT
+                                        text: constants.STATUS.WARNING._302
                                     });
                                 }
                             }
@@ -69,8 +71,8 @@ define(['../../milkman/Private/makeUrlServer',
                     } else {
                         callback({
                             status: 'failure',
-                            text: constants.STATUS.FAILURE.BAD_REQUEST_400,
-                            errorMessage: constants.ERROR_MESSAGE.MISSING
+                            text: constants.STATUS.FAILURE._400,
+                            errorMessage: constants.STATUS.ERROR_MESSAGE._410
                         });
                     }
 
@@ -80,7 +82,7 @@ define(['../../milkman/Private/makeUrlServer',
                 callback({
                     status: 'failure',
                     text: constants.STATUS.FAILURE.BAD_REQUEST_400,
-                    errorMessage: constants.ERROR_MESSAGE.NO_PUBKEY_URI
+                    errorMessage: constants.STATUS.ERROR_MESSAGE._408
                 });
             }
         }

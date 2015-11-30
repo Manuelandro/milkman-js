@@ -31,7 +31,7 @@ define(['../../milkman/Private/makeUrlServer',
                     {
                         callback({
                             status: 'success',
-                            text: constants.STATUS.SUCCESS.OK_200
+                            text: constants.STATUS.SUCCESS._200
                         }, moment);
                     }
                     else
@@ -47,8 +47,8 @@ define(['../../milkman/Private/makeUrlServer',
 
                 callback({
                     status: 'failure',
-                    text: constants.STATUS.FAILURE.BAD_REQUEST_400,
-                    errorMessage: constants.ERROR_MESSAGE.NO_PUBKEY_URI
+                    text: constants.STATUS.FAILURE._400,
+                    errorMessage: constants.STATUS.ERROR_MESSAGE._408
                 });
             }
 

@@ -36,7 +36,7 @@ define([ '../../milkman/Private/makeUrlServer',
 
                         callback({
                             status: 'success',
-                            text: constants.STATUS.SUCCESS.OK_200,
+                            text: constants.STATUS.SUCCESS._200,
                             quotes: result.data.quote
                         });
                     }
@@ -52,7 +52,7 @@ define([ '../../milkman/Private/makeUrlServer',
             } else {
                 callback({
                     status: 'failure',
-                    text: constants.STATUS.FAILURE.UNAUTHORIZED_401
+                    text: constants.STATUS.FAILURE._401
                 });
             }
         }

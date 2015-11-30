@@ -33,7 +33,7 @@ define(['../../milkman/Private/makeUrlServer',
 
                         callback({
                             success: true,
-                            text: constants.SUCCESS.OK_200
+                            text: constants.STATUS.SUCCESS._200
                         }, moment);
                     }
                     else
@@ -49,14 +49,14 @@ define(['../../milkman/Private/makeUrlServer',
                 if( isInitialized ){
                     callback({
                         success: false,
-                        text: constants.STATUS.FAILURE.BAD_REQUEST_400,
-                        errorMessage: constants.ERROR_MESSAGE.REQUIRED_AUXCOST_FIRSTDAY
+                        text: constants.STATUS.FAILURE._400,
+                        errorMessage: constants.STATUS.ERROR_MESSAGE._412
                     });
                 } else {
                     callback({
                         success: false,
-                        text: constants.STATUS.FAILURE.BAD_REQUEST_400,
-                        errorMessage: constants.ERROR_MESSAGE.NEED_REQUIRED
+                        text: constants.STATUS.FAILURE._400,
+                        errorMessage: constants.STATUS.ERROR_MESSAGE._411
                     });
                 }
 

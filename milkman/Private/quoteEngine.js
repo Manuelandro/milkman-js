@@ -72,12 +72,12 @@ define([
 
                                 callback({
                                     status: 'success',
-                                    text: constants.STATUS.SUCCESS.OK_200,
+                                    text: constants.STATUS.SUCCESS._200,
                                     quotes: result });
                             } else {
                                 callback({
                                     status: 'failure',
-                                    text: constants.STATUS.FAILURE.NO_RESULTS_402});
+                                    text: constants.STATUS.ERROR_MESSAGE._402});
                             }
 
 

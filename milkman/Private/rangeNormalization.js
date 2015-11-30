@@ -98,7 +98,7 @@ define(['moment',
                     } else {
                         callback({
                             success: false,
-                            text: constants.STATUS.FAILURE.RANGE_NOT_CORRECT
+                            text: constants.STATUS.ERROR_MESSAGE._406
                         });
                     }
                 });
@@ -117,7 +117,7 @@ define(['moment',
                 } else {
                     callback({
                         success: false,
-                        text: constants.STATUS.FAILURE.NO_RESULTS_402
+                        text: constants.STATUS.ERROR_MESSAGE._402
                     })
                 }
 
@@ -128,11 +128,11 @@ define(['moment',
                 isHour.success ?
                     callback({
                         success: false,
-                        text: constants.STATUS.FAILURE.RANGE_NOT_VALID
+                        text: constants.STATUS.ERROR_MESSAGE._404
                     }) :
                     callback({
                         success: false,
-                        text: constants.STATUS.FAILURE.HOUR_NOT_VALID
+                        text: constants.STATUS.ERROR_MESSAGE._404
                     })
 
             }

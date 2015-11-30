@@ -14,7 +14,7 @@ define([
                 price_engine( intervals_of_interest, function( price ) {
                     callback({
                         status: 'success',
-                        text: constants.STATUS.SUCCESS.OK_200,
+                        text: constants.STATUS.SUCCESS._200,
                         ranges: ranges,
                         price: price
                     });
@@ -22,7 +22,7 @@ define([
 
                 callback({
                     status: 'success',
-                    text: constants.STATUS.FAILURE.NO_RESULTS_402
+                    text: constants.STATUS.SUCCESS._201
                 });
         };
     }
