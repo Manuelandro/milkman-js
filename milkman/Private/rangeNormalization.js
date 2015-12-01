@@ -25,6 +25,8 @@ define(['moment',
                 ],
                 ranges, isHour, tmp_ranges, norma = [], weekdays;
 
+
+
             /** definisco i giorni utili della settimana */
             weekdays = getWeekDays( opt.weekdays, hub_weekdays );
 
@@ -194,6 +196,7 @@ define(['moment',
                     if( cond1 && cond2 ) {
 
                         /** approssimazione per difetto delle date */
+
                         var time = approximateByMinimum( r_left, r_right, interval );
 
                         //console.log('ORI: '+r_left +' - '+r_right);
@@ -201,6 +204,7 @@ define(['moment',
 
                         /** verifica che il range ottenuto sia consistente rispetto
                          * al vincolo "minimo range avvettabile"*/
+
                         var restrictionPassed = checkRestriction( range, time, minimumRangeDim * interval );
 
                         /** se il vincolo è rispettato salvo il range */
@@ -218,7 +222,7 @@ define(['moment',
 
             /**
              * verifica che il range ottenuto sia consistente rispetto
-             * al vincolo "minimo range avvettabile"
+             * al vincolo "minimo range accettabile"
              *
              * @param range
              * @param time
@@ -226,10 +230,20 @@ define(['moment',
              * @returns {{success: boolean, range: string}}
              */
             function checkRestriction( range, time, minimumRangeDim ){
-                var leftDate = range.split('/')[0].split('T')[0] + 'T' + time.left,
-                    rightDate = range.split('/')[1].split('T')[0] + 'T' + time.right,
+                /** normalizzo ora */
+                var left_h = moment(time.left, 'HH:mm').format("HH:mm"),
+                    right_h = moment(time.right, 'HH:mm').format("HH:mm");
 
-                    diffDates = moment(rightDate).diff(moment(leftDate), 'minutes');
+                /** normalizzo data */
+                var left_d = moment(range.split('/')[0].split('T')[0], 'YYYY-MM-DD').format("YYYY-MM-DD"),
+                    right_d = moment(range.split('/')[1].split('T')[0], 'YYYY-MM-DD').format("YYYY-MM-DD");
+
+                /** assemplo data + time */
+                var leftDate = left_d + 'T' + left_h,
+                    rightDate = right_d + 'T' + right_h;
+
+                /** verifico differenza in minuti*/
+                var diffDates = moment(rightDate).diff(moment(leftDate), 'minutes');
 
                 var bool = minimumRangeDim <= diffDates,
                     tmp_range = leftDate + '/' + rightDate;

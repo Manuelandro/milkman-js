@@ -77,13 +77,13 @@ At this point the Milkman.js library scans the form and verifies that they are w
 Hopefully Milkman.js library sends the data to Milkman API that will open a new session for the current merchant.  
 
 
-![alt tag](https://www.filepicker.io/api/file/zLiDKVh7R1m84W5g4kyI)
+![alt tag](https://www.filepicker.io/api/file/NoyB5eJSd6fiiMnZMf6g)
 
 
 The second step is to set the required consignee address. Without it it's impossible to proceed with milkman interactions. So, the final user calls setAddress method to Milkman.js library; the library checks the address lat/lng and requests the integration of these informations in the current session to Milkman API. Obviously this request can be done directly from the final user to Milkman API without the support of Milkman.js library.
 
 
-![alt tag](https://www.filepicker.io/api/file/nfRH4h4RQhuGy34MF4Ei)
+![alt tag](https://www.filepicker.io/api/file/zi38YppPSv6VgdguG3at)
 
 
 When every required field is setted i'is possible to interrogate milkman for a quotation. This is the case in which Milkman.js' library shows its usefulness compared to direct calls sent to the Milkman API. Users can request a quotation through getQuote and findQuote's methods in a very comfortable way. Then it's Milkman.js library that normalizes and tokenizes the provided ranges of time in intervals small enough to be integrated in the price engine function. After this process the method will return the required range together with the associated price.
@@ -91,7 +91,7 @@ When every required field is setted i'is possible to interrogate milkman for a q
 If the logic for the price engine is not already inside the Milkman.js library, it will request to the Milkman API the neccessary informations to proceed with the quotation.
 
 
-![alt tag](https://www.filepicker.io/api/file/JErQIb0qSOiqfFjHSYgi)
+![alt tag](https://www.filepicker.io/api/file/F788ZWhsQhyZcXEZfTxZ)
 
 
 This process can be done more and more times, when the user has found a suitable solution for  both his time and his pockets he will send, though confirm method, the selected range of time with the correlated price.
@@ -99,7 +99,7 @@ This process can be done more and more times, when the user has found a suitable
 Milkman.js library checks the price and, if everything is ok, then sends the request to the Milkman API. 
 
 
-![alt tag](https://www.filepicker.io/api/file/C8zb0WQER4yeYCfXp4wd)
+![alt tag](https://www.filepicker.io/api/file/3SPfiqusQ0aWLdliUZg2)
 
 
 
@@ -109,13 +109,13 @@ Milkman.js library advices the merchant's server about the new order and sends t
 The merchant's server has to confirm the positive request to the Milkman.js' library.
 
 
-![alt tag](https://www.filepicker.io/api/file/SzdhYWlASVeOASuGsxGq)
+![alt tag](https://www.filepicker.io/api/file/EUShm7C6TqanTdzCRn9a)
 
 
 The last step requires a request by the merchant's server. It has to pass to the Milkman API the session identifier with the secret key in order to communicate to Milkman the accurancy of the previous confirmation. At this point the lifecycle of Milkman experience is closed.
 
 
-![alt tag](https://www.filepicker.io/api/file/ruXFoLRjRxebOockEop6)
+![alt tag](https://www.filepicker.io/api/file/MiPWfXngTg6lYtg1ebVJ)
 
 
 # Milkman.js 
@@ -170,39 +170,45 @@ Milkman.js library returns three different status for every request:
 
 When Milkman.js library returns error messages, it does so in JSON format. For example, an error might look like this:
 
-  {
-  status: "failure",
-  text: "Unauthorized: Authentication credentials are missing or incorrect. The accompanying error message explains why."
-  error_message:"Some required fields are missing."
-  }
+    {
+    status: "failure",
+    text: "Unauthorized: Authentication credentials are missing or incorrect. The accompanying error message explains why."
+    error_message:"Some required fields are missing."
+    }
 
 ## Warning status
 
 In case of warning's status you can find this type of error message:
-1. "We are not able to calculate lat-lng for some addresses." 
-2.  "Some addresses are not acceptable, they missing required fields."
+1. "We are not able to calculate lat-lng for some of the addresses." 
+2.  "Some addresses are not acceptable, they are missing required fields."
 
 ## Error status
 
 Error codes define the type of an error. The following error may be returned:
-1. 402 : 'No results.'
-2. 400: 'Bad Request: The request cannot be accepted. The accompanying error message explains why.'
-3. 401:  'Unauthorized: Authentication credentials are missing or incorrect. The accompanying error message explains why.'    
+1. 400: 'Bad Request: The request cannot be accepted. The accompanying error message explains why.'
+2. 401:  'Unauthorized: Authentication credentials are missing or incorrect. The accompanying error message explains why.'    
+3. 429 : 'Too many requests: Rate limit exceeded. Wait before retrying and reduce the rate of requests.'
+4. 500 : 'Something bad and unexpected happened.'
 
 ## Error message
 
 In the body of returned error messages you can find the scope of an error. The following error message may be returned:
-1. 'Price is not valid.'
-2. 'Range is not valid.'
-3. 'Hour is not valid.'
-4. 'Range is not in a correct form. Please check it.'
-5. 'You need to set publichable key and merchant URI before.'
-6. 'Some required fields in Parcel's Cart are missing.'
-7. 'Some required fields are missing.'
-8. 'You need to set required fields before.'
-9. 'Value, FirstAvailableDay and AuxCost are required fields.'
 
-# Get started
+1. 'No results.'
+2. 'Invalid price.'
+3. 'Invalid range.'
+4. 'Invalid hour.'
+5. 'Range form is incorrect. Please check it.'
+6. 'Bad Request: The request is malformed. Please check the specifics.'
+7. 'You need to set publishable key and merchant URI before.'
+8. "Some required fields in Parcel's Cart are missing."
+9. "Some required fields are missing."
+10. 'You need to set required fields before.'
+11. 'Value, FirstAvailableDay and AuxCost are required fields.'
+12. 'Confirm method needs ranges and price fields.'
+13. 'You need to set required fields before.'
+
+# Getting started
 
 This is a JavaScript library with AMD modules that will work either with browser globals or with an AMD loader.
 

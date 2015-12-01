@@ -54,7 +54,7 @@ if (typeof require === 'function' && require.config) {
 
             //var range = {};
             var r = {
-                ranges : ''
+                ranges : '2015-12-14T9:01/2015-12-14T09:55'
             };
 
             milkman.getQuote(r, function( result ){
