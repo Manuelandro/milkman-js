@@ -30,6 +30,8 @@ define(['moment',
             /** definisco i giorni utili della settimana */
             weekdays = getWeekDays( opt.weekdays, hub_weekdays );
 
+            //console.log(JSON.stringify('weekdays: '+weekdays));
+
             /** range must be an array */
             tmp_ranges = Array.isArray(opt.ranges) ? opt.ranges : [opt.ranges];
 

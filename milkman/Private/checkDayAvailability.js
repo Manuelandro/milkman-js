@@ -19,17 +19,17 @@ define([
 
             var merchant = JSON.parse(window.localStorage.getItem( constants.MERCHANT )),
                 weekAvailability = [
-                merchant.availMon,
-                merchant.availTue,
-                merchant.availWed,
-                merchant.availThu,
-                merchant.availFri,
-                merchant.availSat,
-                merchant.availSun
+                    merchant.availMon,
+                    merchant.availTue,
+                    merchant.availWed,
+                    merchant.availThu,
+                    merchant.availFri,
+                    merchant.availSat,
+                    merchant.availSun
                 ],
                 weekday = moment(dayToCheck).format('E');
 
-            return weekdays[ weekday - 1 ];
+            return weekAvailability[ weekday - 1 ];
         };
     }
 );

@@ -48,7 +48,8 @@ define(['moment',
                             //console.log(JSON.stringify(opt));
                             rangeNormalization( opt, function( formatted ){
 
-                                // console.log(JSON.stringify(formatted.text));
+                                //console.log(JSON.stringify('formatted: '+formatted.ranges));
+                                //[success, ranges]
                                 if( formatted.success ){
                                     opt.ranges = formatted.ranges;
                                     quoteEngine( 'getQuote', opt, callback );

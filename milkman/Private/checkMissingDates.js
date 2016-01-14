@@ -13,9 +13,11 @@ define(['moment',
             /**
              * IF: ho qualche dato in memoria controllo di avere tutti gli intervalli di interesse
              */
+
             if ( constants.intervals.length ){
                 var arr = [];
 
+                console.log('ranges: '+ranges);
                 ranges.forEach(function (range) {
                     var day_one = range.split('T')[0],
                         range_days = moment(range.split('/')[1].split('T')[0]).diff(moment(day_one), 'days');

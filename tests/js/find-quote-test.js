@@ -43,9 +43,10 @@ if (typeof require === 'function' && require.config) {
     window.localStorage.removeItem('session_token');
 
     //verifico che se passo range senza [] lo inserisce la funzione
-    milkman.setInit( milkman.defaults.SET_A5, function( ) {
-        milkman.setAddress( milkman.defaults.SET_B2, function( ) {
-
+    milkman.setInit( milkman.defaults.SET_A5, function( val1 ) {
+        console.log('setInit: '+JSON.stringify(val1));
+        milkman.setAddress( milkman.defaults.SET_B2, function( val2 ) {
+            console.log('setAddress: '+JSON.stringify(val2));
             milkman.findQuote(milkman.defaults.SET_D1, function( result ){
                 console.log('findQuote: '+JSON.stringify(result));
 

@@ -34,6 +34,25 @@ define([
             data.cart
         ){
 
+            /** set to zero local variables*/
+            constants.defaultRange = '';
+            constants.requiredFields = {};
+            constants.range = [];
+            constants.data = {};
+            constants.intervals = [];
+            constants.discounts = [];
+            constants.merchant_details = '';
+
+            /** set to zero local storage*/
+            window.localStorage.removeItem('addresses');
+            window.localStorage.removeItem('default_range');
+            window.localStorage.removeItem('hub');
+            window.localStorage.removeItem('merchant');
+            window.localStorage.removeItem('proposal_id');
+            window.localStorage.removeItem('publishable_key');
+            window.localStorage.removeItem('redirect_uri');
+            window.localStorage.removeItem('session_token');
+
             /** variables are saved in local storage */
             window.localStorage.setItem(
                 constants.PUBLISHABLE_KEY, data.publishableKey
@@ -79,18 +98,18 @@ define([
                             window.localStorage.setItem(
                                 constants.MERCHANT, JSON.stringify(result.data.merchant)
                             );
-                            window.localStorage.setItem(
-                                constants.HUB, JSON.stringify(result.data.hub)
-                            );
+                            //window.localStorage.setItem(
+                            //    constants.HUB, JSON.stringify(result.data.hub)
+                            //);
 
-                            /** definisco il range di default per getQuote e findQuote */
-                            var firstDay = result.data.hub.firstAvailability,
-                                lastDay =  moment( result.data.hub.firstAvailability ).add(
-                                    result.data.merchant.defaultRangeDays, 'd' ).format('YYYY-MM-DD'),
-                                lastHour = result.data.hub.bhInterval.split('/')[1];
-
-                                window.localStorage.setItem(
-                                    constants.DEFAULT_RANGE, firstDay + '/' + lastDay + 'T' + lastHour );
+                            ///** definisco il range di default per getQuote e findQuote */
+                            //var firstDay = result.data.hub.firstAvailability,
+                            //    lastDay =  moment( result.data.hub.firstAvailability ).add(
+                            //        result.data.merchant.defaultRangeDays, 'd' ).format('YYYY-MM-DD'),
+                            //    lastHour = result.data.hub.bhInterval.split('/')[1];
+                            //
+                            //    window.localStorage.setItem(
+                            //        constants.DEFAULT_RANGE, firstDay + '/' + lastDay + 'T' + lastHour );
 
                             //se ho tutti i dati richiesti in modo obbligatorio posso procedere con getQuote&findQuote
                             //if( normalizedAddress ){
@@ -100,20 +119,20 @@ define([
                             //}
                             callback({
                                 status: 'success',
-                                settings: {
-                                    availableFriday: result.data.hub.availFri,
-                                    availableMonday: result.data.hub.availMon,
-                                    availableSaturday: result.data.hub.availSat,
-                                    availableSunday: result.data.hub.availSun,
-                                    availableThursday: result.data.hub.availThu,
-                                    availableTuesday: result.data.hub.availTue,
-                                    availableWednesday: result.data.hub.availWed,
-                                    businessInterval: result.data.hub.bhInterval,
-                                    firstAvailability: result.data.hub.firstAvailability,
-                                    holidays: result.data.hub.holidays,
-                                    localHolidays: result.data.hub.localHolidays,
-                                    defaultRangeDays: result.data.merchant.defaultRangeDays
-                                },
+                                //settings: {
+                                //    availableFriday: result.data.hub.availFri,
+                                //    availableMonday: result.data.hub.availMon,
+                                //    availableSaturday: result.data.hub.availSat,
+                                //    availableSunday: result.data.hub.availSun,
+                                //    availableThursday: result.data.hub.availThu,
+                                //    availableTuesday: result.data.hub.availTue,
+                                //    availableWednesday: result.data.hub.availWed,
+                                //    businessInterval: result.data.hub.bhInterval,
+                                //    firstAvailability: result.data.hub.firstAvailability,
+                                //    holidays: result.data.hub.holidays,
+                                //    localHolidays: result.data.hub.localHolidays,
+                                //    defaultRangeDays: result.data.merchant.defaultRangeDays
+                                //},
                                 text: constants.STATUS.SUCCESS._200
                             });
 

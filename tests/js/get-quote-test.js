@@ -48,31 +48,107 @@ if (typeof require === 'function' && require.config) {
     //    hours: [ '09:30/10:00', '13:30/14:00' ]
     //};
 
-    milkman.setInit( milkman.defaults.SET_A5, function( ) {
-        milkman.setAddress( milkman.defaults.SET_B2, function( ) {
+    var init = {
+        publishableKey: 'test-public-key',
+            redirectUri: 'http://localhost:3003',
+            trackingCode: 'prova123',
+            cart: [
+            {
+                firstAvailability: '2016-01-12T12:00',
+                value: 100,
+                auxCost: 5.5,
+                weight: 12.47,
+                pickUp: {
+                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                    heading: 36.94424778789316,
+                    pitch: -6.11509517212225,
+                    lat: 45.188835,
+                    lng: 9.153518
+                }
+            }
+        ],
+            address: [
+            {
+                address: 'Via matteo civitali, Milano, MI'
+            }
+        ],
+            ranges: []
+        },
+        timeWindowsParam = {
+            byMilkmanHub: true,
+            selectedDate: "2016-02-24",
+            selectedAfter : "13:00",
+            selectedBefore : "20:00",
+            gap : 60
+        },
+        timeWindows2Param = {
+            byMilkmanHub: true,
+            selectedDate: "2016-02-25",
+            selectedAfter : "13:00",
+            selectedBefore : "20:00",
+            gap : 60
+        },
+        sameDayParam = {
+            byMilkmanHub : true,
+            selectedDate: "2016-01-12",
+            selectedAfter : "17:00",//orario selezionato in "Dopo le"
+            selectedBefore : "20:00",//orario selezionato "Prima delle"
+            afterThen : "16:00", //inizio del "Dopo le"
+            gap : 60 //intervallo tra "Dopo le" e "Prima delle"
+        };
 
 
-            //var range = {};
-            var r = {
-                ranges : '2015-12-14T9:01/2015-12-14T09:55'
-            };
 
-            milkman.getQuote(r, function( result ){
-                //   result.ranges.forEach(function( val ){
-                    //console.log('getQuote: '+JSON.stringify(val));
-                //   });
-                //console.log('price: '+JSON.stringify(result.price));
-                //milkman.confirm(result, function( res2 ){
-                //    //   res2.ranges.forEach(function( val ){
-                //        //console.log('//console: '+JSON.stringify(val));
-                //    //  });
-                //    //console.log('price: '+JSON.stringify(res2.price));
-                //
-                    test('SET_C1', function() {
-                        equal(result.status, 'success', result.text)
+
+    console.log('--------------FIRST');
+            milkman.setInit( init, function( setInitResult1 ) {
+                milkman.setAddress( init.address, function( setAddressResult1 ) {
+
+
+                    setInitResult1['settings'] = setAddressResult1.settings;
+
+                    var ranges1 = [], hours1 = [];
+
+                    ranges1.push(timeWindowsParam.selectedDate);
+                    hours1.push(
+                        timeWindowsParam.selectedAfter +'/'+
+                        timeWindowsParam.selectedBefore
+                    );
+
+                    milkman.getQuote({ ranges: ranges1, hours: hours1 }, function( getQuoteResult1 ){
+                        setInitResult1['price'] = getQuoteResult1.price;
+                        setInitResult1['ranges'] = getQuoteResult1.ranges;
+
+                        test('SET_B1', function() { equal(getQuoteResult1.status, 'success', getQuoteResult1.text) });
+                        console.log('--------------SECOND');
+                        milkman.setInit( init, function( setInitResult ) {
+                            milkman.setAddress( init.address, function( setAddressResult ) {
+
+                                setInitResult['settings'] = setAddressResult.settings;
+
+
+                        var ranges = [], hours = [];
+
+                                ranges.push(sameDayParam.selectedDate);
+                                hours.push(
+                                    sameDayParam.selectedAfter +'/'+
+                                    sameDayParam.selectedBefore);
+
+
+                        milkman.getQuote({ ranges: ranges, hours: hours }, function( getQuoteResult ){
+                            setInitResult['price'] = getQuoteResult.price;
+                            setInitResult['ranges'] = getQuoteResult.ranges;
+
+                            test('SET_A1', function() { equal(getQuoteResult.status, 'success', getQuoteResult.text) });
+                        });
+
+
+
                     });
-                //});
+                });
             });
+
+
             //milkman.getQuote(milkman.defaults.SET_C2, function( result ){
             //    //  result.ranges.forEach(function( val ){
             //        //console.log('getQuote: '+JSON.stringify(val));
