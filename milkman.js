@@ -7,7 +7,7 @@
 define(function (require) {
     'use strict';
 
-    var JQ = require('jquery'),
+    var //JQ = require('jquery'),
 
         commit = require('milkman/commit'),
 
@@ -37,7 +37,7 @@ define(function (require) {
 
 
     return {
-        version: '0.0.1, jQuery version is: ' + JQ.fn.jquery,
+        //version: '0.0.1, jQuery version is: ' + JQ.fn.jquery,
 
         checkInterval: checkInterval,
         checkMissingDates: checkMissingDates,
