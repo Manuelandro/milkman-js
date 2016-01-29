@@ -1,7 +1,7 @@
 
 define([ 'jquery',
         '../../milkman/Utils/constants' ],
-    function ( $, constants ) {
+    function ( JQ, constants ) {
         'use strict';
 
         /**
@@ -17,33 +17,44 @@ define([ 'jquery',
 
 
         return function request(url, type, data, callback) {
-            var session_token = window.localStorage.getItem( constants.SESSION_TOKEN );
+            //var session_token = window.localStorage.getItem( constants.SESSION_TOKEN );
 
             //if( session_token ){
 
-                return $.ajax({
+                return JQ.ajax({
                     url : url, //+ '?token=' + session_token,
+                    headers: {
+                        "X-Parse-Application-Id":"JLosOIYAbKXW3FBvEZRvQIzI9EZ2ZyNqcJ8w5jit",
+                        "X-Parse-Javascript-Key":"bGXMI4pBIdRFmnrNw1Y1njCSSTIYahPqJ3NlhUhk"
+                    },
                     type: type,
                     data : data ? data : null,
                     dataType: "json",
                     timeout: 8000,
-                    success: function(data_results, textStatus, jqXHR)
+                    success: function(data, textStatus, jqXHR)
                     {
-                        callback({
-                            success: true,
-                            data: data_results,
-                            textStatus: textStatus,
-                            jqXHR: jqXHR
-                        });
+
+                        callback(data.result);
+                        //callback({
+                        //    success: true,
+                        //    data: data_results,
+                        //    textStatus: textStatus,
+                        //    jqXHR: jqXHR
+                        //});
                     },
-                    error: function(jqXHR, textStatus, errorThrown)
+                    error: function(data)//jqXHR, textStatus, errorThrown)
                     {
+                        var error = JSON.parse(data.responseText);
                         callback({
                             success: false,
-                            jqXHR: jqXHR,
-                            textStatus: textStatus,
-                            errorThrown: errorThrown
+                            error: error.error
                         });
+                        //callback({
+                        //    success: false,
+                        //    jqXHR: jqXHR,
+                        //    textStatus: textStatus,
+                        //    errorThrown: errorThrown
+                        //});
                     }
                 });
 

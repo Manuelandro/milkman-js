@@ -14,20 +14,20 @@ define(['../../milkman/Private/makeUrlServer',
          *  @PARAM: Function
          */
         return function setConsignee( data, callback ) {
-            var url = makeUrlServer('/sessionDetails'),
+            var url = makeUrlServer('/setDetails'),
                 isInitialized = checkRequiredFields('init');
 
             //CHECK required field
             if( isInitialized ){
 
-                request( url, 'PUT', {
+                request( url, 'POST', {
                     sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
                     publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
                     proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
-                    consignee: data
-                }, function( result ) {
+                    consignee: JSON.stringify(data)
+                }, function( response ) {
 
-                    if ( result.success )
+                    if ( response.success )
                     {
                         callback({
                             status: 'success',
@@ -38,7 +38,7 @@ define(['../../milkman/Private/makeUrlServer',
                     {
                         callback({
                             status: 'failure',
-                            text: result.jqXHR
+                            text: response.error
                         });
                     }
                 })

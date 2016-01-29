@@ -1,11 +1,12 @@
 define(['moment',
+        '../../milkman/Private/makeUrlServer',
+        '../../milkman/Private/request',
         '../../milkman/Utils/constants',
         '../../milkman/Private/rangeNormalization',
-        '../../milkman/Private/quoteEngine',
         '../../milkman/Private/quoteHistory',
         '../../milkman/Private/checkRequiredFields'
     ],
-    function ( moment, constants, rangeNormalization, quoteEngine, quoteHistory, checkRequiredFields ) {
+    function ( moment, makeUrlServer, request, constants, rangeNormalization, quoteHistory, checkRequiredFields ) {
         'use strict';
 
         /**
@@ -15,6 +16,7 @@ define(['moment',
          */
         return function getQuote( options, callback ) {
             var opt = {},
+                url = makeUrlServer('/quotation'),
                 isInitialized = checkRequiredFields('all');
 
             if( isInitialized ){
@@ -52,7 +54,30 @@ define(['moment',
                                 //[success, ranges]
                                 if( formatted.success ){
                                     opt.ranges = formatted.ranges;
-                                    quoteEngine( 'getQuote', opt, callback );
+
+                                    request( url, 'POST', {
+                                        sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
+                                        publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
+                                        proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
+                                        quotationType: 'getQuote',
+                                        options: JSON.stringify(opt)
+                                    }, function( response ) {
+
+                                        if ( response.success )
+                                        {
+                                            callback({
+                                                status: 'success',
+                                                text: constants.STATUS.SUCCESS._200
+                                            });
+                                        }
+                                        else
+                                        {
+                                            callback({
+                                                status: 'failure',
+                                                text: response.error
+                                            });
+                                        }
+                                    });
 
                                 } else {
                                     callback({
@@ -64,7 +89,29 @@ define(['moment',
                         }
                         /**ELSE: none options, we use defaults */
                         else {
-                            quoteEngine( 'getQuote', opt, callback );
+                            request( url, 'POST', {
+                                sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
+                                publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
+                                proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
+                                quotationType: 'getQuote',
+                                options: JSON.stringify(opt)
+                            }, function( response ) {
+
+                                if ( response.success )
+                                {
+                                    callback({
+                                        status: 'success',
+                                        text: constants.STATUS.SUCCESS._200
+                                    });
+                                }
+                                else
+                                {
+                                    callback({
+                                        status: 'failure',
+                                        text: response.error
+                                    });
+                                }
+                            });
                         }
 
                     } else {  /**ELSE: errore, non c'è nessun range */

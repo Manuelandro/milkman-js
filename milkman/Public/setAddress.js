@@ -15,7 +15,7 @@ define(['moment',
          *  @PARAM: Function
          */
         return function setAddress( data, callback ) {
-            var url = makeUrlServer('/sessionDetails'),
+            var url = makeUrlServer('/setDetails'),
                 setInit_isDone = checkRequiredFields('init');
 
             /** CHECK required field */
@@ -24,16 +24,13 @@ define(['moment',
                 var tmp_data = Array.isArray(data) ? data : [data];
                 checkAddress( tmp_data, function( normaAddresses, error ){
 
-                    //console.log('normaAddresses: '+JSON.stringify(normaAddresses));
-                    //console.log('length: '+JSON.stringify(normaAddresses.length));
-
                     /** verifico che ci sia almeno un risultato valido*/
                     if( normaAddresses.length ){
-                        request( url, 'PUT', {
+                        request( url, 'POST', {
                             sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
                             publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
                             proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
-                            address: normaAddresses
+                            address: JSON.stringify(normaAddresses)
                         }, function( result ) {
 
                             if ( result.success )
@@ -97,7 +94,7 @@ define(['moment',
                             {
                                 callback({
                                     status: 'failure',
-                                    text: result.jqXHR
+                                    text: result.error
                                 });
                             }
                         });

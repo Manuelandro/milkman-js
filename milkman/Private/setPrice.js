@@ -16,7 +16,7 @@ define([
                         status: 'success',
                         text: constants.STATUS.SUCCESS._200,
                         ranges: ranges,
-                        price: price
+                        price: Number(price).toFixed(2)
                     });
                 }) :
 
