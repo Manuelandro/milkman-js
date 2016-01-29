@@ -3,10 +3,10 @@ define(['moment',
         '../../milkman/Private/request',
         '../../milkman/Utils/constants',
         '../../milkman/Private/rangeNormalization',
-        '../../milkman/Private/quoteHistory',
+        //'../../milkman/Private/quoteHistory',
         '../../milkman/Private/checkRequiredFields'
     ],
-    function ( moment, makeUrlServer, request, constants, rangeNormalization, quoteHistory, checkRequiredFields ) {
+    function ( moment, makeUrlServer, request, constants, rangeNormalization, checkRequiredFields ) {
         'use strict';
 
         /**
@@ -24,7 +24,7 @@ define(['moment',
                 /** verifico che le options in ingresso siano nel formato giusto, ovvero un hash*/
                 if( typeof options === 'object' && !Array.isArray(options) ) { //&& Object.keys(range).length ) {
                     /**HISTORY TRACKING on server */
-                    quoteHistory('getQuote', options);
+                    //quoteHistory('getQuote', options);
 
                     /**GENERALS */
                     /**verifico che l'utente abbia definito un range di interesse,
