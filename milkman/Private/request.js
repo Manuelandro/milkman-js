@@ -1,7 +1,7 @@
 
 define([ 'jquery',
         '../../milkman/Utils/constants' ],
-    function ( $, constants ) {
+    function ( JQ, constants ) {
         'use strict';
 
         /**
@@ -21,7 +21,7 @@ define([ 'jquery',
 
             //if( session_token ){
 
-                return $.ajax({
+                return JQ.ajax({
                     url : url, //+ '?token=' + session_token,
                     type: type,
                     data : data ? data : null,
