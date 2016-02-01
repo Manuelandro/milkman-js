@@ -8,15 +8,14 @@ define([ 'moment' ], function( moment ) {
      *  @PARAM: Array
      */
 
-    return function checkCart( cart, callback ) {
-        var res = cart.filter( function( parcel ){
+    return function checkCart( parcels, callback ) {
+        var res = parcels.filter( function( parcel ){
             var isDate = moment( parcel.firstAvailability ).isValid() && parcel.firstAvailability;
 
             if(
-                isNumber( parcel.value ) &&
-                isNumber( parcel.auxCost ) &&
                 isNumber( parcel.weight ) &&
                 isDate &&
+                isNumber( parcel.value ) &&
                 ( parcel.pickUp.hubId ||
                   parcel.pickUp.address ||
                   parcel.pickUp.lat && parcel.pickUp.lng )

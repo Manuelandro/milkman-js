@@ -32,7 +32,9 @@ define([
             data.publishableKey &&
             data.city || data.postalCode &&
             data.trackingCode &&
-            data.cart
+            data.cart.subsidyCost &&
+            data.cart.standardCost &&
+            data.cart.parcels
         ){
 
             /** set to zero local variables*/
@@ -67,21 +69,7 @@ define([
              *
              *  @returns solo i parcels che rispettano i vincoli richiesti
              */
-            checkCart( data.cart, function( resaults ){
-
-                var cart = {"0": {
-                    firstAvailability: '2016-01-20T12:00',
-                    value: 100,
-                    auxCost: 5.5,
-                    weight: 12.47,
-                    pickUp: {
-                        address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-                        heading: 36.94424778789316,
-                        pitch: -6.11509517212225,
-                        lat: 45.188835,
-                        lng: 9.153518
-                    }}};
-
+            checkCart( data.cart.parcels, function( resaults ){
 
                 /** verifico che tutti i parcels abbiano superato il check */
                 if( resaults.length === data.cart.length ) {
@@ -91,8 +79,7 @@ define([
                         postalCode: data.postalCode,
                         redirectUri: data.redirectUri,
                         trackingCode: data.trackingCode,
-                        cart: JSON.stringify(cart)
-                        ////data.cart
+                        cart: JSON.stringify(data.cart)
                     }, function( response ) {
 
                         //console.log('response: '+JSON.stringify(response));
@@ -119,13 +106,19 @@ define([
 
                             /** session id is saved in local storage */
                             window.localStorage.setItem(
-                                constants.SESSION_TOKEN, response.session._id
+                                constants.SESSION_TOKEN, response.session.sessionId
                             );
                             window.localStorage.setItem(
                                 constants.PROPOSAL_ID, response.session.proposalId
                             );
                             window.localStorage.setItem(
                                 constants.MERCHANT, JSON.stringify(response.merchant)
+                            );
+                            window.localStorage.setItem(
+                                constants.SAME_DAY_PARAM, JSON.stringify(response.sameDayParam)
+                            );
+                            window.localStorage.setItem(
+                                constants.TIME_WINDOWS_PARAM, JSON.stringify(response.timeWindowsParam)
                             );
                             callback({
                                 status: 'success',
