@@ -42,32 +42,37 @@ if (typeof require === 'function' && require.config) {
     window.localStorage.removeItem('session_token');
 
     var SET_A1 = {
-        publishableKey: 'test-public-key',
-        redirectUri: 'http://localhost:3003',
-        trackingCode: 'prova_parse',
-        city: 'Milano',
-        cart: [
-            {
-                firstAvailability: '2016-01-20T12:00',
-                value: 100,
-                auxCost: 5.5,
-                weight: 12.47,
-                pickUp: {
-                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-                    heading: 36.94424778789316,
-                    pitch: -6.11509517212225,
-                    lat: 45.188835,
-                    lng: 9.153518
-                }
+            redirectUri: 'http://localhost:3003',
+            publishableKey: 'test-public-key',
+            city: 'Milano',
+            trackingCode: 'prova_parse',
+            cart: {
+                subsidyCost: 0.00,
+                standardCost: 10.00,
+                parcels: [
+                    {
+                        weight: 12.47,
+                        firstAvailability: '2016-01-20T12:00',
+                        value: 100,
+                        pickUp: {
+                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                            heading: 36.94424778789316,
+                            pitch: -6.11509517212225,
+                            lat: 45.188835,
+                            lng: 9.153518
+                        }
+                    }
+                ]
             }
-        ]
         },
-        SET_B1 = {
-            address: 'Via matteo civitali, Milano, MI'
-        };
+        SET_B1 =[
+            {
+                address: 'Via matteo civitali, Milano, MI'
+            }
+        ];
 
     /** test con parse */
-    milkman.setInit( SET_A1, function() {
+    milkman.setInit( SET_A1, function( prova ) {
         milkman.setAddress( SET_B1, function( result ) {
             test('TEST A1: p.key + uri + track. no cart', function() {
                 equal(result.status, 'success')

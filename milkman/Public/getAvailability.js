@@ -15,7 +15,7 @@ define(['moment',
          *  @PARAM: Function
          */
         return function setAddress( data, callback ) {
-            var url = makeUrlServer('/setDetails'),
+            var url = makeUrlServer('/getAvailability'),
                 setInit_isDone = checkRequiredFields('init');
 
             /** CHECK required field */
@@ -61,9 +61,9 @@ define(['moment',
                                     //        merchant.defaultRangeDays, 'd' ).format('YYYY-MM-DD');
 
                                     /** TODO: lastHour per DEFAULT_RANGE*/
-                                    //lastHour = result.data.hub.bhInterval.split('/')[1];
-                                    //window.localStorage.setItem(
-                                    //    constants.DEFAULT_RANGE, firstDay + '/' + lastDay + 'T' + lastHour );
+                                        //lastHour = result.data.hub.bhInterval.split('/')[1];
+                                        //window.localStorage.setItem(
+                                        //    constants.DEFAULT_RANGE, firstDay + '/' + lastDay + 'T' + lastHour );
 
 
                                     callback({

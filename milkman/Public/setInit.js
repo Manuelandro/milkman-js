@@ -27,13 +27,17 @@ define([
          *  trackingCode
          *  parcels
          */
+        function isNumber(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+
         if(
             data.redirectUri &&
             data.publishableKey &&
             data.city || data.postalCode &&
             data.trackingCode &&
-            data.cart.subsidyCost &&
-            data.cart.standardCost &&
+            isNumber(data.cart.subsidyCost) &&
+            isNumber(data.cart.standardCost) &&
             data.cart.parcels
         ){
 
@@ -70,15 +74,14 @@ define([
              *  @returns solo i parcels che rispettano i vincoli richiesti
              */
             checkCart( data.cart.parcels, function( resaults ){
-
                 /** verifico che tutti i parcels abbiano superato il check */
-                if( resaults.length === data.cart.length ) {
+                if( resaults.length === data.cart.parcels.length ) {
                     request( url, 'POST', {
                         publishableKey: data.publishableKey,
-                        city: data.city,
-                        postalCode: data.postalCode,
                         redirectUri: data.redirectUri,
                         trackingCode: data.trackingCode,
+                        city: data.city,
+                        postalCode: data.postalCode,
                         cart: JSON.stringify(data.cart)
                     }, function( response ) {
 
