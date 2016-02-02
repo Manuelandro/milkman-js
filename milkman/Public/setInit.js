@@ -117,12 +117,12 @@ define([
                             window.localStorage.setItem(
                                 constants.MERCHANT, JSON.stringify(response.merchant)
                             );
-                            window.localStorage.setItem(
-                                constants.SAME_DAY_PARAM, JSON.stringify(response.sameDayParam)
-                            );
-                            window.localStorage.setItem(
-                                constants.TIME_WINDOWS_PARAM, JSON.stringify(response.timeWindowsParam)
-                            );
+                            //window.localStorage.setItem(
+                            //    constants.SAME_DAY_PARAM, JSON.stringify(response.sameDayParam)
+                            //);
+                            //window.localStorage.setItem(
+                            //    constants.TIME_WINDOWS_PARAM, JSON.stringify(response.timeWindowsParam)
+                            //);
                             callback({
                                 status: 'success',
                                 text: constants.STATUS.SUCCESS._200

@@ -16,21 +16,22 @@ define(['moment',
          */
         return function setAddress( data, callback ) {
             var url = makeUrlServer('/getAvailability'),
-                setInit_isDone = checkRequiredFields('init');
+                setInit_setAddress_isDone = checkRequiredFields('all');
 
             /** CHECK required field */
-            if( setInit_isDone ){
+            if( setInit_setAddress_isDone ){
                 /** verifico che gli address siano in un array */
-                var tmp_data = Array.isArray(data) ? data : [data];
-                checkAddress( tmp_data, function( normaAddresses, error ){
+                //var tmp_data = Array.isArray(data) ? data : [data];
+                //checkAddress( tmp_data, function( normaAddresses, error ){
 
                     /** verifico che ci sia almeno un risultato valido*/
-                    if( normaAddresses.length ){
+                    //if( normaAddresses.length ){
                         request( url, 'POST', {
                             sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
                             publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
-                            proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
-                            address: JSON.stringify(normaAddresses)
+                            type: data.type,
+                            firstDay: data.firstDay,
+                            numberOfDays: data.numberOfDays
                         }, function( result ) {
 
                             if ( result.success )
@@ -93,15 +94,15 @@ define(['moment',
                                 });
                             }
                         });
-                    } else {
-                        callback({
-                            status: 'failure',
-                            text: constants.STATUS.FAILURE._400,
-                            errorMessage: constants.STATUS.ERROR_MESSAGE._410
-                        });
-                    }
+                    //} else {
+                    //    callback({
+                    //        status: 'failure',
+                    //        text: constants.STATUS.FAILURE._400,
+                    //        errorMessage: constants.STATUS.ERROR_MESSAGE._410
+                    //    });
+                    //}
 
-                });
+                //});
 
             } else {
                 callback({
