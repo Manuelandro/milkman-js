@@ -17,7 +17,7 @@ define([ 'jquery',
 
 
         return function request(url, type, data, callback) {
-            var session_token = window.localStorage.getItem( constants.SESSION_TOKEN );
+            //var session_token = window.localStorage.getItem( constants.SESSION_TOKEN );
 
             //if( session_token ){
 

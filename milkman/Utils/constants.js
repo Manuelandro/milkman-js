@@ -1,5 +1,5 @@
 define({
-    API_URL_SERVER: 'http://localhost/milkman/api',
+    API_URL_SERVER: 'api',//'http://localhost/milkman/api',
 
     //to save in local storage
     REDIRECT_URI: 'redirect_uri',
