@@ -49,7 +49,7 @@ define(['moment',
 
                                     /** presa dell'hub */
                                     window.localStorage.setItem(
-                                        constants.HUB, JSON.stringify(result.data.hub)
+                                        constants.HUB, JSON.stringify(result.hub)
                                     );
 
                                     //var merchant = window.localStorage.getItem(constants.MERCHANT);
@@ -70,7 +70,7 @@ define(['moment',
                                         status: 'success',
                                         settings: {
                                             //weekdaysInterval: result.data.hub.weekdaysInterval,
-                                            firstAvailability: result.data.hub.firstAvailability
+                                            firstAvailability: result.hub.firstAvailability
                                             //holidays: result.data.hub.holidays,
                                             //localHolidays: result.data.hub.localHolidays,
                                             //defaultRangeDays: merchant.defaultRangeDays

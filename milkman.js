@@ -29,6 +29,7 @@ define(function (require) {
     //--------------------------------------------
         setInit = require('milkman/Public/setInit'),
         setAddress = require('milkman/Public/setAddress'),
+        getAvailability = require('milkman/Public/getAvailability'),
 
         getQuote = require('milkman/Public/getQuote'),
         findQuote = require('milkman/Public/findQuote'),
@@ -59,6 +60,7 @@ define(function (require) {
         //--------------------------------------------
         setInit: setInit,
         setAddress: setAddress,
+        getAvailability: getAvailability,
 
         getQuote: getQuote,
         findQuote: findQuote,
