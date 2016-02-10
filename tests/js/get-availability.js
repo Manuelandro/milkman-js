@@ -70,29 +70,30 @@ if (typeof require === 'function' && require.config) {
                 address: 'Via matteo civitali, Milano, MI'
             }
         ],
-        TODAY = new Date();
+        TODAY = '2016-02-09';
 
 
     /** test con parse */
     milkman.setInit( SET_A1, function( prova ) {
         milkman.setAddress( SET_B1, function( result ) {
-            milkman.getAvailability( {}, function( result ) {
-                test('TEST A1: p.key + uri + track. no cart', function() {
-                    equal(result.status, 'success')
-                });
-            });
+            //milkman.getAvailability( {}, function( result ) {
+            //    test('TEST A1: p.key + uri + track. no cart', function() {
+            //        equal(result.status, 'success')
+            //    });
+            //});
 
             milkman.getAvailability( {firstDay: TODAY}, function( result ) {
+                console.log('result: '+JSON.stringify(result.data.date));
                 test('TEST A1: p.key + uri + track. no cart', function() {
                     equal(result.status, 'success')
                 });
             });
 
-            milkman.getAvailability( {numberOfDays: 11}, function( result ) {
-                test('TEST A1: p.key + uri + track. no cart', function() {
-                    equal(result.status, 'success')
-                });
-            });
+            //milkman.getAvailability( {numberOfDays: 11}, function( result ) {
+            //    test('TEST A1: p.key + uri + track. no cart', function() {
+            //        equal(result.status, 'success')
+            //    });
+            //});
         });
     });
 

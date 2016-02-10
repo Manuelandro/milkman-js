@@ -14,29 +14,20 @@ define(['moment',
          */
         return function rangeNormalization( opt, callback ) {
             var hub = JSON.parse(window.localStorage.getItem( constants.HUB )),
+                availability = JSON.parse(window.localStorage.getItem( constants.AVAILABILITY )),
                 merchant = JSON.parse(window.localStorage.getItem( constants.MERCHANT )),
+                success = true,
 
-                bh_int = hub.bhInterval.split('/'),
-                hub_holidays = hub.holidays,
-                hub_localHolidays = hub.localHolidays,
-                hub_weekdays = [
-                    hub.availMon, hub.availTue, hub.availWed,
-                    hub.availThu, hub.availFri, hub.availSat, hub.availSun
-                ],
-                ranges, isHour, tmp_ranges, norma = [], weekdays;
-
-
+                ranges, isHour, tmp_ranges, norma = [];
 
             /** definisco i giorni utili della settimana */
-            weekdays = getWeekDays( opt.weekdays, hub_weekdays );
-
-            //console.log(JSON.stringify('weekdays: '+weekdays));
+            //weekdays = getWeekDays( opt.weekdays, hub_weekdays );
 
             /** range must be an array */
             tmp_ranges = Array.isArray(opt.ranges) ? opt.ranges : [opt.ranges];
 
             /** verificare che i range siano adattati agli scaglioni degli 'interval'
-             * ( 10 min ) nel caso normalizzarli er difetto
+             * ( 10 min ) nel caso normalizzarli Per difetto
              * verficiare che la dimensione minima del range sia rispettata
              * */
             ranges = checksRangeDimension( tmp_ranges, merchant.atomicIntervalDimension, merchant.minDuration );
@@ -44,14 +35,10 @@ define(['moment',
             /** verifico che gli orari passati siano in un formato valido*/
             isHour = checkHours( opt.hours, merchant.atomicIntervalDimension );
 
-
-            //console.log('ranges: '+ ranges.length);
-            //console.log('isHour: '+ isHour.success);
             /** verifico che ci sia almeno un range valido */
             if( ranges.length && isHour.success ){
 
                 ranges.forEach( function( range ){
-
                     /** get left and right side */
                     range = range.split('/');
 
@@ -67,64 +54,54 @@ define(['moment',
                         for( var i = 0; i <= diffDays; i++ ){
                             var dayToCheck = moment(range[0]).add(i, 'days');
 
-                            /** se è uno dei giorni della settimana accettabili*/
-
-                             if( weekdays[ moment(dayToCheck).format('E') - 1 ] ){
-                                //console.log('dayToCheck: '+dayToCheck.format('YYYY-MM-DD'));
-
-                                var isHoliday = checkHoliday(dayToCheck.format('YYYY-MM-DD'), hub_holidays),
-                                    isLocalHoliday = checkHoliday(dayToCheck.format('YYYY-MM-DD'), hub_localHolidays);
-
-                                /** verifico che il giorno in esame non sia ne 'holiday' ne 'localHoliday' */
-                                if( !isHoliday && !isLocalHoliday ){
-
-                                   // console.log('dayToCheck: '+dayToCheck.format('YYYY-MM-DD'));
-                                    //console.log('isHour: '+isHour.hours );
-                                    //console.log('range: '+range);
-                                    //  console.log('bh_int: '+bh_int[0]+' '+bh_int[1]);
-                                    /** dati i giorni 'YYYY-MM-DD' li setto con intervalli di tempo */
-                                    newInts = setintervals(
-                                        dayToCheck.format('YYYY-MM-DD'),
-                                        isHour.hours.length ? isHour.hours : null,
-                                        range,
-                                        bh_int[0],
-                                        bh_int[1] );
+                            /**verifico che il giorno cercato sia nel range a disposizione */
+                            var availDay = availability[dayToCheck.format('YYYY-MM-DD')];
+                            if( availDay ){
+                                /** dati i giorni 'YYYY-MM-DD' li setto con intervalli di tempo */
+                                newInts = setintervals(
+                                    dayToCheck.format('YYYY-MM-DD'),
+                                    isHour.hours.length ? isHour.hours : null,
+                                    range,
+                                    availDay.split('/')[0],
+                                    availDay.split('/')[1] );
 
 
-                                    if( newInts ){
-                                        newInts.forEach( function( newInt ){
-                                            norma.push( newInt );
-                                        });
-                                    }
+                                if( newInts ){
+                                    newInts.forEach( function( newInt ){
+                                        norma.push( newInt );
+                                    });
                                 }
+                            } else {
+                                success = false;
                             }
                         }
                     } else {
-                        callback({
-                            success: false,
-                            text: constants.STATUS.ERROR_MESSAGE._406
-                        });
+                        success = false;
                     }
                 });
 
-                //console.log('norma: '+norma);
+                if(success){
+                    /** ultima verifica per controllare che i range siano consistenti (minima dimensione accettabile) */
+                    tmp_ranges = checksRangeDimension( norma, merchant.atomicIntervalDimension, merchant.minDuration );
 
-                /** ultima verifica per controllare chce i range siano consistenti (minima dimensione avvettabile) */
-                tmp_ranges = checksRangeDimension( norma, merchant.atomicIntervalDimension, merchant.minDuration );
-
-                //console.log('NORMA: '+tmp_ranges);
-                if( tmp_ranges.length ){
-                    callback({
-                        success: true,
-                        ranges: tmp_ranges
-                    });
+                    console.log('NORMA: '+tmp_ranges.length);
+                    if( tmp_ranges.length ){
+                        callback({
+                            success: true,
+                            ranges: tmp_ranges
+                        });
+                    } else {
+                        callback({
+                            success: false,
+                            text: constants.STATUS.ERROR_MESSAGE._402
+                        })
+                    }
                 } else {
                     callback({
                         success: false,
-                        text: constants.STATUS.ERROR_MESSAGE._402
-                    })
+                        text: constants.STATUS.ERROR_MESSAGE._406
+                    });
                 }
-
             }
             /** se non cè nessun range valido genero errore*/
             else {

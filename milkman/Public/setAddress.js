@@ -32,7 +32,6 @@ define(['moment',
                             proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
                             address: JSON.stringify(normaAddresses)
                         }, function( result ) {
-
                             if ( result.success )
                             {
                                 /** salvo nel local storage gli addresses */

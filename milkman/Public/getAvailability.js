@@ -38,12 +38,23 @@ define([
                     numberOfDays: numberOfDays
                 }, function( result ) {
 
+                    //console.log('result: '+JSON.stringify(result));
                     if ( result.success )
                     {
 
+                        var map = {};
+                        result.date.forEach( function(val){
+                            map[val.split('T')[0]] = val.split('/')[0].split('T')[1] +'/'+ val.split('T')[2];
+                        });
+
+                        /** salvo nel local storage gli addresses */
+                        window.localStorage.setItem(constants.AVAILABILITY,
+                            JSON.stringify(map));
+
+
                         callback({
                             status: 'success',
-                            data: result.data,
+                            data: result,
                             text: constants.STATUS.SUCCESS._200
                         });
 

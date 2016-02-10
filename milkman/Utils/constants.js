@@ -15,6 +15,7 @@ define({
     DEFAULT_RANGE: 'default_range',
 
     ADDRESSES: 'addresses',
+    AVAILABILITY: 'availability',
 
     //local variables
     defaultRange: '',

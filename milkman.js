@@ -31,8 +31,9 @@ define(function (require) {
         setAddress = require('milkman/Public/setAddress'),
         getAvailability = require('milkman/Public/getAvailability'),
 
-        getQuote = require('milkman/Public/getQuote'),
-        findQuote = require('milkman/Public/findQuote'),
+        getPrice = require('milkman/Public/getPrice'),
+        //getQuote = require('milkman/Public/getQuote'),
+        //findQuote = require('milkman/Public/findQuote'),
 
         confirm = require('milkman/Public/confirm');
 
@@ -62,8 +63,9 @@ define(function (require) {
         setAddress: setAddress,
         getAvailability: getAvailability,
 
-        getQuote: getQuote,
-        findQuote: findQuote,
+        getPrice: getPrice,
+        //getQuote: getQuote,
+        //findQuote: findQuote,
 
         confirm: confirm
     };
