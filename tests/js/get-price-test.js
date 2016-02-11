@@ -93,8 +93,8 @@ if (typeof require === 'function' && require.config) {
                 //    setInitResult['sameDayParam'] = result.data.sameDayParam;
                 //}
                 var ranges = [], hours = [];
-                ranges.push("2016-02-11");
-                hours.push("17:00/20:00");
+                ranges.push("2016-02-12");
+                hours.push("12:00/17:00");
 
                 milkman.getPrice({ ranges: ranges, hours: hours }, function( getQuoteResult ){
                     setInitResult['price'] = getQuoteResult.price;

@@ -27,6 +27,8 @@ define(function (require) {
         getEntities = require('milkman/Entities/getEntities'),
 
     //--------------------------------------------
+        createOrder = require('milkman/Public/createOrder'),
+
         setInit = require('milkman/Public/setInit'),
         setAddress = require('milkman/Public/setAddress'),
         getAvailability = require('milkman/Public/getAvailability'),
@@ -40,7 +42,6 @@ define(function (require) {
 
     return {
         version: '0.0.1, jQuery version is: ' + JQ.fn.jquery,
-
         checkInterval: checkInterval,
         checkMissingDates: checkMissingDates,
 
@@ -59,6 +60,8 @@ define(function (require) {
         getEntities: getEntities,
 
         //--------------------------------------------
+        createOrder: createOrder,
+
         setInit: setInit,
         setAddress: setAddress,
         getAvailability: getAvailability,

@@ -1,4 +1,4 @@
-define([ '../../milkman/Private/makeUrlServer',
+define(['../../milkman/Private/makeUrlServer',
         '../../milkman/Private/request',
         '../../milkman/Utils/constants',
         '../../milkman/Public/getQuote',

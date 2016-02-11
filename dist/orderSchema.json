@@ -1,0 +1,29 @@
+{
+        "order": [
+                {
+                "merchantId": "id_merchant",
+                "externalTrackingCode": "id_ordine_carrello",
+                "name": "nome_destinatario",
+                "surname": "cognome_destinatario",
+                "businessName": "ragione_sociale",
+                "address": "indirizzo destinatario",
+                "deliveryInstructions": "istruzione_per_il_driver",
+                "postalCode": "cap",
+                "territory": "località",
+                "lat": "123123",
+                "lng": "-123123",
+                "phone": "123-123123",
+                "email": "name.surname@example.com",
+                "packageNumber": "3",
+                "totalWeight": "3",
+                "totalLinearDimension": "15",
+                "availabilityDate": "2016-02-15",
+                "availabilityTime": "18:00",
+                "distributionCenterAddress": "Via Enrico Cialdini, 37",
+                "distributionCenterPostalCode": "20161",
+                "distributionCenterTerritory": "Milano",
+                "cartValue": "12.5",
+                "paymentMethod": "bonifico"
+        }
+        ]
+}
