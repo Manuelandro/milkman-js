@@ -101,7 +101,11 @@ if (typeof require === 'function' && require.config) {
                     setInitResult['ranges'] = getQuoteResult.ranges;
 
                     test('SET_A1', function() {
-                        equal(getQuoteResult.status, 'success', getQuoteResult.text) });
+                        equal(getQuoteResult.status, 'success',
+                            getQuoteResult.ranges +' - '+
+                            getQuoteResult.price +' - '+
+                            getQuoteResult.text)
+                    });
                     //test('SET_A1', function() {
                     //    equal(getQuoteResult.status, 'failure', getQuoteResult.text) });
                 });

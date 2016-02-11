@@ -86,6 +86,8 @@ define(['moment',
                 }, function (r) {
                     callback({
                         status: r.success ? 'success' : 'failure',
+                        ranges: r.ranges,
+                        price: r.price,
                         text: r.success ? constants.STATUS.SUCCESS._200 : r.error
                     });
                 });
