@@ -97,13 +97,11 @@ if (typeof require === 'function' && require.config) {
                 hours.push("12:00/17:00");
 
                 milkman.getPrice({ ranges: ranges, hours: hours }, function( getQuoteResult ){
-                    setInitResult['price'] = getQuoteResult.price;
-                    setInitResult['ranges'] = getQuoteResult.ranges;
 
                     test('SET_A1', function() {
                         equal(getQuoteResult.status, 'success',
                             getQuoteResult.ranges +' - '+
-                            getQuoteResult.price +' - '+
+                            getQuoteResult.additional +' - '+
                             getQuoteResult.text)
                     });
                     //test('SET_A1', function() {
