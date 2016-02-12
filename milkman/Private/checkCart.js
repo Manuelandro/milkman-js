@@ -12,16 +12,14 @@ define([ 'moment' ], function( moment ) {
         var res = parcels.filter( function( parcel ){
             var isDate = moment( parcel.firstAvailability ).isValid() && parcel.firstAvailability;
 
-            if(
-                isNumber( parcel.weight ) &&
+
+            return isNumber( parcel.weight ) &&
                 isDate &&
                 isNumber( parcel.value ) &&
                 ( parcel.pickUp.hubId ||
-                  parcel.pickUp.address ||
-                  parcel.pickUp.lat && parcel.pickUp.lng )
-            ){
-                return true
-            }
+                parcel.pickUp.address ||
+                parcel.pickUp.lat && parcel.pickUp.lng )
+
         });
 
         callback( res );
