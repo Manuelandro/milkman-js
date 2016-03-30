@@ -1,11 +1,9 @@
 define([
     'validate',
-    '../../milkman/Private/paramsValidator',
     '../../milkman/Private/makeUrlServer',
     '../../milkman/Private/request',
-    '../../milkman/Utils/constants',
-    '../../milkman/Utils/schema'
-], function ( v, validation, makeUrlServer, request, constants, schema ) {
+    '../../milkman/Utils/constants'
+], function ( v, makeUrlServer, request, constants ) {
     'use strict';
 
     return function createOrder( data, keys, callback ) {

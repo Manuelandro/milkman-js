@@ -2,10 +2,9 @@ define(['moment',
         '../../milkman/Private/makeUrlServer',
         '../../milkman/Private/request',
         '../../milkman/Utils/constants',
-        '../../milkman/Private/checkAddress',
         '../../milkman/Private/checkRequiredFields'
     ],
-    function ( moment, makeUrlServer, request, constants, checkAddress, checkRequiredFields ) {
+    function ( moment, makeUrlServer, request, constants, checkRequiredFields ) {
         'use strict';
 
         return function getMultiplePrices( data, callback ) {

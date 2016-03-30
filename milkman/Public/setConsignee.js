@@ -1,10 +1,9 @@
 define(['../../milkman/Private/makeUrlServer',
         '../../milkman/Private/request',
         '../../milkman/Utils/constants',
-        '../../milkman/Private/checkAddress',
         '../../milkman/Private/checkRequiredFields'
     ],
-    function ( makeUrlServer, request, constants, checkAddress, checkRequiredFields ) {
+    function ( makeUrlServer, request, constants, checkRequiredFields ) {
         'use strict';
 
         /**

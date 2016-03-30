@@ -58,6 +58,7 @@ define({
             '_407': 'Bad Request: The request is malformed. Please check the specifics.',
             '_408': 'You need to set publishable key and merchant URI before.',
             '_409': "Some required fields in Parcel's Cart are missing.",
+            '_415': "Cart is missing.",
             '_410': "Some required fields are missing.",
             '_411': 'You need to set required fields before.',
             '_412': 'Value, FirstAvailableDay and AuxCost are required fields.',

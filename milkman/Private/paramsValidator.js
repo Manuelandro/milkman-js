@@ -19,21 +19,21 @@ define([ 'rsvp', 'validate' ], function( RSVP, validate ) {
 
         var notValid = attKeys.filter(function(key){
             var res2 = constraints[key].required ? validate.isEmpty(attributes[key]) : false;
-            console.log('key: '+JSON.stringify(key));
+            //console.log('key: '+JSON.stringify(key));
             switch (constraints[key].type) {
                 case "array":
                     var res1 = !validate.isArray(attributes[key]);
-                    console.log('isNot: '+res1 +' isEmpty: '+ res2);
+                    //console.log('isNot: '+res1 +' isEmpty: '+ res2);
                     return res1 || res2;
                     break;
                 case "string":
                     var res1 = !validate.isString(attributes[key]);
-                    console.log('isNotString: '+res1 +' isEmpty: '+ res2);
+                    //console.log('isNotString: '+res1 +' isEmpty: '+ res2);
                     return res1 || res2;
                     break;
                 case "number":
                     var res1 = !validate.isNumber(attributes[key]);
-                    console.log('isNotNumber: '+res1 +' isEmpty: '+ res2);
+                    //console.log('isNotNumber: '+res1 +' isEmpty: '+ res2);
                     return res1 || res2;
                     break;
                 case "boolean":
@@ -41,12 +41,12 @@ define([ 'rsvp', 'validate' ], function( RSVP, validate ) {
                     break;
                 case "date":
                     var res1 = !validate.isDate(attributes[key]);
-                    console.log('isNotDate: '+res1 +' isEmpty: '+ res2);
+                    //console.log('isNotDate: '+res1 +' isEmpty: '+ res2);
                     return res1 || res2;
                     break;
                 case "object":
                     var res1 = !validate.isObject(attributes[key]);
-                    console.log('isNotObject: '+res1 +' isEmpty: '+ res2);
+                    //console.log('isNotObject: '+res1 +' isEmpty: '+ res2);
                     return res1 || res2;
                     break;
             }

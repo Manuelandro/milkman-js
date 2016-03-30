@@ -4,10 +4,8 @@ define([
     '../../milkman/Private/makeUrlServer',
     '../../milkman/Private/request',
     '../../milkman/Utils/constants',
-    'moment',
-       // '../../milkman/Private/checkAddress'],
     '../../milkman/Private/checkCart'
-    ], function ( validation, schema, makeUrlServer, request, constants, moment, checkCart ) {
+    ], function ( validation, schema, makeUrlServer, request, constants, checkCart ) {
         'use strict';
 
     /**
@@ -38,73 +36,58 @@ define([
        };
 
         validation( JSON.stringify(data), schema.setInitOrder, function(){
-            validation( JSON.stringify(data.cart), schema.setInitCart, function(){
-                //var parcelsError = [];
-                //data.parcels.forEach(function(parcel, index){
-                //    validation( JSON.stringify(parcel), schema.setInitParcel, function(){
-                //        if(data.parcels.length === index+1){
-                //           if(!parcelsError.length){
-                //               //todo check for pickup address
-                //
-                //
-                //
-                //           } else {
-                //               callback({status: 'failure', text: parcelsError.toString()});
-                //           }
-                //        }
-                //    }, function( parcels_error ){
-                //        parcelsError.push(parcels_error);
-                //    });
-                //});
+            if( data.cart ) {
+                validation(JSON.stringify(data.cart), schema.setInitCart, function () {
 
-                /** set to zero local variables*/
-                constants.defaultRange = '';
-                constants.requiredFields = {};
-                constants.range = [];
-                constants.data = {};
-                constants.intervals = [];
-                constants.discounts = [];
-                constants.merchant_details = '';
+                    /** set to zero local variables*/
+                    constants.defaultRange = '';
+                    constants.requiredFields = {};
+                    constants.range = [];
+                    constants.data = {};
+                    constants.intervals = [];
+                    constants.discounts = [];
+                    constants.merchant_details = '';
 
-                /** set to zero local storage*/
-                window.localStorage.removeItem('addresses');
-                window.localStorage.removeItem('default_range');
-                window.localStorage.removeItem('hub');
-                window.localStorage.removeItem('merchant');
-                window.localStorage.removeItem('proposal_id');
-                window.localStorage.removeItem('publishable_key');
-                window.localStorage.removeItem('redirect_uri');
-                window.localStorage.removeItem('session_token');
+                    /** set to zero local storage*/
+                    window.localStorage.removeItem('addresses');
+                    window.localStorage.removeItem('default_range');
+                    window.localStorage.removeItem('hub');
+                    window.localStorage.removeItem('merchant');
+                    window.localStorage.removeItem('proposal_id');
+                    window.localStorage.removeItem('publishable_key');
+                    window.localStorage.removeItem('redirect_uri');
+                    window.localStorage.removeItem('session_token');
 
-                /** variables are saved in local storage */
-                window.localStorage.setItem(
-                    constants.PUBLISHABLE_KEY, data.publishableKey
-                );
-                window.localStorage.setItem(
-                    constants.REDIRECT_URI, data.redirectUri
-                );
-                /**
-                 *  verifico che tutti i parcels abbiano i campi obbligatori
-                 *
-                 *  @returns solo i parcels che rispettano i vincoli richiesti
-                 */
-                checkCart( data.cart.parcels, function( resaults ){
-                    /** verifico che tutti i parcels abbiano superato il check */
-                    if( resaults.length === data.cart.parcels.length ) {
-                        request( url, 'POST', {
-                            publishableKey: data.publishableKey,
-                            redirectUri: data.redirectUri,
-                            trackingCode: data.trackingCode,
-                            city: data.city,
-                            postalCode: data.postalCode,
-                            cart: JSON.stringify(data.cart)
-                        }, function( response ) {
+                    /** variables are saved in local storage */
+                    window.localStorage.setItem(
+                        constants.PUBLISHABLE_KEY, data.publishableKey
+                    );
+                    window.localStorage.setItem(
+                        constants.REDIRECT_URI, data.redirectUri
+                    );
+                    /**
+                     *  verifico che tutti i parcels abbiano i campi obbligatori
+                     *
+                     *  @returns solo i parcels che rispettano i vincoli richiesti
+                     */
 
-                            //console.log('response: '+JSON.stringify(response));
-                            if ( response.success )
-                            {
-                                /** ESEMPO DI RISPOSTA POSITIVA
-                                 *  {
+                    if (data.cart.parcels) {
+                        checkCart(data.cart.parcels, function (resaults) {
+                            /** verifico che tutti i parcels abbiano superato il check */
+                            if (resaults.length === data.cart.parcels.length) {
+                                request(url, 'POST', {
+                                    publishableKey: data.publishableKey,
+                                    redirectUri: data.redirectUri,
+                                    trackingCode: data.trackingCode,
+                                    city: data.city,
+                                    postalCode: data.postalCode,
+                                    cart: JSON.stringify(data.cart)
+                                }, function (response) {
+
+                                    //console.log('response: '+JSON.stringify(response));
+                                    if (response.success) {
+                                        /** ESEMPO DI RISPOSTA POSITIVA
+                                         *  {
                             * "merchant": {
                             *    "atomicIntervalDimension":10,
                             *    "email":"luca.gugole@milkman.it",
@@ -122,28 +105,37 @@ define([
                             * "success":true
                             * }*/
 
-                                /** session id is saved in local storage */
-                                window.localStorage.setItem(
-                                    constants.SESSION_TOKEN, response.session.sessionId
-                                );
-                                window.localStorage.setItem(
-                                    constants.PROPOSAL_ID, response.session.proposalId
-                                );
-                                window.localStorage.setItem(
-                                    constants.MERCHANT, JSON.stringify(response.merchant)
-                                );
-                                callback({
-                                    status: 'success',
-                                    text: constants.STATUS.SUCCESS._200
+                                        /** session id is saved in local storage */
+                                        window.localStorage.setItem(
+                                            constants.SESSION_TOKEN, response.session.sessionId
+                                        );
+                                        window.localStorage.setItem(
+                                            constants.PROPOSAL_ID, response.session.proposalId
+                                        );
+                                        window.localStorage.setItem(
+                                            constants.MERCHANT, JSON.stringify(response.merchant)
+                                        );
+                                        callback({
+                                            status: 'success',
+                                            text: constants.STATUS.SUCCESS._200
+                                        });
+                                    }
+                                    else {
+                                        callback({
+                                            status: 'failure',
+                                            text: response.error
+                                        });
+                                    }
                                 });
-                            }
-                            else
-                            {
+                            } else {
                                 callback({
                                     status: 'failure',
-                                    text: response.error
+                                    text: constants.STATUS.FAILURE._401,
+                                    error_message: constants.STATUS.ERROR_MESSAGE._409
                                 });
                             }
+
+
                         });
                     } else {
                         callback({
@@ -152,13 +144,16 @@ define([
                             error_message: constants.STATUS.ERROR_MESSAGE._409
                         });
                     }
-
-
+                }, function (cart_error) {
+                    callback({status: 'failure', text: cart_error.messageError});
                 });
-
-            }, function( cart_error ){
-                callback({status: 'failure', text: cart_error.messageError});
-            });
+            } else {
+                callback({
+                    status: 'failure',
+                    text: constants.STATUS.FAILURE._401,
+                    error_message: constants.STATUS.ERROR_MESSAGE._415
+                });
+            }
         }, function( order_error ){
             callback({status: 'failure', text: order_error.messageError});
         });

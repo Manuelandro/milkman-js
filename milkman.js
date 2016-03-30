@@ -9,17 +9,17 @@ define(function (require) {
 
     var JQ = require('jquery'),
 
-        commit = require('milkman/commit'),
+        //commit = require('milkman/commit'),
 
         defaults = require('milkman/Utils/defaults'),
         constants =require('milkman/Utils/constants'),
 
-        checkInterval = require('milkman/Private/checkInterval'),
-        checkMissingDates = require('milkman/Private/checkMissingDates'),
-        priceEngine = require('milkman/Private/priceEngine'),
-        checkProposal = require('milkman/Private/checkProposal'),
-        recoverData = require('milkman/Private/recoverData'),
-        rangeNormalization = require('milkman/Private/rangeNormalization'),
+        //checkInterval = require('milkman/Private/checkInterval'),
+        //checkMissingDates = require('milkman/Private/checkMissingDates'),
+        //priceEngine = require('milkman/Private/priceEngine'),
+        //checkProposal = require('milkman/Private/checkProposal'),
+        //recoverData = require('milkman/Private/recoverData'),
+        //rangeNormalization = require('milkman/Private/rangeNormalization'),
 
         createEntity = require('milkman/Entities/createEntity'),
         deleteEntity = require('milkman/Entities/deleteEntity'),
@@ -33,27 +33,24 @@ define(function (require) {
         setAddress = require('milkman/Public/setAddress'),
         getAvailability = require('milkman/Public/getAvailability'),
 
-        getMultiplePrices = require('milkman/Public/getMultiplePrices'),
-        //getPrice = require('milkman/Public/getPrice'),
-        //getQuote = require('milkman/Public/getQuote'),
-        //findQuote = require('milkman/Public/findQuote'),
+        getMultiplePrices = require('milkman/Public/getMultiplePrices');
 
-        confirm = require('milkman/Public/confirm');
+        //confirm = require('milkman/Public/confirm');
 
 
     return {
         version: '0.0.1, jQuery version is: ' + JQ.fn.jquery,
-        checkInterval: checkInterval,
-        checkMissingDates: checkMissingDates,
+        //checkInterval: checkInterval,
+        //checkMissingDates: checkMissingDates,
 
-        commit: commit,
+        //commit: commit,
+        //priceEngine: priceEngine,
+        //checkProposal: checkProposal,
+        //recoverData: recoverData,
+        //rangeNormalization: rangeNormalization,
 
         defaults: defaults,
         constants: constants,
-        priceEngine: priceEngine,
-        checkProposal: checkProposal,
-        recoverData: recoverData,
-        rangeNormalization: rangeNormalization,
 
         createEntity: createEntity,
         deleteEntity: deleteEntity,
@@ -61,17 +58,11 @@ define(function (require) {
         getEntities: getEntities,
 
         //--------------------------------------------
-        createOrder: createOrder,
-
         setInit: setInit,
         setAddress: setAddress,
         getAvailability: getAvailability,
-
         getMultiplePrices: getMultiplePrices,
-        //getPrice: getPrice,
-        //getQuote: getQuote,
-        //findQuote: findQuote,
 
-        confirm: confirm
+        createOrder: createOrder
     };
 });
