@@ -4,25 +4,11 @@ define({
         publishableKey: {required: true, type: "string"},
         postalCode: {type: "string"},
         city: {required: true, type: "string"},
-        trackingCode: {required: true, type: "string"},
-        cart: {required: true, type: "object"}
-    },
-
-    setInitCart: {
+        externalTrackingCode: {required: true, type: "string"},
         subsidyCost: {required: true, type: "number"},
         standardCost: {required: true, type: "number"},
-        parcels: {required: true, type: "array"}
-    },
-
-    setInitParcel: {
-        weight: {type: "number"},
-        firstAvailableDay: {required: true, type: "string"},
-        value: {type: "number"},
-        pickUp: {required: true, type: "object"},
-        length: {type: "number"},
-        depth: {type: "number"},
-        volume: {type: "number"},
-        height: {type: "number"}
+        firstAvailability: {required: true, type: "string"},
+        pickUp: {required: true, type: "object"}
     },
 
     setInitPickUp: {
