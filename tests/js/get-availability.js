@@ -46,7 +46,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: 'Milano',
-            trackingCode: 'prova_parse',
+            externalTrackingCode: 'prova_parse',
             cart:
             {
                 subsidyCost: 2.90,

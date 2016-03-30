@@ -11,6 +11,10 @@ define(['../../milkman/Private/makeUrlServer',
          *
          *  @PARAM: String
          *  @PARAM: Function
+         *
+         *  milkman.setConsignee({ consignee }, function( results ){
+         *      // ... code here ...
+         *  })
          */
         return function setConsignee( data, callback ) {
             var url = makeUrlServer('/setDetails'),

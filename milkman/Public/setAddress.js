@@ -9,10 +9,14 @@ define(['moment',
         'use strict';
 
         /**
-         *  set a different address for this session
+         *  set the addresses for this session
          *
          *  @PARAM: String
          *  @PARAM: Function
+         *
+         *  milkman.setAddress({ [ address1, address2, ... ] }, function( results ){
+         *      // ... code here ...
+         *  })
          */
         return function setAddress( data, callback ) {
             var url = makeUrlServer('/setDetails'),
@@ -20,11 +24,11 @@ define(['moment',
 
             /** CHECK required field */
             if( setInit_isDone ){
-                /** verifico che gli address siano in un array */
+                /** check address parameter is an Array */
                 var tmp_data = Array.isArray(data) ? data : [data];
                 checkAddress( tmp_data, function( normaAddresses, error ){
 
-                    /** verifico che ci sia almeno un risultato valido*/
+                    /** check at last one array's item is correct */
                     if( normaAddresses.length ){
                         request( url, 'POST', {
                             sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
@@ -34,10 +38,10 @@ define(['moment',
                         }, function( result ) {
                             if ( result.success )
                             {
-                                /** salvo nel local storage gli addresses */
+                                /** save addresses on local storage */
                                 window.localStorage.setItem(constants.ADDRESSES, JSON.stringify(normaAddresses));
 
-                                /** verifico che tutti gli addresses rispettino i vincoli */
+                                /** if some address failed the check will sent a warning to the user */
                                 if( error ){
                                     callback({
                                         status: 'warning',
@@ -46,7 +50,7 @@ define(['moment',
                                 }
                                 else if( normaAddresses.length === data.length ) {
 
-                                    /** presa dell'hub */
+                                    /** save hub on local storage */
                                     window.localStorage.setItem(
                                         constants.HUB, JSON.stringify(result.hub)
                                     );
@@ -81,9 +85,7 @@ define(['moment',
                             errorMessage: constants.STATUS.ERROR_MESSAGE._410
                         });
                     }
-
                 });
-
             } else {
                 callback({
                     status: 'failure',

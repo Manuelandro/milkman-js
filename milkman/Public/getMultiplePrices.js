@@ -7,11 +7,21 @@ define(['moment',
     function ( moment, makeUrlServer, request, constants, checkRequiredFields ) {
         'use strict';
 
+        /**
+         *  get intervals and prices for the given day
+         *
+         *  @PARAM: String
+         *  @PARAM: Function
+         *
+         *  milkman.getMultiplePrices({ date }, function( results ){
+         *      // ... code here ...
+         *  })
+         */
         return function getMultiplePrices( data, callback ) {
             var url = makeUrlServer('/getMultiplePrices'),
                 isInitialized = checkRequiredFields('all');
 
-            /** 1) */
+            /** check setInit and setAddress are completed */
             if( isInitialized ) {
                 if( moment(data.date, 'YYYY-MM-DD').isValid() ){
                     request( url, 'POST', {

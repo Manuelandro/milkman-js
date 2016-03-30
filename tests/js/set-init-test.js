@@ -47,7 +47,7 @@ if (typeof require === 'function' && require.config) {
         publishableKey: 'test-public-key',
         postalCode: '',
         city: 'Milano',
-        trackingCode: 'prova_parse',
+        externalTrackingCode: 'prova_parse',
         cart:
             {
                 subsidyCost: 2.90,
@@ -76,7 +76,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: 'Milano',
-            trackingCode: 'prova_parse',
+            externalTrackingCode: 'prova_parse',
             cart:
             {
                 subsidyCost: 2.90,
@@ -95,7 +95,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: 'Milano',
-            trackingCode: 'prova_parse',
+            externalTrackingCode: 'prova_parse',
             cart:
             {
                 subsidyCost: 2.90,
@@ -114,7 +114,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: '',
             postalCode: '',
             city: 'Milano',
-            trackingCode: 'prova_parse',
+            externalTrackingCode: 'prova_parse',
             cart:
             {
                 subsidyCost: 2.90,
@@ -133,7 +133,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: '',
-            trackingCode: 'prova_parse',
+            externalTrackingCode: 'prova_parse',
             cart:
             {
                 subsidyCost: 2.90,
@@ -152,7 +152,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: 'Milano',
-            trackingCode: '',
+            externalTrackingCode: '',
             cart:
             {
                 subsidyCost: 2.90,
@@ -171,7 +171,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: 'Milano',
-            trackingCode: 'prova_parse',
+            externalTrackingCode: 'prova_parse',
             cart:
             {
                 subsidyCost: null,
@@ -190,7 +190,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: 'Milano',
-            trackingCode: 'prova_parse',
+            externalTrackingCode: 'prova_parse',
             cart:
             {
                 subsidyCost: 5,
@@ -209,7 +209,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: 'Milano',
-            trackingCode: 'prova_parse',
+            externalTrackingCode: 'prova_parse',
             cart:
             {
                 subsidyCost: 5,
@@ -228,7 +228,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: 'Milano',
-            trackingCode: 'prova_parse',
+            externalTrackingCode: 'prova_parse',
             cart:
             {
                 subsidyCost: 5,
@@ -247,7 +247,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: 'Milano',
-            trackingCode: 'prova_parse',
+            externalTrackingCode: 'prova_parse',
             cart:
             {
                 subsidyCost: 5,
@@ -259,7 +259,7 @@ if (typeof require === 'function' && require.config) {
             publishableKey: 'test-public-key',
             postalCode: '',
             city: 'Milano',
-            trackingCode: 'prova_parse'
+            externalTrackingCode: 'prova_parse'
         };
 
     /** test con parse */

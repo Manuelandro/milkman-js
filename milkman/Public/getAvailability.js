@@ -13,6 +13,10 @@ define([
          *
          *  @PARAM: String
          *  @PARAM: Function
+         *
+         *  milkman.getAvailability({ firstDay, numberOfDays }, function( results ){
+         *      // ... code here ...
+         *  })
          */
         return function getAvailability( data, callback ) {
             var url = makeUrlServer('/getAvailability'),
@@ -24,8 +28,8 @@ define([
 
             var HUB = JSON.parse(window.localStorage.getItem(constants.HUB));
 
-            console.log('firstAvailability: '+HUB.firstAvailability);
-
+            /** check there are firstDay and numberOfDays parameters;
+             *  instead set the default paramenters */
             var firstDay = moment(data.firstDay, 'YYYY-MM-DD').isValid() ?
                 data.firstDay : HUB.firstAvailability.split('T')[0],
                 numberOfDays = isNumber(data.numberOfDays) ? data.firstDay : undefined;
@@ -47,7 +51,7 @@ define([
                             map[val.split('T')[0]] = val.split('/')[0].split('T')[1] +'/'+ val.split('T')[2];
                         });
 
-                        /** salvo nel local storage gli addresses */
+                        /** save delivery weekdays on local storage */
                         window.localStorage.setItem(constants.AVAILABILITY,
                             JSON.stringify(map));
 
@@ -61,7 +65,6 @@ define([
                     }
                     else
                     {
-                        console.log('ERROR!!!!! '+JSON.stringify(result));
                         callback({
                             status: 'failure',
                             text: result.error
