@@ -15,7 +15,7 @@ define(['moment',
          *  @PARAM: Function
          */
         return function setAddress( data, callback ) {
-            var url = makeUrlServer('/sessionDetails'),
+            var url = makeUrlServer('/setDetails'),
                 setInit_isDone = checkRequiredFields('init');
 
             /** CHECK required field */
@@ -24,18 +24,14 @@ define(['moment',
                 var tmp_data = Array.isArray(data) ? data : [data];
                 checkAddress( tmp_data, function( normaAddresses, error ){
 
-                    //console.log('normaAddresses: '+JSON.stringify(normaAddresses));
-                    //console.log('length: '+JSON.stringify(normaAddresses.length));
-
                     /** verifico che ci sia almeno un risultato valido*/
                     if( normaAddresses.length ){
-                        request( url, 'PUT', {
+                        request( url, 'POST', {
                             sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
                             publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
                             proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
-                            address: normaAddresses
+                            address: JSON.stringify(normaAddresses)
                         }, function( result ) {
-
                             if ( result.success )
                             {
                                 /** salvo nel local storage gli addresses */
@@ -52,36 +48,13 @@ define(['moment',
 
                                     /** presa dell'hub */
                                     window.localStorage.setItem(
-                                        constants.HUB, JSON.stringify(result.data.hub)
+                                        constants.HUB, JSON.stringify(result.hub)
                                     );
-
-                                    var merchant = window.localStorage.getItem(constants.MERCHANT);
-
-
-                                    /** definisco il range di default per getQuote e findQuote */
-                                    var firstDay = result.data.hub.firstAvailability,
-                                        lastDay =  moment( result.data.hub.firstAvailability ).add(
-                                            merchant.defaultRangeDays, 'd' ).format('YYYY-MM-DD'),
-                                        lastHour = result.data.hub.bhInterval.split('/')[1];
-
-                                    window.localStorage.setItem(
-                                        constants.DEFAULT_RANGE, firstDay + '/' + lastDay + 'T' + lastHour );
 
                                     callback({
                                         status: 'success',
                                         settings: {
-                                            availableFriday: result.data.hub.availFri,
-                                            availableMonday: result.data.hub.availMon,
-                                            availableSaturday: result.data.hub.availSat,
-                                            availableSunday: result.data.hub.availSun,
-                                            availableThursday: result.data.hub.availThu,
-                                            availableTuesday: result.data.hub.availTue,
-                                            availableWednesday: result.data.hub.availWed,
-                                            businessInterval: result.data.hub.bhInterval,
-                                            firstAvailability: result.data.hub.firstAvailability,
-                                            holidays: result.data.hub.holidays,
-                                            localHolidays: result.data.hub.localHolidays,
-                                            defaultRangeDays: merchant.defaultRangeDays
+                                            firstAvailability: result.hub.firstAvailability
                                         },
                                         text: constants.STATUS.SUCCESS._200
                                     });
@@ -97,7 +70,7 @@ define(['moment',
                             {
                                 callback({
                                     status: 'failure',
-                                    text: result.jqXHR
+                                    text: result.error
                                 });
                             }
                         });

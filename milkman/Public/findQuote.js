@@ -1,11 +1,12 @@
 define(['moment',
+        '../../milkman/Private/makeUrlServer',
+        '../../milkman/Private/request',
         '../../milkman/Utils/constants',
         '../../milkman/Private/rangeNormalization',
-        '../../milkman/Private/quoteEngine',
-        '../../milkman/Private/quoteHistory',
+        //'../../milkman/Private/quoteHistory',
         '../../milkman/Private/checkRequiredFields'
     ],
-    function ( moment, constants, rangeNormalization, quoteEngine, quoteHistory, checkRequiredFields ) {
+    function ( moment, request, makeUrlServer, constants, rangeNormalization, checkRequiredFields ) {
         'use strict';
 
         /**
@@ -18,6 +19,7 @@ define(['moment',
             /** verifico che l'utente abbia definito questi parametri di interesse,
             in caso contrario ne assegno uno di default */
             var opt = {},
+                url = makeUrlServer('/quotation'),
                 isInitialized = checkRequiredFields('init'),
                 merchant = JSON.parse(window.localStorage.getItem( constants.MERCHANT ));
 
@@ -25,7 +27,7 @@ define(['moment',
                 /** verifico che le options in ingresso siano nel formato giusto, ovvero un hash*/
                 if( typeof options === 'object' && !Array.isArray(options) ) { //&& Object.keys(range).length ) {
                     /**HISTORY TRACKING on server */
-                    quoteHistory('getQuote', options);
+                    //quoteHistory('getQuote', options);
 
                     /** BASIC USAGE */
                     if( options.ranges ){
@@ -74,7 +76,32 @@ define(['moment',
                             if( formatted.success ){
 
                                 opt.ranges = formatted.ranges;
-                                quoteEngine( 'findQuote', opt, callback );
+
+                                request( url, 'POST', {
+                                    sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
+                                    publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
+                                    proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
+                                    quotationType: 'findQuote',
+                                    options: JSON.stringify(opt)
+                                }, function( response ) {
+
+                                    if ( response.success )
+                                    {
+                                        callback({
+                                            status: 'success',
+                                            text: constants.STATUS.SUCCESS._200
+                                        });
+                                    }
+                                    else
+                                    {
+                                        callback({
+                                            status: 'failure',
+                                            text: response.error
+                                        });
+                                    }
+                                });
+
+                                //quoteEngine( 'findQuote', opt, callback );
                             }
                             else {
                                 callback({
@@ -87,7 +114,31 @@ define(['moment',
                     /** ELSE: none options, we use defaults */
                     else {
 
-                        quoteEngine( 'findQuote', opt, callback );
+                        request( url, 'POST', {
+                            sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
+                            publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
+                            proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
+                            quotationType: 'findQuote',
+                            options: JSON.stringify(opt)
+                        }, function( response ) {
+
+                            if ( response.success )
+                            {
+                                callback({
+                                    status: 'success',
+                                    text: constants.STATUS.SUCCESS._200
+                                });
+                            }
+                            else
+                            {
+                                callback({
+                                    status: 'failure',
+                                    text: response.error
+                                });
+                            }
+                        });
+
+                        //quoteEngine( 'findQuote', opt, callback );
                     }
 
                 } else {  /** is not an hash*/

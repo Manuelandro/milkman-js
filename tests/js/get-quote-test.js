@@ -100,72 +100,72 @@ if (typeof require === 'function' && require.config) {
 
 
 
-    //console.log('--------------FIRST');
+    console.log('--------------FIRST');
             milkman.setInit( init, function( setInitResult1 ) {
                 milkman.setAddress( init.address, function( setAddressResult1 ) {
 
 
-    //                setInitResult1['settings'] = setAddressResult1.settings;
-    //
-    //                var ranges1 = [], hours1 = [];
-    //
-    //                ranges1.push(timeWindowsParam.selectedDate);
-    //                hours1.push(
-    //                    timeWindowsParam.selectedAfter +'/'+
-    //                    timeWindowsParam.selectedBefore
-    //                );
-    //
-    //                milkman.getQuote({ ranges: ranges1, hours: hours1 }, function( getQuoteResult1 ){
-    //                    setInitResult1['price'] = getQuoteResult1.price;
-    //                    setInitResult1['ranges'] = getQuoteResult1.ranges;
-    //
-    //                    test('SET_B1', function() { equal(getQuoteResult1.status, 'success', getQuoteResult1.text) });
-    //                    //console.log('--------------SECOND');
-    //                    //milkman.setInit( init, function( setInitResult ) {
-    //                    //    milkman.setAddress( init.address, function( setAddressResult ) {
-    //                    //
-    //                    //        setInitResult['settings'] = setAddressResult.settings;
-    //                    //
-    //                    //
-    //                    //var ranges = [], hours = [];
-    //                    //
-    //                    //        ranges.push(sameDayParam.selectedDate);
-    //                    //        hours.push(
-    //                    //            sameDayParam.selectedAfter +'/'+
-    //                    //            sameDayParam.selectedBefore);
-    //                    //
-    //                    //
-    //                    //milkman.getQuote({ ranges: ranges, hours: hours }, function( getQuoteResult ){
-    //                    //    setInitResult['price'] = getQuoteResult.price;
-    //                    //    setInitResult['ranges'] = getQuoteResult.ranges;
-    //                    //
-    //                    //    test('SET_A1', function() { equal(getQuoteResult.status, 'success', getQuoteResult.text) });
-    //                    //});
-    //
-    //
-    //
-    //                });
-    //            });
-    //        });
+                    setInitResult1['settings'] = setAddressResult1.settings;
+
+                    var ranges1 = [], hours1 = [];
+
+                    ranges1.push(timeWindowsParam.selectedDate);
+                    hours1.push(
+                        timeWindowsParam.selectedAfter +'/'+
+                        timeWindowsParam.selectedBefore
+                    );
+
+                    milkman.getQuote({ ranges: ranges1, hours: hours1 }, function( getQuoteResult1 ){
+                        setInitResult1['price'] = getQuoteResult1.price;
+                        setInitResult1['ranges'] = getQuoteResult1.ranges;
+
+                        test('SET_B1', function() { equal(getQuoteResult1.status, 'success', getQuoteResult1.text) });
+                        console.log('--------------SECOND');
+                        milkman.setInit( init, function( setInitResult ) {
+                            milkman.setAddress( init.address, function( setAddressResult ) {
+
+                                setInitResult['settings'] = setAddressResult.settings;
 
 
-            milkman.getQuote(milkman.defaults.SET_C7, function( result ){
-                //  result.ranges.forEach(function( val ){
-                    //console.log('getQuote: '+JSON.stringify(val));
-                //   });
-                //console.log('price: '+JSON.stringify(result.price));
+                        var ranges = [], hours = [];
 
-                milkman.confirm(result, function( res2 ){
-                    // res2.ranges.forEach(function( val ){
-                        //console.log('//console: '+JSON.stringify(val));
-                    //  });
-                    //console.log('price: '+JSON.stringify(res2.price));
+                                ranges.push(sameDayParam.selectedDate);
+                                hours.push(
+                                    sameDayParam.selectedAfter +'/'+
+                                    sameDayParam.selectedBefore);
 
-                    test('SET_C2', function() {
-                        equal(result.status, 'success', result.text)
+
+                        milkman.getQuote({ ranges: ranges, hours: hours }, function( getQuoteResult ){
+                            setInitResult['price'] = getQuoteResult.price;
+                            setInitResult['ranges'] = getQuoteResult.ranges;
+
+                            test('SET_A1', function() { equal(getQuoteResult.status, 'success', getQuoteResult.text) });
+                        });
+
+
+
                     });
                 });
             });
+
+
+            //milkman.getQuote(milkman.defaults.SET_C2, function( result ){
+            //    //  result.ranges.forEach(function( val ){
+            //        //console.log('getQuote: '+JSON.stringify(val));
+            //    //   });
+            //    //console.log('price: '+JSON.stringify(result.price));
+            //
+            //    milkman.confirm(result, function( res2 ){
+            //        // res2.ranges.forEach(function( val ){
+            //            //console.log('//console: '+JSON.stringify(val));
+            //        //  });
+            //        //console.log('price: '+JSON.stringify(res2.price));
+            //
+            //        test('SET_C2', function() {
+            //            equal(result.status, 'success', result.text)
+            //        });
+            //    });
+            //});
             //milkman.getQuote(milkman.defaults.SET_C3, function( result ){
             //    //   result.ranges.forEach(function( val ){
             //        //console.log('getQuote: '+JSON.stringify(val));

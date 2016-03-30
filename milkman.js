@@ -7,7 +7,7 @@
 define(function (require) {
     'use strict';
 
-    var //JQ = require('jquery'),
+    var JQ = require('jquery'),
 
         commit = require('milkman/commit'),
 
@@ -27,18 +27,22 @@ define(function (require) {
         getEntities = require('milkman/Entities/getEntities'),
 
     //--------------------------------------------
+        createOrder = require('milkman/Public/createOrder'),
+
         setInit = require('milkman/Public/setInit'),
         setAddress = require('milkman/Public/setAddress'),
+        getAvailability = require('milkman/Public/getAvailability'),
 
-        getQuote = require('milkman/Public/getQuote'),
-        findQuote = require('milkman/Public/findQuote'),
+        getMultiplePrices = require('milkman/Public/getMultiplePrices'),
+        //getPrice = require('milkman/Public/getPrice'),
+        //getQuote = require('milkman/Public/getQuote'),
+        //findQuote = require('milkman/Public/findQuote'),
 
         confirm = require('milkman/Public/confirm');
 
 
     return {
-        //version: '0.0.1, jQuery version is: ' + JQ.fn.jquery,
-
+        version: '0.0.1, jQuery version is: ' + JQ.fn.jquery,
         checkInterval: checkInterval,
         checkMissingDates: checkMissingDates,
 
@@ -57,11 +61,16 @@ define(function (require) {
         getEntities: getEntities,
 
         //--------------------------------------------
+        createOrder: createOrder,
+
         setInit: setInit,
         setAddress: setAddress,
+        getAvailability: getAvailability,
 
-        getQuote: getQuote,
-        findQuote: findQuote,
+        getMultiplePrices: getMultiplePrices,
+        //getPrice: getPrice,
+        //getQuote: getQuote,
+        //findQuote: findQuote,
 
         confirm: confirm
     };

@@ -27,9 +27,9 @@ if (typeof require === 'function' && require.config) {
 
     } else {
         // Browser globals
-        factory(root.milkman, root.jquery);
+        factory(root.milkman, root.$);
     }
-}(this, function (milkman, $) {
+}(this, function (milkman, jquery) {
     'use strict';
 
 
@@ -42,68 +42,286 @@ if (typeof require === 'function' && require.config) {
     window.localStorage.removeItem('redirect_uri');
     window.localStorage.removeItem('session_token');
 
-    milkman.setInit( milkman.defaults.SET_A1, function( result ) {
-        test('TEST A1: p.key + uri + track. no cart', function() {
-            equal(result.status, 'failure', result.text+': '+result.error_message)});
+    var SET_S1 = {
+        redirectUri: 'http://localhost:3003',
+        publishableKey: 'test-public-key',
+        postalCode: '',
+        city: 'Milano',
+        trackingCode: 'prova_parse',
+        cart:
+            {
+                subsidyCost: 2.90,
+                standardCost: 0,
+                parcels:
+                    [{
+                        weight: 0,
+                        firstAvailableDay: '2016-01-20T12:00',
+                        value: 100,
+                        pickUp: {
+                            hubId: '',
+                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                            lat: 45.188835,
+                            lng: 9.153518,
+                            note: ''
+                        },
+                        length: 0,
+                        depth: 0,
+                        volume: 0,
+                        height: 0
+                    }]
+            }
+        },
+        SET_S2 = {
+            redirectUri: 'http://localhost:3003',
+            publishableKey: 'test-public-key',
+            postalCode: '',
+            city: 'Milano',
+            trackingCode: 'prova_parse',
+            cart:
+            {
+                subsidyCost: 2.90,
+                standardCost: 0,
+                parcels:
+                    [{
+                        firstAvailableDay: '2016-01-20T12:00',
+                        pickUp: {
+                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                        }
+                    }]
+            }
+        },
+        SET_E1 = {
+            redirectUri: '',
+            publishableKey: 'test-public-key',
+            postalCode: '',
+            city: 'Milano',
+            trackingCode: 'prova_parse',
+            cart:
+            {
+                subsidyCost: 2.90,
+                standardCost: 0,
+                parcels:
+                    [{
+                        firstAvailableDay: '2016-01-20T12:00',
+                        pickUp: {
+                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                        }
+                    }]
+            }
+        },
+        SET_E2 = {
+            redirectUri: 'http://localhost:3003',
+            publishableKey: '',
+            postalCode: '',
+            city: 'Milano',
+            trackingCode: 'prova_parse',
+            cart:
+            {
+                subsidyCost: 2.90,
+                standardCost: 0,
+                parcels:
+                    [{
+                        firstAvailableDay: '2016-01-20T12:00',
+                        pickUp: {
+                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                        }
+                    }]
+            }
+        },
+        SET_E3 = {
+            redirectUri: 'http://localhost:3003',
+            publishableKey: 'test-public-key',
+            postalCode: '',
+            city: '',
+            trackingCode: 'prova_parse',
+            cart:
+            {
+                subsidyCost: 2.90,
+                standardCost: 0,
+                parcels:
+                    [{
+                        firstAvailableDay: '2016-01-20T12:00',
+                        pickUp: {
+                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                        }
+                    }]
+            }
+        },
+        SET_E4 = {
+            redirectUri: 'http://localhost:3003',
+            publishableKey: 'test-public-key',
+            postalCode: '',
+            city: 'Milano',
+            trackingCode: '',
+            cart:
+            {
+                subsidyCost: 2.90,
+                standardCost: 0,
+                parcels:
+                    [{
+                        firstAvailableDay: '2016-01-20T12:00',
+                        pickUp: {
+                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                        }
+                    }]
+            }
+        },
+        SET_E5 = {
+            redirectUri: 'http://localhost:3003',
+            publishableKey: 'test-public-key',
+            postalCode: '',
+            city: 'Milano',
+            trackingCode: 'prova_parse',
+            cart:
+            {
+                subsidyCost: null,
+                standardCost: 0,
+                parcels:
+                    [{
+                        firstAvailableDay: '2016-01-20T12:00',
+                        pickUp: {
+                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                        }
+                    }]
+            }
+        },
+        SET_E6 = {
+            redirectUri: 'http://localhost:3003',
+            publishableKey: 'test-public-key',
+            postalCode: '',
+            city: 'Milano',
+            trackingCode: 'prova_parse',
+            cart:
+            {
+                subsidyCost: 5,
+                standardCost: null,
+                parcels:
+                    [{
+                        firstAvailableDay: '2016-01-20T12:00',
+                        pickUp: {
+                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                        }
+                    }]
+            }
+        },
+        SET_E7 = {
+            redirectUri: 'http://localhost:3003',
+            publishableKey: 'test-public-key',
+            postalCode: '',
+            city: 'Milano',
+            trackingCode: 'prova_parse',
+            cart:
+            {
+                subsidyCost: 5,
+                standardCost: 0,
+                parcels:
+                    [{
+                        firstAvailableDay: '',
+                        pickUp: {
+                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                        }
+                    }]
+            }
+        },
+        SET_E8 = {
+            redirectUri: 'http://localhost:3003',
+            publishableKey: 'test-public-key',
+            postalCode: '',
+            city: 'Milano',
+            trackingCode: 'prova_parse',
+            cart:
+            {
+                subsidyCost: 5,
+                standardCost: 0,
+                parcels:
+                    [{
+                        firstAvailableDay: '2016-01-20T12:00',
+                        pickUp: {
+                            address: '',
+                        }
+                    }]
+            }
+        },
+        SET_E9 = {
+            redirectUri: 'http://localhost:3003',
+            publishableKey: 'test-public-key',
+            postalCode: '',
+            city: 'Milano',
+            trackingCode: 'prova_parse',
+            cart:
+            {
+                subsidyCost: 5,
+                standardCost: 0
+            }
+        },
+        SET_E10 = {
+            redirectUri: 'http://localhost:3003',
+            publishableKey: 'test-public-key',
+            postalCode: '',
+            city: 'Milano',
+            trackingCode: 'prova_parse'
+        };
+
+    /** test con parse */
+    //milkman.setInit( SET_S1, function( result ) {
+    //    test('TEST SET_S1:', function() {
+    //            equal(result.status, 'success')
+    //        });
+    //    });
+    //milkman.setInit( SET_S2, function( result ) {
+    //    test('TEST SET_S2', function() {
+    //        equal(result.status, 'success')
+    //    });
+    //});
+    //
+    //milkman.setInit( SET_E1, function( result ) {
+    //    test('TEST SET_E1', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //milkman.setInit( SET_E2, function( result ) {
+    //    test('TEST SET_E2', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //milkman.setInit( SET_E3, function( result ) {
+    //    test('TEST SET_E3', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //milkman.setInit( SET_E4, function( result ) {
+    //    test('TEST SET_E4', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //milkman.setInit( SET_E5, function( result ) {
+    //    test('TEST SET_E5', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //milkman.setInit( SET_E6, function( result ) {
+    //    test('TEST SET_E6', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //milkman.setInit( SET_E7, function( result ) {
+    //    test('TEST SET_E7', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //milkman.setInit( SET_E8, function( result ) {
+    //    test('TEST SET_E8', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    milkman.setInit( SET_E9, function( result ) {
+        test('TEST SET_E9', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
     });
-    milkman.setInit( milkman.defaults.SET_A2, function( result ) {
-        test('TEST A2: only p.key', function() {
-            equal(result.status, 'failure', result.text+': '+result.error_message)});
-    });
-    milkman.setInit( milkman.defaults.SET_A3, function( result ) {
-        test('TEST A3: only uri', function() {
-            equal(result.status, 'failure', result.text+': '+result.error_message)});
-    });
-    milkman.setInit( milkman.defaults.SET_A4, function( result ) {
-        test('TEST A4: only track', function() {
-            equal(result.status, 'failure', result.text+': '+result.error_message)});
-    });
-    milkman.setInit( milkman.defaults.SET_A5, function( result ) {
-        test('TEST A5: base + pickup id', function() {
-            equal(result.status, 'success', result.text)});
-    });
-    milkman.setInit( milkman.defaults.SET_A6, function( result ) {
-        test('TEST A6: base + pickup address + latlng', function() {
-            equal(result.status, 'success', result.text)});
-    });
-    milkman.setInit( milkman.defaults.SET_A7, function( result ) {
-        test('TEST A7: base + pickup address', function() {
-            equal(result.status, 'success', result.text)});
-    });
-    milkman.setInit( milkman.defaults.SET_A8, function( result ) {
-        test('TEST A8: base + pickup latlng', function() {
-            equal(result.status, 'success', result.text)});
-    });
-    milkman.setInit( milkman.defaults.SET_A9, function( result ) {
-        test('TEST A9: base + no pickup required', function() {
-            equal(result.status, 'failure', result.text)});
-    });
-    milkman.setInit( milkman.defaults.SET_A10, function( result ) {
-        test('TEST A10: base + multiple choice', function() {
-            equal(result.status, 'success', result.text)});
-    });
-    milkman.setInit( milkman.defaults.SET_A11, function( result ) {
-        test('TEST A11: base + multiple choice  + error', function() {
-            equal(result.status, 'failure', result.text+': '+result.error_message)});
-    });
-    milkman.setInit( milkman.defaults.SET_A12, function( result ) {
-        test('TEST A12: base + cart value', function() {
-            equal(result.status, 'failure', result.text+': '+result.error_message)});
-    });
-    milkman.setInit( milkman.defaults.SET_A13, function( result ) {
-        test('TEST A13: base + cart firstday', function() {
-            equal(result.status, 'failure', result.text+': '+result.error_message)});
-    });
-    milkman.setInit( milkman.defaults.SET_A14, function( result ) {
-        test('TEST A14: base + cart auxcost', function() {
-            equal(result.status, 'failure', result.text+': '+result.error_message)});
-    });
-    milkman.setInit( milkman.defaults.SET_A15, function( result ) {
-        test('TEST A15: base + cart weight', function() {
-            equal(result.status, 'failure', result.text+': '+result.error_message)});
-    });
-    milkman.setInit( milkman.defaults.SET_A16, function( result ) {
-        test('TEST A16: base + cart other', function() {
-            equal(result.status, 'failure', result.text+': '+result.error_message)});
+    milkman.setInit( SET_E10, function( result ) {
+        test('TEST SET_E10', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
     });
 }));

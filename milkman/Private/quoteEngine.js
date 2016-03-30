@@ -64,7 +64,7 @@ define([
                                 tmp_results.forEach(function( res ){
                                     result.push({
                                         ranges: [ res.day + 'T' + res.range.split('/')[0] + '/' + res.day + 'T' + res.range.split('/')[1] ],
-                                        price: res.f_price
+                                        price:Number(res.f_price).toFixed(2)
                                     });
                                 });
 
@@ -83,7 +83,6 @@ define([
                             /**
                              *  calcolo il prezzo con sconto
                              */
-                            //console.log('get ioi: '+JSON.stringify( response.ioi[0]));
                             setPrice( opt.ranges, response.ioi[0], callback);
                         }
                     } else {

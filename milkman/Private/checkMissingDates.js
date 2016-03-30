@@ -47,12 +47,11 @@ define(['moment',
                         });
                     }
                 });
-                console.log('arr: '+arr);
+
                 callback( arr );
 
                 /** ELSE: ritorno tutto il range di interesse */
             } else {
-                console.log('ELSE');
                 callback( ranges );
             }
         };

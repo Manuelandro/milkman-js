@@ -3,10 +3,10 @@ define([ '../../milkman/Private/makeUrlServer',
         '../../milkman/Utils/constants',
         '../../milkman/commit',
         '../../milkman/Public/getQuote',
-        '../../milkman/Private/quoteHistory',
+        //'../../milkman/Private/quoteHistory',
         '../../milkman/Private/checkRequiredFields'
     ],
-    function ( makeUrlServer, request, constants, commit, getQuote, quoteHistory, checkRequiredFields ) {
+    function ( makeUrlServer, request, constants, commit, getQuote, checkRequiredFields ) {
     'use strict';
 
         /**
@@ -27,7 +27,7 @@ define([ '../../milkman/Private/makeUrlServer',
 
         if( isInitialized && data.price !== undefined && data.price !== null && data.ranges ){
         //HISTORY TRACKING on server
-        quoteHistory('confirm', data);
+        //quoteHistory('confirm', data);
 
         //ricalcolo il prezzo per l'intervallo specifico
         getQuote( data, function( result ){
