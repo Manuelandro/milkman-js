@@ -27,9 +27,9 @@ if (typeof require === 'function' && require.config) {
 
     } else {
         // Browser globals
-        factory(root.milkman, root.jquery);
+        factory(root.milkman, root.$);
     }
-}(this, function (milkman, $) {
+}(this, function (milkman, jquery) {
     'use strict';
 
     window.localStorage.removeItem('addresses');
@@ -40,13 +40,6 @@ if (typeof require === 'function' && require.config) {
     window.localStorage.removeItem('publishable_key');
     window.localStorage.removeItem('redirect_uri');
     window.localStorage.removeItem('session_token');
-    //var object = {
-    //    range:[
-    //        '2015-12-14T09:01/2015-12-14T09:55'
-    //    ],
-    //    weekdays: [ 1, 3, 5, 6 ],
-    //    hours: [ '09:30/10:00', '13:30/14:00' ]
-    //};
 
     var SET_S1 = {
             redirectUri: 'http://www.localhost.it',
@@ -67,21 +60,42 @@ if (typeof require === 'function' && require.config) {
         SET_B1 =[{
             address: 'Via matteo civitali, Milano, MI'
         }],
-        TODAY = '2016-04-05';
+        TODAY = '2015-04-05';
 
 
-    milkman.setInit( SET_S1, function( ){
-        milkman.setAddress( SET_B1, function( ){
+    /** test con parse */
+    milkman.setInit( SET_S1, function( ) {
+        milkman.setAddress( SET_B1, function( ) {
+            milkman.getAvailability( {firstDay: TODAY}, function( result ) {
 
-            milkman.getAvailability( {firstDay: TODAY}, function( ) {
-                milkman.getMultiplePrices({ date: TODAY }, function( getQuoteResult ){
+                var data = {
+                    createBy: 'timedefined',
+                    externalTrackingCode: '100093683',
+                    privateKey: 'test-private-key',
+                    paymentMethod: 'cc',
+                    range: '2015-04-05T12:00/2015-04-05T18:00',
+                    additionalCost: 1.90
+                };
 
-                    test('SET_A1', function() {
-                        equal(getQuoteResult.status, 'success',
-                            JSON.stringify(getQuoteResult));
-                    });
+                $.ajax({
+                      url : 'https://test.api.milkman.it/v1/createOrder',
+                    type: 'POST',
+                    data : JSON.stringify(data),
+                    dataType: "json",
+                    timeout: 8000,
+                    success: function(data, textStatus, jqXHR)
+                    {
+                        test('CASE1 FIRST DAY', function() {  equal('success', 'success') });
+                    },
+                    error: function(data)//jqXHR, textStatus, errorThrown)
+                    {
+                        var error = JSON.parse(data.responseText);
+                        console.log('error: '+error.error);
+                        test('CASE1 FIRST DAY', function() {  equal('success', 'error') });
+                    }
                 });
             });
         });
     });
+
 }));

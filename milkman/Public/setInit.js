@@ -32,63 +32,69 @@ define([
          *  cart
          *  parcels
          */
-       constants.parseKeys = {
-           "applicationId": "JLosOIYAbKXW3FBvEZRvQIzI9EZ2ZyNqcJ8w5jit",
-           "javascriptKey": "bGXMI4pBIdRFmnrNw1Y1njCSSTIYahPqJ3NlhUhk"
-       };
+        //console.log('redirectUri: '+ data.redirectUri);
+        //console.log('publishableKey: '+ data.publishableKey);
+        //console.log('city: '+ data.city);
+        //console.log('externalTrackingCode: '+ data.externalTrackingCode);
+        //console.log('subsidyCost: '+ data.subsidyCost != undefined);
+        //console.log('standardCost: '+ data.standardCost != undefined);
+        //console.log('firstAvailability: '+ data.firstAvailability);
+        //console.log('pickUp: '+ data.pickUp);
+        if( data.redirectUri && data.publishableKey && data.city && data.externalTrackingCode &&
+            data.subsidyCost != undefined && data.standardCost != undefined && data.firstAvailability && data.pickUp ){
 
-        validation( JSON.stringify(data), schema.setInitOrder, function(){
+            validation( JSON.stringify(data), schema.setInitOrder, function(){
 
-            /** set to zero local variables*/
-            constants.defaultRange = '';
-            constants.requiredFields = {};
-            constants.range = [];
-            constants.data = {};
-            constants.intervals = [];
-            constants.discounts = [];
-            constants.merchant_details = '';
+                /** set to zero local variables*/
+                constants.defaultRange = '';
+                constants.requiredFields = {};
+                constants.range = [];
+                constants.data = {};
+                constants.intervals = [];
+                constants.discounts = [];
+                constants.merchant_details = '';
 
-            /** set to zero local storage*/
-            window.localStorage.removeItem('addresses');
-            window.localStorage.removeItem('default_range');
-            window.localStorage.removeItem('hub');
-            window.localStorage.removeItem('merchant');
-            window.localStorage.removeItem('proposal_id');
-            window.localStorage.removeItem('publishable_key');
-            window.localStorage.removeItem('redirect_uri');
-            window.localStorage.removeItem('session_token');
+                /** set to zero local storage*/
+                window.localStorage.removeItem('addresses');
+                window.localStorage.removeItem('default_range');
+                window.localStorage.removeItem('hub');
+                window.localStorage.removeItem('merchant');
+                window.localStorage.removeItem('proposal_id');
+                window.localStorage.removeItem('publishable_key');
+                window.localStorage.removeItem('redirect_uri');
+                window.localStorage.removeItem('session_token');
 
-            /** variables are saved in local storage */
-            window.localStorage.setItem(
-                constants.PUBLISHABLE_KEY, data.publishableKey
-            );
-            window.localStorage.setItem(
-                constants.REDIRECT_URI, data.redirectUri
-            );
+                /** variables are saved in local storage */
+                window.localStorage.setItem(
+                    constants.PUBLISHABLE_KEY, data.publishableKey
+                );
+                window.localStorage.setItem(
+                    constants.REDIRECT_URI, data.redirectUri
+                );
 
-            function isNumber(n) {
-                return !isNaN(parseFloat(n)) && isFinite(n);
-            }
+                function isNumber(n) {
+                    return !isNaN(parseFloat(n)) && isFinite(n);
+                }
 
-            if( data.pickUp.hubId ||
-                data.pickUp.address ||
-                isNumber(data.pickUp.lat) && isNumber(data.pickUp.lng) ) {
+                if( data.pickUp.hubId ||
+                    data.pickUp.address ||
+                    isNumber(data.pickUp.lat) && isNumber(data.pickUp.lng) ) {
 
-                request(url, 'POST', {
-                    redirectUri: data.redirectUri,
-                    publishableKey: data.publishableKey,
-                    city: data.city,
-                    postalCode: data.postalCode,
-                    externalTrackingCode: data.externalTrackingCode,
-                    subsidyCost: data.subsidyCost,
-                    standardCost: data.standardCost,
-                    firstAvailability: data.standardCost,
-                    pickUp: JSON.stringify(data.pickUp)
-                }, function (response) {
+                    request(url, 'POST', {
+                        redirectUri: data.redirectUri,
+                        publishableKey: data.publishableKey,
+                        city: data.city,
+                        postalCode: data.postalCode,
+                        externalTrackingCode: data.externalTrackingCode,
+                        subsidyCost: data.subsidyCost,
+                        standardCost: data.standardCost,
+                        firstAvailability: data.firstAvailability,
+                        pickUp: data.pickUp
+                    }, function (response) {
 
-                    if (response.success) {
-                        /** RESPONSE EXAMPLE
-                         *  {
+                        if (response.success) {
+                            /** RESPONSE EXAMPLE
+                             *  {
                             * "merchant": {
                             *    "atomicIntervalDimension":10,
                             *    "email":"test@milkman_test.it",
@@ -106,40 +112,49 @@ define([
                             * "success":true
                             * }*/
 
-                        /** session id is saved in local storage */
-                        window.localStorage.setItem(
-                            constants.SESSION_TOKEN, response.session.sessionId
-                        );
-                        window.localStorage.setItem(
-                            constants.PROPOSAL_ID, response.session.proposalId
-                        );
-                        window.localStorage.setItem(
-                            constants.MERCHANT, JSON.stringify(response.merchant)
-                        );
-                        callback({
-                            status: 'success',
-                            text: constants.STATUS.SUCCESS._200
-                        });
-                    }
-                    else {
-                        callback({
-                            status: 'failure',
-                            text: response.error
-                        });
-                    }
-                });
+                            /** session id is saved in local storage */
+                            window.localStorage.setItem(
+                                constants.SESSION_TOKEN, response.session.sessionId
+                            );
+                            window.localStorage.setItem(
+                                constants.PROPOSAL_ID, response.session.proposalId
+                            );
+                            window.localStorage.setItem(
+                                constants.MERCHANT, JSON.stringify(response.merchant)
+                            );
+                            callback({
+                                status: 'success',
+                                sessionId: response.session.sessionId,
+                                text: constants.STATUS.SUCCESS._200
+                            });
+                        }
+                        else {
+                            callback({
+                                status: 'failure',
+                                text: response.error
+                            });
+                        }
+                    });
 
-            } else {
-                callback({
-                    status: 'failure',
-                    text: constants.STATUS.FAILURE._401,
-                    error_message: constants.STATUS.ERROR_MESSAGE._415
-                });
-            }
+                } else {
+                    callback({
+                        status: 'failure',
+                        text: constants.STATUS.FAILURE._401,
+                        error_message: constants.STATUS.ERROR_MESSAGE._415
+                    });
+                }
 
 
-        }, function( order_error ){
-            callback({status: 'failure', text: order_error.messageError});
-        });
+            }, function( order_error ){
+                callback({status: 'failure', text: order_error.messageError});
+            });
+        } else {
+            callback({
+                status: 'failure',
+                text: constants.STATUS.FAILURE._401,
+                error_message: constants.STATUS.ERROR_MESSAGE._410
+            });
+        }
+
     }
 });

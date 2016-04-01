@@ -32,7 +32,6 @@ if (typeof require === 'function' && require.config) {
 }(this, function (milkman, jquery) {
     'use strict';
 
-
     window.localStorage.removeItem('addresses');
     window.localStorage.removeItem('default_range');
     window.localStorage.removeItem('hub');
@@ -43,10 +42,10 @@ if (typeof require === 'function' && require.config) {
     window.localStorage.removeItem('session_token');
 
     var SET_S1 = {
-        redirectUri: 'http://localhost:3003',
+        redirectUri: 'http://www.localhost.com',
         publishableKey: 'test-public-key',
-        postalCode: '',
         city: 'Milano',
+        postalCode: '11123',
         externalTrackingCode: 'prova_parse',
         subsidyCost: 2.90,
         standardCost: 0,
@@ -58,258 +57,277 @@ if (typeof require === 'function' && require.config) {
             lng: 9.153518,
             note: ''
         }
-        };
-        //SET_S2 = {
-        //    redirectUri: 'http://localhost:3003',
-        //    publishableKey: 'test-public-key',
-        //    postalCode: '',
-        //    city: 'Milano',
-        //    externalTrackingCode: 'prova_parse',
-        //    cart:
-        //    {
-        //        subsidyCost: 2.90,
-        //        standardCost: 0,
-        //        parcels:
-        //            [{
-        //                firstAvailableDay: '2016-01-20T12:00',
-        //                pickUp: {
-        //                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-        //                }
-        //            }]
-        //    }
-        //};
-        //SET_E1 = {
-        //    redirectUri: '',
-        //    publishableKey: 'test-public-key',
-        //    postalCode: '',
-        //    city: 'Milano',
-        //    externalTrackingCode: 'prova_parse',
-        //    cart:
-        //    {
-        //        subsidyCost: 2.90,
-        //        standardCost: 0,
-        //        parcels:
-        //            [{
-        //                firstAvailableDay: '2016-01-20T12:00',
-        //                pickUp: {
-        //                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-        //                }
-        //            }]
-        //    }
-        //},
-        //SET_E2 = {
-        //    redirectUri: 'http://localhost:3003',
-        //    publishableKey: '',
-        //    postalCode: '',
-        //    city: 'Milano',
-        //    externalTrackingCode: 'prova_parse',
-        //    cart:
-        //    {
-        //        subsidyCost: 2.90,
-        //        standardCost: 0,
-        //        parcels:
-        //            [{
-        //                firstAvailableDay: '2016-01-20T12:00',
-        //                pickUp: {
-        //                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-        //                }
-        //            }]
-        //    }
-        //},
-        //SET_E3 = {
-        //    redirectUri: 'http://localhost:3003',
-        //    publishableKey: 'test-public-key',
-        //    postalCode: '',
-        //    city: '',
-        //    externalTrackingCode: 'prova_parse',
-        //    cart:
-        //    {
-        //        subsidyCost: 2.90,
-        //        standardCost: 0,
-        //        parcels:
-        //            [{
-        //                firstAvailableDay: '2016-01-20T12:00',
-        //                pickUp: {
-        //                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-        //                }
-        //            }]
-        //    }
-        //},
-        //SET_E4 = {
-        //    redirectUri: 'http://localhost:3003',
-        //    publishableKey: 'test-public-key',
-        //    postalCode: '',
-        //    city: 'Milano',
-        //    externalTrackingCode: '',
-        //    cart:
-        //    {
-        //        subsidyCost: 2.90,
-        //        standardCost: 0,
-        //        parcels:
-        //            [{
-        //                firstAvailableDay: '2016-01-20T12:00',
-        //                pickUp: {
-        //                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-        //                }
-        //            }]
-        //    }
-        //},
-        //SET_E5 = {
-        //    redirectUri: 'http://localhost:3003',
-        //    publishableKey: 'test-public-key',
-        //    postalCode: '',
-        //    city: 'Milano',
-        //    externalTrackingCode: 'prova_parse',
-        //    cart:
-        //    {
-        //        subsidyCost: null,
-        //        standardCost: 0,
-        //        parcels:
-        //            [{
-        //                firstAvailableDay: '2016-01-20T12:00',
-        //                pickUp: {
-        //                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-        //                }
-        //            }]
-        //    }
-        //},
-        //SET_E6 = {
-        //    redirectUri: 'http://localhost:3003',
-        //    publishableKey: 'test-public-key',
-        //    postalCode: '',
-        //    city: 'Milano',
-        //    externalTrackingCode: 'prova_parse',
-        //    cart:
-        //    {
-        //        subsidyCost: 5,
-        //        standardCost: null,
-        //        parcels:
-        //            [{
-        //                firstAvailableDay: '2016-01-20T12:00',
-        //                pickUp: {
-        //                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-        //                }
-        //            }]
-        //    }
-        //},
-        //SET_E7 = {
-        //    redirectUri: 'http://localhost:3003',
-        //    publishableKey: 'test-public-key',
-        //    postalCode: '',
-        //    city: 'Milano',
-        //    externalTrackingCode: 'prova_parse',
-        //    cart:
-        //    {
-        //        subsidyCost: 5,
-        //        standardCost: 0,
-        //        parcels:
-        //            [{
-        //                firstAvailableDay: '',
-        //                pickUp: {
-        //                    address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-        //                }
-        //            }]
-        //    }
-        //},
-        //SET_E8 = {
-        //    redirectUri: 'http://localhost:3003',
-        //    publishableKey: 'test-public-key',
-        //    postalCode: '',
-        //    city: 'Milano',
-        //    externalTrackingCode: 'prova_parse',
-        //    cart:
-        //    {
-        //        subsidyCost: 5,
-        //        standardCost: 0,
-        //        parcels:
-        //            [{
-        //                firstAvailableDay: '2016-01-20T12:00',
-        //                pickUp: {
-        //                    address: '',
-        //                }
-        //            }]
-        //    }
-        //},
-        //SET_E9 = {
-        //    redirectUri: 'http://localhost:3003',
-        //    publishableKey: 'test-public-key',
-        //    postalCode: '',
-        //    city: 'Milano',
-        //    externalTrackingCode: 'prova_parse',
-        //    cart:
-        //    {
-        //        subsidyCost: 5,
-        //        standardCost: 0
-        //    }
-        //},
-        //SET_E10 = {
-        //    redirectUri: 'http://localhost:3003',
-        //    publishableKey: 'test-public-key',
-        //    postalCode: '',
-        //    city: 'Milano',
-        //    externalTrackingCode: 'prova_parse'
-        //};
-
+    };
     /** test con parse */
     milkman.setInit( SET_S1, function( result ) {
-        test('TEST SET_S1:', function() {
-                equal(result.status, 'success')
-            });
+        test('TEST success S1:', function() {
+            equal(result.status, 'success')
         });
-    //milkman.setInit( SET_S2, function( result ) {
-    //    test('TEST SET_S2', function() {
-    //        equal(result.status, 'success')
-    //    });
-    //});
-    //
-    //milkman.setInit( SET_E1, function( result ) {
-    //    test('TEST SET_E1', function() {
-    //        equal(result.status, 'failure', JSON.stringify(result))
-    //    });
-    //});
-    //milkman.setInit( SET_E2, function( result ) {
-    //    test('TEST SET_E2', function() {
-    //        equal(result.status, 'failure', JSON.stringify(result))
-    //    });
-    //});
-    //milkman.setInit( SET_E3, function( result ) {
-    //    test('TEST SET_E3', function() {
-    //        equal(result.status, 'failure', JSON.stringify(result))
-    //    });
-    //});
-    //milkman.setInit( SET_E4, function( result ) {
-    //    test('TEST SET_E4', function() {
-    //        equal(result.status, 'failure', JSON.stringify(result))
-    //    });
-    //});
-    //milkman.setInit( SET_E5, function( result ) {
-    //    test('TEST SET_E5', function() {
-    //        equal(result.status, 'failure', JSON.stringify(result))
-    //    });
-    //});
-    //milkman.setInit( SET_E6, function( result ) {
-    //    test('TEST SET_E6', function() {
-    //        equal(result.status, 'failure', JSON.stringify(result))
-    //    });
-    //});
-    //milkman.setInit( SET_E7, function( result ) {
-    //    test('TEST SET_E7', function() {
-    //        equal(result.status, 'failure', JSON.stringify(result))
-    //    });
-    //});
-    //milkman.setInit( SET_E8, function( result ) {
-    //    test('TEST SET_E8', function() {
-    //        equal(result.status, 'failure', JSON.stringify(result))
-    //    });
-    //});
-    //milkman.setInit( SET_E9, function( result ) {
-    //    test('TEST SET_E9', function() {
-    //        equal(result.status, 'failure', JSON.stringify(result))
-    //    });
-    //});
-    //milkman.setInit( SET_E10, function( result ) {
-    //    test('TEST SET_E10', function() {
-    //        equal(result.status, 'failure', JSON.stringify(result))
-    //    });
-    //});
+    });
+    var SET_S2 = {
+        redirectUri: 'http://www.localhost.com',
+        publishableKey: 'test-public-key',
+        city: 'Milano',
+        externalTrackingCode: 'prova_parse',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_S2, function( result ) {
+        test('TEST success S2', function() {
+            equal(result.status, 'success')
+        });
+    });
+
+    var SET_E1 = {
+        redirectUri: '',
+        publishableKey: 'test-public-key',
+        city: 'Milano',
+        externalTrackingCode: 'prova_parse',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E1, function( result ) {
+        test('TEST redirectUri SET_E1', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var  SET_E2 = {
+        redirectUri: null,
+        publishableKey: 'test-public-key',
+        city: 'Milano',
+        externalTrackingCode: 'prova_parse',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E2, function( result ) {
+        test('TEST redirectUri SET_E2', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var SET_E03 = {
+        redirectUri: undefined,
+        publishableKey: 'test-public-key',
+        city: 'Milano',
+        externalTrackingCode: 'prova_parse',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E03, function( result ) {
+        test('TEST redirectUri SET_E03', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var   SET_E04 = {
+        publishableKey: 'test-public-key',
+        city: 'Milano',
+        externalTrackingCode: 'prova_parse',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+
+    milkman.setInit( SET_E04, function( result ) {
+        test('TEST redirectUri SET_E04', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+
+    var SET_E001 = {
+        redirectUri: 'http://localhost:3003',
+        city: 'Milano',
+        externalTrackingCode: 'prova_parse',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E001, function( result ) {
+        test('TEST publishableKey SET_E001', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var SET_E002 = {
+        redirectUri: 'http://localhost:3003',
+        publishableKey: 'test-public-key',
+        externalTrackingCode: 'prova_parse',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E002, function( result ) {
+        test('TEST city SET_E002', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var SET_E003 = {
+        redirectUri: 'http://localhost:3003',
+        publishableKey: 'test-public-key',
+        city: 'Milano',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E003, function( result ) {
+        test('TEST externalTrackingCode SET_E003', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var SET_E004 = {
+        redirectUri: 'http://localhost:3003',
+        publishableKey: 'test-public-key',
+        externalTrackingCode: 'prova_parse',
+        city: 'Milano',
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E004, function( result ) {
+        test('TEST subsidyCost SET_E004', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var SET_E005 = {
+        redirectUri: 'http://localhost:3003',
+        publishableKey: 'test-public-key',
+        externalTrackingCode: 'prova_parse',
+        city: 'Milano',
+        subsidyCost: 2.90,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E005, function( result ) {
+        test('TEST standardCost SET_E005', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+
+
+    var SET_E00001 = {
+        redirectUri: 'http://localhost:3003',
+        publishableKey: 'test-public-key',
+        externalTrackingCode: 'prova_parse',
+        city: 'Milano',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E00001, function( result ) {
+        test('TEST firstAvailability SET_E00001', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var SET_E000002 = {
+        redirectUri: 'http://localhost:3003',
+        publishableKey: 'test-public-key',
+        externalTrackingCode: 'prova_parse',
+        city: 'Milano',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E000002, function( result ) {
+        test('TEST firstAvailability SET_E000002', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var SET_E000003 = {
+        redirectUri: 'http://localhost.com',
+        publishableKey: 'test-public-key',
+        externalTrackingCode: 'prova_parse',
+        city: 'Milano',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016/01/20',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E000003, function( result ) {
+        test('TEST firstAvailability SET_E000003', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var SET_E000004 = {
+        redirectUri: 'http://localhost.com',
+        publishableKey: 'test-public-key',
+        externalTrackingCode: 'prova_parse',
+        city: 'Milano',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '20/12/2016',
+        pickUp: {
+            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        }
+    };
+    milkman.setInit( SET_E000004, function( result ) {
+        test('TEST firstAvailability SET_E000004', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var SET_E0000001 = {
+        redirectUri: 'http://localhost:3003',
+        publishableKey: 'test-public-key',
+        externalTrackingCode: 'prova_parse',
+        city: 'Milano',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00',
+        pickUp: {}
+    };
+    milkman.setInit( SET_E0000001, function( result ) {
+        test('TEST pickUp SET_E0000001', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
+    var SET_E0000002 = {
+        redirectUri: 'http://localhost.com',
+        publishableKey: 'test-public-key',
+        externalTrackingCode: 'prova_parse',
+        city: 'Milano',
+        subsidyCost: 2.90,
+        standardCost: 0,
+        firstAvailability: '2016-01-20T12:00'
+    };
+
+    milkman.setInit( SET_E0000002, function( result ) {
+        test('TEST pickUp SET_E0000002', function() {
+            equal(result.status, 'failure', JSON.stringify(result))
+        });
+    });
 }));

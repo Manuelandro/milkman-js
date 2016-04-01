@@ -27,7 +27,14 @@ define(function (require) {
         getEntities = require('milkman/Entities/getEntities'),
 
     //--------------------------------------------
-        createOrder = require('milkman/Public/createOrder'),
+        createOrder = require('milkman/Parse/createOrder'),
+        getETA = require('milkman/Parse/getETA'),
+        getTrackingPageURL = require('milkman/Parse/getTrackingPageURL'),
+        getWayBill = require('milkman/Parse/getWayBill'),
+        setParcel = require('milkman/Parse/setParcel'),
+
+
+    //--------------------------------------------
 
         setInit = require('milkman/Public/setInit'),
         setAddress = require('milkman/Public/setAddress'),
@@ -63,6 +70,11 @@ define(function (require) {
         getAvailability: getAvailability,
         getMultiplePrices: getMultiplePrices,
 
-        createOrder: createOrder
+        //--------------------------------------------
+        createOrder: createOrder,
+        getETA: getETA,
+        getTrackingPageURL: getTrackingPageURL,
+        getWayBill: getWayBill,
+        setParcel: setParcel
     };
 });

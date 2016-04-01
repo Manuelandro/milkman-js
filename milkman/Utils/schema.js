@@ -47,6 +47,33 @@ define({
         distributionCenterLng: {type: "number"},
         cartValue: {type: "number"},
         paymentMethod: {type: "string"}
+    },
 
+
+    /** parse */
+    getTrackingPage: {
+        externalTrackingCode: {required: true, type: "string"},
+        merchant: {required: true, type: "string"}
+    },
+    getEta: {
+        externalTrackingCode: {required: true, type: "string"},
+        merchant: {required: true, type: "string"}
+    },
+    getWayBill: {
+        externalTrackingCode: {required: true, type: "string"},
+        merchant: {required: true, type: "string"}
+    },
+    setParcel: {
+        externalTrackingCode: {required: true, type: "string"},
+        merchant: {required: true, type: "string"},
+        parcels: {required: true, type: "array"}
+    },
+    parcels: {
+        weight: {required: true, type: "number"},
+        value: {type: "number"},
+        length: {type: "number"},
+        depth: {type: "number"},
+        volume: {type: "number"},
+        height: {type: "number"}
     }
 });

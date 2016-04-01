@@ -1,5 +1,5 @@
 define({
-    API_URL_SERVER: 'https://api.parse.com/1/functions',//'/api', //'http://localhost/milkman/api',
+    API_URL_SERVER: 'https://test.api.milkman.it/v1',//'https://api.parse.com/1/functions',//'/api', //'http://localhost/milkman/api',
 
     //to save in local storage
     REDIRECT_URI: 'redirect_uri',
@@ -63,7 +63,7 @@ define({
             '_411': 'You need to set required fields before.',
             '_412': 'Value, FirstAvailableDay and AuxCost are required fields.',
             '_413': 'Confirm method needs ranges and price fields.',
-            '_414': 'You need to set required fields before.'
+            '_414': 'You need to set required fields before.',
         }
     }
 });

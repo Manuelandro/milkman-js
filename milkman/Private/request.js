@@ -18,21 +18,18 @@ define([ 'jquery',
 
         return function request(url, type, data, callback) {
             //var session_token = window.localStorage.getItem( constants.SESSION_TOKEN );
-            console.log('ajax');
                 return JQ.ajax({
                     url : url, //+ '?token=' + session_token,
-                    headers: {
-                        "X-Parse-Application-Id": constants.parseKeys.applicationId,
-                        "X-Parse-Javascript-Key": constants.parseKeys.javascriptKey
-                    },
+                    //headers: {
+                    //    "X-Parse-Application-Id": constants.parseKeys.applicationId,
+                    //    "X-Parse-Javascript-Key": constants.parseKeys.javascriptKey
+                    //},
                     type: type,
-                    data : data ? data : null,
+                    data : data ? JSON.stringify(data) : null,
                     dataType: "json",
                     timeout: 10000,
                     success: function(data, textStatus, jqXHR)
                     {
-
-                        console.log('request success!');
                         callback(data.result);
                         //callback({
                         //    success: true,

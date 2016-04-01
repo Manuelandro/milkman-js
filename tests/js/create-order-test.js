@@ -77,12 +77,6 @@ if (typeof require === 'function' && require.config) {
             milkman.getAvailability( {firstDay: firstDay}, function( availabilityResult ) {
                 test('TEST getAvailability', function() {  equal(availabilityResult.status, 'success') });
                 var ranges= [ "2016-02-23T14:00/2016-02-23T16:00" ];
-                //ranges.push("2016-02-23T14:00/2016-02-23T16:00");
-                //hours.push("14:00/16:00");
-                //milkman.getPrice({ ranges: ranges }, function( getQuoteResult ){
-                //    test('TEST getPrice', function() {  equal(getQuoteResult.status, 'success') });
-                //    order['ranges'] = getQuoteResult.ranges;
-                //    order['additionalCost'] = getQuoteResult.additionalCost;
                 order['sessionId'] = window.localStorage.getItem( 'session_token' );
                 order['proposalId'] = window.localStorage.getItem( 'proposal_id' );
                 order['ranges'] = ranges;

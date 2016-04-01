@@ -28,7 +28,7 @@ define([ 'rsvp', 'validate' ], function( RSVP, validate ) {
                     break;
                 case "string":
                     var res1 = !validate.isString(attributes[key]);
-                    //console.log('isNotString: '+res1 +' isEmpty: '+ res2);
+                    console.log('isNotString: '+res1 +' isEmpty: '+ res2);
                     return res1 || res2;
                     break;
                 case "number":

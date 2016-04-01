@@ -34,7 +34,7 @@ define(['moment',
                             sessionId: window.localStorage.getItem( constants.SESSION_TOKEN),
                             publishableKey: window.localStorage.getItem( constants.PUBLISHABLE_KEY),
                             proposalId: window.localStorage.getItem( constants.PROPOSAL_ID),
-                            address: JSON.stringify(normaAddresses)
+                            address: normaAddresses
                         }, function( result ) {
                             if ( result.success )
                             {

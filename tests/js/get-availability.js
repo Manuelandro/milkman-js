@@ -42,40 +42,25 @@ if (typeof require === 'function' && require.config) {
     window.localStorage.removeItem('session_token');
 
     var SET_S1 = {
-            redirectUri: 'http://localhost:3003',
+            redirectUri: 'http://www.localhost.it',
             publishableKey: 'test-public-key',
-            postalCode: '',
             city: 'Milano',
             externalTrackingCode: 'prova_parse',
-            cart:
-            {
-                subsidyCost: 2.90,
-                standardCost: 0,
-                parcels:
-                    [{
-                        weight: 0,
-                        firstAvailableDay: '2016-01-20T12:00',
-                        value: 100,
-                        pickUp: {
-                            hubId: '',
-                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-                            lat: 45.188835,
-                            lng: 9.153518,
-                            note: ''
-                        },
-                        length: 0,
-                        depth: 0,
-                        volume: 0,
-                        height: 0
-                    }]
+            subsidyCost: 2.90,
+            standardCost: 0,
+            firstAvailability: '2016-01-20T12:00',
+            pickUp: {
+                hubId: '',
+                address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                lat: 45.188835,
+                lng: 9.153518,
+                note: ''
             }
         },
-        SET_B1 =[
-            {
-                address: 'Via matteo civitali, Milano, MI'
-            }
-        ],
-        TODAY = '2015-02-09';
+        SET_B1 =[{
+            address: 'Via matteo civitali, Milano, MI'
+        }],
+        TODAY = '2015-04-05';
 
 
     /** test con parse */

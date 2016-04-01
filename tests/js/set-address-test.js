@@ -42,47 +42,54 @@ if (typeof require === 'function' && require.config) {
     window.localStorage.removeItem('session_token');
 
     var SET_S1 = {
-            redirectUri: 'http://localhost:3003',
+            redirectUri: 'http://localhost.com',
             publishableKey: 'test-public-key',
-            postalCode: '',
             city: 'Milano',
-            externalTrackingCode: 'prova_parse',
-            cart:
-            {
-                subsidyCost: 2.90,
-                standardCost: 0,
-                parcels:
-                    [{
-                        weight: 0,
-                        firstAvailableDay: '2016-01-20T12:00',
-                        value: 100,
-                        pickUp: {
-                            hubId: '',
-                            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
-                            lat: 45.188835,
-                            lng: 9.153518,
-                            note: ''
-                        },
-                        length: 0,
-                        depth: 0,
-                        volume: 0,
-                        height: 0
-                    }]
+            externalTrackingCode: 'provaparse',
+            subsidyCost: 2.90,
+            standardCost: 0,
+            firstAvailability: '2016-01-20T12:00',
+            pickUp: {
+                hubId: '',
+                address: 'Via San Gerolamo Miani, 15 27100 Pavia PV',
+                lat: 45.188835,
+                lng: 9.153518,
+                note: ''
             }
         },
-        SET_B1 =[
-            {
+        SET_B1 =[{
+            address: 'Via matteo civitali, Milano, MI'
+        }],
+        SET_B2 ={
                 address: 'Via matteo civitali, Milano, MI'
-            }
-        ];
+        },
+        SET_B3 ={
+            address: ''
+        },
+        SET_B4 =[];
 
     /** test con parse */
-    milkman.setInit( SET_S1, function( prova ) {
+    milkman.setInit( SET_S1, function( ) {
         milkman.setAddress( SET_B1, function( result ) {
-            test('TEST A1: p.key + uri + track. no cart', function() {
+            test('SET_B1', function() {
                 equal(result.status, 'success')
             });
         });
+        //milkman.setAddress( SET_B2, function( result ) {
+        //    test('SET_B2', function() {
+        //        equal(result.status, 'failure')
+        //    });
+        //});
+        //milkman.setAddress( SET_B3, function( result ) {
+        //    test('SET_B3', function() {
+        //        equal(result.status, 'failure')
+        //    });
+        //});
+        //milkman.setAddress( SET_B4, function( result ) {
+        //    test('SET_B4', function() {
+        //        equal(result.status, 'failure')
+        //    });
+        //});
     });
 
 
