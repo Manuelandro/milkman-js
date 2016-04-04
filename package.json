@@ -7,7 +7,8 @@
     }
   },
   "scripts": {
-    "dist": "node tools/r.js -o tools/build.js",
+    "local": "node tools/r.js -o tools/build.js",
+    "prod": "node tools/r.js -o tools/production.js",
     "test": "xcopy tests C:\\nginx-1.8.1\\html\\milkman-js\\tests /s"
   },
   "dependencies": {
