@@ -32,14 +32,6 @@ define([
          *  cart
          *  parcels
          */
-        //console.log('redirectUri: '+ data.redirectUri);
-        //console.log('publishableKey: '+ data.publishableKey);
-        //console.log('city: '+ data.city);
-        //console.log('externalTrackingCode: '+ data.externalTrackingCode);
-        //console.log('subsidyCost: '+ data.subsidyCost != undefined);
-        //console.log('standardCost: '+ data.standardCost != undefined);
-        //console.log('firstAvailability: '+ data.firstAvailability);
-        //console.log('pickUp: '+ data.pickUp);
         if( data.redirectUri && data.publishableKey && data.city && data.externalTrackingCode &&
             data.subsidyCost != undefined && data.standardCost != undefined && data.firstAvailability && data.pickUp ){
 
@@ -71,30 +63,36 @@ define([
                 window.localStorage.setItem(
                     constants.REDIRECT_URI, data.redirectUri
                 );
-
                 function isNumber(n) {
                     return !isNaN(parseFloat(n)) && isFinite(n);
                 }
 
+                /** check exist pickUp */
                 if( data.pickUp.hubId ||
                     data.pickUp.address ||
                     isNumber(data.pickUp.lat) && isNumber(data.pickUp.lng) ) {
 
-                    request(url, 'POST', {
-                        redirectUri: data.redirectUri,
-                        publishableKey: data.publishableKey,
-                        city: data.city,
-                        postalCode: data.postalCode,
-                        externalTrackingCode: data.externalTrackingCode,
-                        subsidyCost: data.subsidyCost,
-                        standardCost: data.standardCost,
-                        firstAvailability: data.firstAvailability,
-                        pickUp: data.pickUp
-                    }, function (response) {
+                    /** check exist consignee */
+                    if( data.consignee.firstName &&
+                        data.consignee.lastName &&
+                        data.consignee.email ) {
 
-                        if (response.success) {
-                            /** RESPONSE EXAMPLE
-                             *  {
+                        request(url, 'POST', {
+                            redirectUri: data.redirectUri,
+                            publishableKey: data.publishableKey,
+                            city: data.city,
+                            postalCode: data.postalCode,
+                            externalTrackingCode: data.externalTrackingCode,
+                            subsidyCost: data.subsidyCost,
+                            standardCost: data.standardCost,
+                            firstAvailability: data.firstAvailability,
+                            pickUp: data.pickUp,
+                            consignee: data.consignee
+                        }, function (response) {
+
+                            if (response.success) {
+                                /** RESPONSE EXAMPLE
+                                 *  {
                             * "merchant": {
                             *    "atomicIntervalDimension":10,
                             *    "email":"test@milkman_test.it",
@@ -112,30 +110,37 @@ define([
                             * "success":true
                             * }*/
 
-                            /** session id is saved in local storage */
-                            window.localStorage.setItem(
-                                constants.SESSION_TOKEN, response.session.sessionId
-                            );
-                            window.localStorage.setItem(
-                                constants.PROPOSAL_ID, response.session.proposalId
-                            );
-                            window.localStorage.setItem(
-                                constants.MERCHANT, JSON.stringify(response.merchant)
-                            );
-                            callback({
-                                status: 'success',
-                                sessionId: response.session.sessionId,
-                                text: constants.STATUS.SUCCESS._200
-                            });
-                        }
-                        else {
-                            callback({
-                                status: 'failure',
-                                text: response.error
-                            });
-                        }
-                    });
+                                /** session id is saved in local storage */
+                                window.localStorage.setItem(
+                                    constants.SESSION_TOKEN, response.session.sessionId
+                                );
+                                window.localStorage.setItem(
+                                    constants.PROPOSAL_ID, response.session.proposalId
+                                );
+                                window.localStorage.setItem(
+                                    constants.MERCHANT, JSON.stringify(response.merchant)
+                                );
+                                callback({
+                                    status: 'success',
+                                    sessionId: response.session.sessionId,
+                                    text: constants.STATUS.SUCCESS._200
+                                });
+                            }
+                            else {
+                                callback({
+                                    status: 'failure',
+                                    text: response.error
+                                });
+                            }
+                        });
 
+                    } else {
+                        callback({
+                            status: 'failure',
+                            text: constants.STATUS.FAILURE._401,
+                            error_message: constants.STATUS.ERROR_MESSAGE._415
+                        });
+                    }
                 } else {
                     callback({
                         status: 'failure',
@@ -143,7 +148,6 @@ define([
                         error_message: constants.STATUS.ERROR_MESSAGE._415
                     });
                 }
-
 
             }, function( order_error ){
                 callback({status: 'failure', text: order_error.messageError});

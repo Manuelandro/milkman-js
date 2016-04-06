@@ -8,7 +8,8 @@ define({
         subsidyCost: {required: true, type: "number"},
         standardCost: {required: true, type: "number"},
         firstAvailability: {required: true, type: "string"},
-        pickUp: {required: true, type: "object"}
+        pickUp: {required: true, type: "object"},
+        consignee: {required: true, type: "object"}
     },
 
     setInitPickUp: {
@@ -17,6 +18,13 @@ define({
         lat: {type: "number"},
         lng: {type: "number"},
         note: {type: "string"}
+    },
+
+    checkConsignee: {
+        firstName: {required: true, type: "string"},
+        lastName: {required: true, type: "string"},
+        email: {required: true, type: "string"},
+        telephone: {type: "string"}
     },
 
     order: {

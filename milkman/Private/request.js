@@ -18,18 +18,22 @@ define([ 'jquery',
 
         return function request(url, type, data, callback) {
             //var session_token = window.localStorage.getItem( constants.SESSION_TOKEN );
+            console.log('JSON... '+JSON.stringify(data));
                 return JQ.ajax({
                     url : url, //+ '?token=' + session_token,
                     //headers: {
                     //    "X-Parse-Application-Id": constants.parseKeys.applicationId,
                     //    "X-Parse-Javascript-Key": constants.parseKeys.javascriptKey
                     //},
+                    async:false,
                     type: type,
-                    data : data ? JSON.stringify(data) : null,
+                    data : JSON.stringify(data),
                     dataType: "json",
+                    contentType: "application/json",
                     timeout: 10000,
                     success: function(data, textStatus, jqXHR)
                     {
+                        //console.log('success... ');
                         callback(data.result);
                         //callback({
                         //    success: true,
@@ -40,6 +44,8 @@ define([ 'jquery',
                     },
                     error: function(data)//jqXHR, textStatus, errorThrown)
                     {
+
+                        //console.log('error... '+data);
                         var error = JSON.parse(data.responseText);
                         callback({
                             success: false,

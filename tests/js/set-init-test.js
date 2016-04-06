@@ -142,6 +142,11 @@ if (typeof require === 'function' && require.config) {
         firstAvailability: '2016-01-20T12:00',
         pickUp: {
             address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        },
+        consignee: {
+            firstName: 'fra',
+            lastName: 'bab',
+            email: 'fra.bnarb@gmail.com'
         }
     };
 
@@ -160,6 +165,11 @@ if (typeof require === 'function' && require.config) {
         firstAvailability: '2016-01-20T12:00',
         pickUp: {
             address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+        },
+        consignee: {
+            firstName: 'fra',
+            lastName: 'bab',
+            email: 'fra.bnarb@gmail.com'
         }
     };
     milkman.setInit( SET_E001, function( result ) {
@@ -167,167 +177,167 @@ if (typeof require === 'function' && require.config) {
             equal(result.status, 'failure', JSON.stringify(result))
         });
     });
-    var SET_E002 = {
-        redirectUri: 'http://localhost:3003',
-        publishableKey: 'test-public-key',
-        externalTrackingCode: 'prova_parse',
-        subsidyCost: 2.90,
-        standardCost: 0,
-        firstAvailability: '2016-01-20T12:00',
-        pickUp: {
-            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
-        }
-    };
-    milkman.setInit( SET_E002, function( result ) {
-        test('TEST city SET_E002', function() {
-            equal(result.status, 'failure', JSON.stringify(result))
-        });
-    });
-    var SET_E003 = {
-        redirectUri: 'http://localhost:3003',
-        publishableKey: 'test-public-key',
-        city: 'Milano',
-        subsidyCost: 2.90,
-        standardCost: 0,
-        firstAvailability: '2016-01-20T12:00',
-        pickUp: {
-            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
-        }
-    };
-    milkman.setInit( SET_E003, function( result ) {
-        test('TEST externalTrackingCode SET_E003', function() {
-            equal(result.status, 'failure', JSON.stringify(result))
-        });
-    });
-    var SET_E004 = {
-        redirectUri: 'http://localhost:3003',
-        publishableKey: 'test-public-key',
-        externalTrackingCode: 'prova_parse',
-        city: 'Milano',
-        standardCost: 0,
-        firstAvailability: '2016-01-20T12:00',
-        pickUp: {
-            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
-        }
-    };
-    milkman.setInit( SET_E004, function( result ) {
-        test('TEST subsidyCost SET_E004', function() {
-            equal(result.status, 'failure', JSON.stringify(result))
-        });
-    });
-    var SET_E005 = {
-        redirectUri: 'http://localhost:3003',
-        publishableKey: 'test-public-key',
-        externalTrackingCode: 'prova_parse',
-        city: 'Milano',
-        subsidyCost: 2.90,
-        firstAvailability: '2016-01-20T12:00',
-        pickUp: {
-            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
-        }
-    };
-    milkman.setInit( SET_E005, function( result ) {
-        test('TEST standardCost SET_E005', function() {
-            equal(result.status, 'failure', JSON.stringify(result))
-        });
-    });
-
-
-    var SET_E00001 = {
-        redirectUri: 'http://localhost:3003',
-        publishableKey: 'test-public-key',
-        externalTrackingCode: 'prova_parse',
-        city: 'Milano',
-        subsidyCost: 2.90,
-        standardCost: 0,
-        pickUp: {
-            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
-        }
-    };
-    milkman.setInit( SET_E00001, function( result ) {
-        test('TEST firstAvailability SET_E00001', function() {
-            equal(result.status, 'failure', JSON.stringify(result))
-        });
-    });
-    var SET_E000002 = {
-        redirectUri: 'http://localhost:3003',
-        publishableKey: 'test-public-key',
-        externalTrackingCode: 'prova_parse',
-        city: 'Milano',
-        subsidyCost: 2.90,
-        standardCost: 0,
-        firstAvailability: '2016-01-20',
-        pickUp: {
-            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
-        }
-    };
-    milkman.setInit( SET_E000002, function( result ) {
-        test('TEST firstAvailability SET_E000002', function() {
-            equal(result.status, 'failure', JSON.stringify(result))
-        });
-    });
-    var SET_E000003 = {
-        redirectUri: 'http://localhost.com',
-        publishableKey: 'test-public-key',
-        externalTrackingCode: 'prova_parse',
-        city: 'Milano',
-        subsidyCost: 2.90,
-        standardCost: 0,
-        firstAvailability: '2016/01/20',
-        pickUp: {
-            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
-        }
-    };
-    milkman.setInit( SET_E000003, function( result ) {
-        test('TEST firstAvailability SET_E000003', function() {
-            equal(result.status, 'failure', JSON.stringify(result))
-        });
-    });
-    var SET_E000004 = {
-        redirectUri: 'http://localhost.com',
-        publishableKey: 'test-public-key',
-        externalTrackingCode: 'prova_parse',
-        city: 'Milano',
-        subsidyCost: 2.90,
-        standardCost: 0,
-        firstAvailability: '20/12/2016',
-        pickUp: {
-            address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
-        }
-    };
-    milkman.setInit( SET_E000004, function( result ) {
-        test('TEST firstAvailability SET_E000004', function() {
-            equal(result.status, 'failure', JSON.stringify(result))
-        });
-    });
-    var SET_E0000001 = {
-        redirectUri: 'http://localhost:3003',
-        publishableKey: 'test-public-key',
-        externalTrackingCode: 'prova_parse',
-        city: 'Milano',
-        subsidyCost: 2.90,
-        standardCost: 0,
-        firstAvailability: '2016-01-20T12:00',
-        pickUp: {}
-    };
-    milkman.setInit( SET_E0000001, function( result ) {
-        test('TEST pickUp SET_E0000001', function() {
-            equal(result.status, 'failure', JSON.stringify(result))
-        });
-    });
-    var SET_E0000002 = {
-        redirectUri: 'http://localhost.com',
-        publishableKey: 'test-public-key',
-        externalTrackingCode: 'prova_parse',
-        city: 'Milano',
-        subsidyCost: 2.90,
-        standardCost: 0,
-        firstAvailability: '2016-01-20T12:00'
-    };
-
-    milkman.setInit( SET_E0000002, function( result ) {
-        test('TEST pickUp SET_E0000002', function() {
-            equal(result.status, 'failure', JSON.stringify(result))
-        });
-    });
+    //var SET_E002 = {
+    //    redirectUri: 'http://localhost:3003',
+    //    publishableKey: 'test-public-key',
+    //    externalTrackingCode: 'prova_parse',
+    //    subsidyCost: 2.90,
+    //    standardCost: 0,
+    //    firstAvailability: '2016-01-20T12:00',
+    //    pickUp: {
+    //        address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+    //    }
+    //};
+    //milkman.setInit( SET_E002, function( result ) {
+    //    test('TEST city SET_E002', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //var SET_E003 = {
+    //    redirectUri: 'http://localhost:3003',
+    //    publishableKey: 'test-public-key',
+    //    city: 'Milano',
+    //    subsidyCost: 2.90,
+    //    standardCost: 0,
+    //    firstAvailability: '2016-01-20T12:00',
+    //    pickUp: {
+    //        address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+    //    }
+    //};
+    //milkman.setInit( SET_E003, function( result ) {
+    //    test('TEST externalTrackingCode SET_E003', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //var SET_E004 = {
+    //    redirectUri: 'http://localhost:3003',
+    //    publishableKey: 'test-public-key',
+    //    externalTrackingCode: 'prova_parse',
+    //    city: 'Milano',
+    //    standardCost: 0,
+    //    firstAvailability: '2016-01-20T12:00',
+    //    pickUp: {
+    //        address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+    //    }
+    //};
+    //milkman.setInit( SET_E004, function( result ) {
+    //    test('TEST subsidyCost SET_E004', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //var SET_E005 = {
+    //    redirectUri: 'http://localhost:3003',
+    //    publishableKey: 'test-public-key',
+    //    externalTrackingCode: 'prova_parse',
+    //    city: 'Milano',
+    //    subsidyCost: 2.90,
+    //    firstAvailability: '2016-01-20T12:00',
+    //    pickUp: {
+    //        address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+    //    }
+    //};
+    //milkman.setInit( SET_E005, function( result ) {
+    //    test('TEST standardCost SET_E005', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //
+    //
+    //var SET_E00001 = {
+    //    redirectUri: 'http://localhost:3003',
+    //    publishableKey: 'test-public-key',
+    //    externalTrackingCode: 'prova_parse',
+    //    city: 'Milano',
+    //    subsidyCost: 2.90,
+    //    standardCost: 0,
+    //    pickUp: {
+    //        address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+    //    }
+    //};
+    //milkman.setInit( SET_E00001, function( result ) {
+    //    test('TEST firstAvailability SET_E00001', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //var SET_E000002 = {
+    //    redirectUri: 'http://localhost:3003',
+    //    publishableKey: 'test-public-key',
+    //    externalTrackingCode: 'prova_parse',
+    //    city: 'Milano',
+    //    subsidyCost: 2.90,
+    //    standardCost: 0,
+    //    firstAvailability: '2016-01-20',
+    //    pickUp: {
+    //        address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+    //    }
+    //};
+    //milkman.setInit( SET_E000002, function( result ) {
+    //    test('TEST firstAvailability SET_E000002', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //var SET_E000003 = {
+    //    redirectUri: 'http://localhost.com',
+    //    publishableKey: 'test-public-key',
+    //    externalTrackingCode: 'prova_parse',
+    //    city: 'Milano',
+    //    subsidyCost: 2.90,
+    //    standardCost: 0,
+    //    firstAvailability: '2016/01/20',
+    //    pickUp: {
+    //        address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+    //    }
+    //};
+    //milkman.setInit( SET_E000003, function( result ) {
+    //    test('TEST firstAvailability SET_E000003', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //var SET_E000004 = {
+    //    redirectUri: 'http://localhost.com',
+    //    publishableKey: 'test-public-key',
+    //    externalTrackingCode: 'prova_parse',
+    //    city: 'Milano',
+    //    subsidyCost: 2.90,
+    //    standardCost: 0,
+    //    firstAvailability: '20/12/2016',
+    //    pickUp: {
+    //        address: 'Via San Gerolamo Miani, 15 27100 Pavia PV'
+    //    }
+    //};
+    //milkman.setInit( SET_E000004, function( result ) {
+    //    test('TEST firstAvailability SET_E000004', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //var SET_E0000001 = {
+    //    redirectUri: 'http://localhost:3003',
+    //    publishableKey: 'test-public-key',
+    //    externalTrackingCode: 'prova_parse',
+    //    city: 'Milano',
+    //    subsidyCost: 2.90,
+    //    standardCost: 0,
+    //    firstAvailability: '2016-01-20T12:00',
+    //    pickUp: {}
+    //};
+    //milkman.setInit( SET_E0000001, function( result ) {
+    //    test('TEST pickUp SET_E0000001', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
+    //var SET_E0000002 = {
+    //    redirectUri: 'http://localhost.com',
+    //    publishableKey: 'test-public-key',
+    //    externalTrackingCode: 'prova_parse',
+    //    city: 'Milano',
+    //    subsidyCost: 2.90,
+    //    standardCost: 0,
+    //    firstAvailability: '2016-01-20T12:00'
+    //};
+    //
+    //milkman.setInit( SET_E0000002, function( result ) {
+    //    test('TEST pickUp SET_E0000002', function() {
+    //        equal(result.status, 'failure', JSON.stringify(result))
+    //    });
+    //});
 }));

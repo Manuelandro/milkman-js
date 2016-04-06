@@ -38,6 +38,7 @@ define(function (require) {
 
         setInit = require('milkman/Public/setInit'),
         setAddress = require('milkman/Public/setAddress'),
+        //setConsignee = require('milkman/Public/setConsignee'),
         getAvailability = require('milkman/Public/getAvailability'),
 
         getMultiplePrices = require('milkman/Public/getMultiplePrices');
@@ -67,6 +68,7 @@ define(function (require) {
         //--------------------------------------------
         setInit: setInit,
         setAddress: setAddress,
+        //setConsignee: setConsignee,
         getAvailability: getAvailability,
         getMultiplePrices: getMultiplePrices,
 
