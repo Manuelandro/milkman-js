@@ -31,14 +31,14 @@ if (typeof require === 'function' && require.config) {
     }
 }(this, function (milkman, jquery) {
     'use strict';
-    jquery.getJSON( '../dist/parseKeys.json', function( parseConfig ) {
+    //jquery.getJSON( '../dist/parseKeys.json', function( parseConfig ) {
 
         jquery.getJSON( '../dist/orderSchema.json', function( schema ) {
-            milkman.createOrder( schema.order, parseConfig.keys, function( res ){
+            milkman.createOrder( schema.order, function( res ){
                 //console.log('res: '+JSON.stringify(res));
                 test('SET_A1', function() {
                     equal(res.status, 'success', res.text) });
             });
         });
-    });
+    //});
 }));
