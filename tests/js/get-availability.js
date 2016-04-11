@@ -85,8 +85,8 @@ if (typeof require === 'function' && require.config) {
             city:'Milano',
             postalCode: '11123',
             externalTrackingCode: 'prova_parse',
-            subsidyCost: 2.90,
-            standardCost: 2,
+            subsidyCost: 0,
+            standardCost: 0,
             sameDay: false,
             deliveryType:'sameDay',
             consignee: {

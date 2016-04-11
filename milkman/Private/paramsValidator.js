@@ -55,7 +55,7 @@ define([ 'rsvp', 'validate' ], function( RSVP, validate ) {
             }
         });
 
-        console.log('notValid: '+JSON.stringify(notValid));
+        //console.log('notValid: '+JSON.stringify(notValid));
 
         if( notValid.length === 0 ){
             success({valid: true});

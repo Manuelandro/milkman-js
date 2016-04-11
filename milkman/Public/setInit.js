@@ -14,7 +14,7 @@ define([
      *  @PARAM: [ Object, Object ]
      *  @PARAM: Function
      *
-     *  milkman.setInit({ publishable_key, redirectUri, externalTrackingCode, city, postalCode, cart }, function( results ){
+     *  milkman.setInit({ publishable_key, redirectUri, temporaryExternalTrackingCode, city, postalCode, cart }, function( results ){
      *      // ... code here ...
      *  })
      */
@@ -32,7 +32,7 @@ define([
          *  cart
          *  parcels
          */
-        if( data.redirectUri && data.publishableKey && data.city && data.externalTrackingCode &&
+        if( data.redirectUri && data.publishableKey && data.city && data.temporaryExternalTrackingCode &&
             data.subsidyCost != undefined && data.standardCost != undefined && data.firstAvailability && data.pickUp ){
 
             validation( JSON.stringify(data), schema.setInitOrder, function(){
@@ -82,7 +82,7 @@ define([
                             publishableKey: data.publishableKey,
                             city: data.city,
                             postalCode: data.postalCode,
-                            externalTrackingCode: data.externalTrackingCode,
+                            temporaryExternalTrackingCode: data.temporaryExternalTrackingCode,
                             subsidyCost: data.subsidyCost,
                             standardCost: data.standardCost,
                             firstAvailability: data.firstAvailability,
